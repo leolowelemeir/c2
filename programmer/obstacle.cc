@@ -181,11 +181,12 @@ Vecteur Brique::getlargeur() const {return largeur;}
 double Brique::gethauteur() const {return hauteur;}
 
 
-Brique* Brique::copie() const { //pour pouvoir utiliser la methode copieobjet
+Brique* Brique::copie() const { 
         return (new Brique(*this));}
 
 void Brique::ajoute_a(Systeme& S){
-	 //a definir 
+	S.ajoute(*this);
+	cout << "une brique est ajouter au systeme"<<endl;
 	 }
 
 //Operateur

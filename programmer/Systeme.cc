@@ -67,8 +67,15 @@ void Systeme::ajoute(Obstacle* obstacle){
     tableau_obstacles.push_back(unique_ptr <Obstacle> (obstacle->copie()));
 }
 
+void Systeme::ajoute(ChampForces* Champ){
+    tableau_champs.push_back(unique_ptr <ChampForces> (Champ->copie()));
+}
+
 void Systeme::ajoute_a(Systeme& S){
-	//ecrture plus tard 
+	for (size_t i(0); i<tableau_objets.size(); i++) {
+		//pb c'est des uniques ptr
+		}
+
 	}
 
 /*

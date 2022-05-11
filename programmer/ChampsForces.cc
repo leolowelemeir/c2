@@ -19,8 +19,10 @@ void ChampForces::agit_sur(ObjetMobile& obj){
     f.setvecteur({0.0, valeurforce});
     //on a mis un vecteur x=0, z=F pour que l'orientation du vecteur soit bonne vers le haut, g etant negatif, cela donne le bon sens
     obj.ajoute_force(f);}
-    
-    
+ 
+
+   
+
     
 	//Operateur
 ostream& operator<<(ostream& sortie, ChampForces const& champF){
@@ -33,3 +35,9 @@ ostream& operator<<(ostream& sortie, ChampForces const& champF){
 
 	//methodes
  Vecteur Vent::getnormale() {return normale;}
+ 
+Vent* Vent::copie() const { 
+        return (new Vent(*this));}
+        
+        
+        

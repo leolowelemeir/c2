@@ -8,6 +8,8 @@ class ChampForces {
     //les methodes
     void agit_sur(ObjetMobile& obj);
     Vecteur getintensite() const;
+	virtual ChampForces* copie() const;
+
 
     //operateur : pas nécessaire mais plus visuel
 	ChampForces (Vecteur F=1)
@@ -45,6 +47,7 @@ class Vent : public ChampForces {
 	}
 	//methode 
 	Vecteur getnormale();
+	virtual Vent* copie() const override;
 	
 	private:
 	Vecteur origine;

@@ -42,7 +42,7 @@ void evolue2(double dt);
 //Pour pouvoir cacher les pointeurs
 void ajoute(ObjetMobile* objet);
 void ajoute(Obstacle* obstacle);
-
+void ajoute(ChampForces* Champ);
 //On suppose ici qu'on peut ajouter un systeme à un systeme pour en faire un grand systeme
 virtual void ajoute_a(Systeme& S) override;
 
