@@ -7,6 +7,7 @@
 #include "constantes.h"
 #include "SupportADessin.h"
 #include "Systeme.h"
+#include "ChampsForces.h"
 using namespace std;
 
 
@@ -38,7 +39,8 @@ void ObjetMobile::setforce(Vecteur nouv_force){force=nouv_force;}
 
 
 void ObjetMobile::ajoute_a(Systeme& S){
-	S.ajoute(this);
+	ObjetMobile* M;
+	S.ajoute(M);
 	cout << "un objet mobile est ajouté au systeme"<<endl;
 	 }
 
@@ -196,15 +198,15 @@ double Pendule::getlongueur() const {return longueur;}
 Vecteur Pendule::Madirection() const {
     Vecteur dir (P);
     return !dir;}
-
-Vecteur Pendule::position() const {
+    
+Vecteur Pendule::position() const { //direction de l'axe
     Vecteur laposition (longueur * sin(P.getvecteur()[0]), -(longueur*cos(P.getvecteur()[0])), 0.0);
     laposition += origine;
     return laposition;
     }
 
 Vecteur Pendule::point_plus_proche(const ObjetMobile& M){
-		Vecteur point_proche(M.position()-P);
+		Vecteur point_proche(M.position()-position());
 		return point_proche;
 	}
 

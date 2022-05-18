@@ -11,14 +11,14 @@ class ChampForces {
 	virtual ChampForces* copie() const;
 
 	//constructeur
-	ChampForces (Vecteur F=1)
+	ChampForces (Vecteur F)
 		: intensite (F) {}
 		
 	//Destructeur 
 	virtual ~ChampForces() {}
 	
 	//methodes 
-	 virtual void ajoute_a(Systeme& S);
+	// virtual void ajoute_a(Systeme& S);
 
     private:
     //les attributs
@@ -26,14 +26,13 @@ class ChampForces {
 };
 
 
-std::ostream& operator<<(std::ostream& sortie, ChampForces const& C);
 std::ostream& operator<<(std::ostream& sortie, ChampForces const& champF);
 
 
 
 class Vent : public ChampForces {
 	public:
-	Vent (Vecteur orin, Vecteur nor, Vecteur l, Vecteur hau, double pro,double inten=1) : ChampForces(inten), origine(orin), normale(nor), largeur(l), hauteur(hau), profondeur(pro) { 
+	Vent (Vecteur inten,Vecteur orin, Vecteur nor, Vecteur l, Vecteur hau, double pro) : ChampForces(inten), origine(orin), normale(nor), largeur(l), hauteur(hau), profondeur(pro) { 
 		//au cas ou les vecteurs ne soit pas perpendiculaires
 		
 		if (not ((largeur|normale)==0)) {
@@ -61,5 +60,4 @@ class Vent : public ChampForces {
 	Vecteur largeur;
 	Vecteur hauteur;
 	double profondeur;
-	double intensite;
 	};

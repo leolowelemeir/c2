@@ -19,8 +19,7 @@ int main() {
 	Vecteur ori(0.0,0.0,0.0);
 	Vecteur di1({0.0,1.0,0.0}); 
 	Vecteur di2({1.0,0.0,0.0}); 
-	Vecteur p({1.0,0.0,0.0});  /// a quoi ca correspond deja ?
-	Plan P(ori,di1,di2,p);
+    Plan P(ori,di1,di2);
 	
 	
 	//affichage

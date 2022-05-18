@@ -2,6 +2,7 @@
 #include "ObjetMobile.h"
 #include "ex_vecteur.h"
 #include "Systeme.h"
+#include "obstacle.h"
 #include <vector>
 #include <iostream>
 #include <memory>
@@ -30,8 +31,7 @@ int main (){
 	Vecteur orig({0.0,0.0,0.0});
 	Vecteur di1({0.0,1.0,0.0}); 
 	Vecteur di2({1.0,0.0,0.0}); 
-	Vecteur p({1.0,0.0,0.0});
-	Plan P(orig,di1,di2,p);
+    Plan P(orig,di1,di2);
 	
     //meme idee qu'avant mais ici on ajoute un systeme
     le_systeme.ajoute(new Plan (P));

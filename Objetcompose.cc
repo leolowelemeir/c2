@@ -9,6 +9,7 @@
 using namespace std;
 
  void Objetcompose::ajoute_a(Systeme& S) {
+	 a_ete_ajoute=true;
 	 for (size_t i(0); i<Obj.size(); i++){
 		 S.ajoute(Obj[i]);
 		 }
@@ -16,10 +17,7 @@ using namespace std;
 	 for (size_t i(0); i<Obs.size(); i++){
 		 S.ajoute(Obs[i]);
 		 }
-		 
-	for (size_t i(0); i<Objcompo.size(); i++){
-		 }
-	 
+		 	 
 	 for (size_t i(0); i<champsf.size(); i++){
 		 S.ajoute(champsf[i]);
 		 }

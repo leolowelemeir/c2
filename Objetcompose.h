@@ -7,6 +7,8 @@
 #include "ChampsForces.h"
 #include "ex_vecteur.h"
 #include "obstacle.h"
+
+
 class Objetcompose : public Dessinable {
 	public:
 	//constructeur 
@@ -19,32 +21,29 @@ class Objetcompose : public Dessinable {
 	~Objetcompose() {
 		
 		//pour les objet mobiles:
-		if (true
-		 ){
+		if (a_ete_ajoute){
 			for (size_t i(0); i<Obj.size(); i++) {
 				delete Obj[i];
 				std::cout <<"les objet mobiles ont ete detruit"<<std::endl;}
 			}
 			
 		//pour les obstacles:
-		if ( true
-		 ){
+		if (a_ete_ajoute){
 			for (size_t i(0); i<Obs.size(); i++) {
 				delete Obs[i];
 				std::cout <<"les obstacles ont ete detruit"<< std::endl;}
 			}
 			
-		//pour les objetcompose
+		/*//pour les objetcompose
 		if (true 
 		 ){
 			for (size_t i(0); i<Objcompo.size(); i++) {
 				delete Objcompo[i];
 				std::cout <<"les Objetcompose ont ete detruit"<<std::endl;}
-			}
+			}*/
 			
 		 //pour les chammps de force
-		if ( true
-		 ){
+		if (a_ete_ajoute){
 			for (size_t i(0); i<champsf.size(); i++) {
 				delete champsf[i];
 				std::cout <<"les champs de force ont ete detruit"<<std::endl;}
@@ -54,33 +53,35 @@ class Objetcompose : public Dessinable {
 		 };
 		
 	//methodes 
-	 void ajoute_a(Systeme& S);
-
+	void ajoute_a(Systeme& S);
+		
 	
 	protected:
 	std::vector<ObjetMobile*> Obj;
 	std::vector<Obstacle*> Obs;
-	std::vector<Objetcompose*> Objcompo;
+	//std::vector<Objetcompose*> Objcompo;
 	std::vector<ChampForces*> champsf;
+	//changement dans la conceptio: si un objett composé est composé d'objets composee chaqu'un des elements de l'objet composé sera rajouter au tableau correpondant
+	bool a_ete_ajoute; //pour savoir si l'objet composé a été ajouter au systeme 
 };
 
 
-class Ventilateur :public Objetcompose {
+class Ventilateur :public Objetcompose  {
 	
-	public: ///sol actuelle non satisfaisante: je veux qu'on me donne une brique et non pas un pointeur 
-	Ventilateur (Brique bri, Vent v) : brique(), vent() {
+	public:
+	Ventilateur (Brique bri, Vent v) : brique(), vent()  {
 		(*brique) = bri;
 		(*vent) = v;
 		Obs.push_back(brique);
 		champsf.push_back(vent);
-		
-		//pour forcer que la normal a la brique dans la meme direction que la normal du vent (direction du vent)
-		/*if ((largeur^normal).norme()> 0.001) {
+		/*
+		//pour forcer que la normale a la brique dans la meme direction que la normale du vent (direction du vent)
+		if ((largeur^normal).norme()> 0.001) {
 		Vecteur a(!normal); //a prend la direction de normal
 			largeur= largeur - (largeur*a)*a;
 		}*/
-		} ///je veux qu'on donne en paramettre une prique mais que je puisse faire un push_back d'un poiteur sur une brique, comment faire ?
-	
+		} 
+		
 	private:
 	Brique* brique;
 	Vent* vent;

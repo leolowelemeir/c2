@@ -9,4 +9,4 @@ const Vecteur vecnull (0.0,0.0,0.0);
 
 const double b (0.0);
 
-const double epsilon (0.01);  On voulait l'utiliser pour ex_vecteur mais probleme avec les inclusions circulaires
+const double epsilon (0.01);  //On voulait l'utiliser pour ex_vecteur mais probleme avec les inclusions circulaires

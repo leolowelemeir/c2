@@ -45,6 +45,18 @@ class IntegrateurEulerCromer : public Integrateur {
 void integre(Obstacle& Ob);
 
 
+/*class IntegrateurNewmark : public Integrateur {
+	public:
+	virtual void integre(ObjetMobile& M) override;
+
+	
+	
+	private:
+	Vecteur q;
+	Vecteur r;
+	Vecteur s;
+	
+	};
 /*
 class Integrateur : public ObjetMobile {
 // Represente un integrateur quelconque

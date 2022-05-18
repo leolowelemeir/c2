@@ -6,9 +6,9 @@
 #include "constantes.h"
 #include "Dessinable.h"
 #include "SupportADessin.h"
+#include "Systeme.h"
+#include "ChampsForces.h"
 
-
-// classe ObjetMobile et sous classe Balle et sous sous classe Pendule      + ChampForce
 class ObjetMobile: public Dessinable {
     protected:
         //attributs
@@ -61,7 +61,7 @@ class ObjetMobile: public Dessinable {
 
 		//pour ajouter des objets au systeme
 		void ajoute_a(Systeme& S);
-    
+
         //pour la covariance 
    virtual ObjetMobile* copie() const = 0;
    

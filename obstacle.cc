@@ -67,7 +67,8 @@ using namespace std;
    }
 
 void Obstacle::ajoute_a(Systeme& S){
-	S.ajoute(this);
+	Obstacle* M;
+	S.ajoute(M);
 	cout << "une brique est ajouté au systeme"<<endl;
 	 }
 

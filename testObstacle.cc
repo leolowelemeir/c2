@@ -20,8 +20,7 @@ int main (){
 	Vecteur orig(0.0,0.0,0.0);
 	Vecteur di1(0.0,0.0,1.0); 
 	Vecteur di2(1.0,0.0,0.0); 
-	Vecteur p(1.0,0.0,0.0);
-	Plan P(orig,di1,di2,p);
+	Plan P(orig,di1,di2);
 	cout << P;
 	
 	//pour initialisé la brique 
