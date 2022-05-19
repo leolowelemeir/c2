@@ -6,6 +6,7 @@
 #include "SupportADessin.h"
 #include "Dessinable.h"
 #include "Systeme.h"
+#include "constantes.h"
 /*struct Face{
     array<int,6> num{origine,origine,origine,origine+longueur*a,origine+largeur*a;
     Vecteur coincoin;
@@ -32,7 +33,7 @@ class Obstacle : public Dessinable {
 	virtual void agit_sur(ObjetMobile& obj);
 	virtual void affiche() =0;
 
-    ///virtual void dessine_sur(SupportADessin& support) override;
+    ///virtual void dessine_sur(SupportADessin& support) = 0;
 	
 	//pour la covariance
     virtual Obstacle* copie() const = 0;
@@ -75,7 +76,7 @@ class Brique : public Obstacle {
     Brique (Vecteur ori, Vecteur lon, Vecteur lar, double haut) : Obstacle(ori), longueur(lon), largeur(lar), hauteur(haut) {
         Vecteur a(!longueur); //a prend seulement la direction de longueur
         Vecteur b(!largeur); //b prend seulement la direction de largeur
-        if(not ((b|a) == 0)) {
+        if((b|a) > epsilon)) {
             largeur = largeur - (largeur*a)*a; /// peut etre a verifier avec la formule
             }
         }                                   
