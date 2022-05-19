@@ -41,10 +41,7 @@ void ObjetMobile::setforce(Vecteur nouv_force){force=nouv_force;}
 void ObjetMobile::ajoute_a(Systeme& S){
 	S.ajoute(this);
 	cout << "un objet mobile est ajouté au systeme"<<endl;
-	 }
-
-///void ObjetMobile::dessine_sur(SupportADessin& support) { support.SupportADessin::dessine(*this); }
-  
+	 }  
 
 
 
@@ -153,7 +150,7 @@ Balle* Balle::copie() const { //pour pouvoir utiliser la methode copieobjet
 	
 // Les operateurs d affichage
 void Balle::affiche(){
-    cout << "la balle est constituée de :" << endl;
+    cout << "La balle est constituée de :" << endl;
     cout << position();
     cout << "  #position"<<endl;
     cout <<Pd;
