@@ -34,8 +34,7 @@ Systeme& operator=(Systeme&&)      = default;
 
 //méthodes
 
-/*virtual void dessine_sur(SupportADessin& support) override
-{ support.dessine(*this); } */
+/*virtual void dessine_sur(SupportADessin& support) override; */
 
 void evolue2(double dt);
 
