@@ -46,8 +46,25 @@ void ajoute(ChampForces* Champ);
 
 
 void affiche() const ;
+size_t taille_tab_obj () const;
+size_t taille_tab_obs () const;
+size_t taille_tab_champs () const;
+std::unique_ptr<ObjetMobile> retour_obj (size_t i) const ;
+std::unique_ptr<Obstacle> retour_obs (size_t i) const ;
+std::unique_ptr<ChampForces> retour_champ (size_t i) const ;
 
-
+    
+/*  Inutile donc enlevé, on a trouvé d'autres maoyens de faire que copier un unique_ptr
+template <typename Type>
+std::vector<std::unique_ptr<Type>> copie_unique(std::vector<std::unique_ptr<Type>> tableau){
+	std::vector<std::unique_ptr<Type>> tab;
+	for (size_t i(0); i<tableau.size();i++){
+		tab.push_back (std::unique_ptr<Type> (tableau[i]->copie()));
+	}
+	return tab;
+}
+*/
+    
 private:
 std::vector<std::unique_ptr<ObjetMobile>> tableau_objets;
 std::vector<std::unique_ptr<Obstacle>> tableau_obstacles;
