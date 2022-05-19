@@ -34,7 +34,7 @@ class Vecteur {
     //methode
     std::vector<double> getvecteur() const;
     void setvecteur(std::vector<double> vec);
-    double getcomposante(double i) const;
+    double getcomposante(size_t i) const;
 
     size_t taille() const;
     
