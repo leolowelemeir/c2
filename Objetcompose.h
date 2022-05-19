@@ -54,7 +54,7 @@ class Objetcompose : public Dessinable {
 		
 	//methodes 
 	void ajoute_a(Systeme& S);
-		
+	//virtual void dessine_sur (SupportADessin& )	
 	
 	protected:
 	std::vector<ObjetMobile*> Obj;
@@ -81,7 +81,9 @@ class Ventilateur :public Objetcompose  {
 			largeur= largeur - (largeur*a)*a;
 		}*/
 		} 
-		
+
+	// virtual void dessine_sur(SupportADessin& support) override;
+
 	private:
 	Brique* brique;
 	Vent* vent;
