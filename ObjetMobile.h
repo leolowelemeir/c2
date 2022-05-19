@@ -33,7 +33,6 @@ class ObjetMobile: public Dessinable {
       //  virtual double distance(const ObjetMobile& obj) = 0; // calculer distance entre objets
         
         
-        ///virtual void dessine_sur(SupportADessin& support) override;
 
         // Methodes dans balle a l origine
     
