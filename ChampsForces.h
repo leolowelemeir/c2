@@ -1,6 +1,7 @@
 #pragma once
 #include "ObjetMobile.h"
 #include "ex_vecteur.h"
+#include "Systeme.h"
 #include <iostream>
 
 class ChampForces {
@@ -18,7 +19,7 @@ class ChampForces {
 	virtual ~ChampForces() {}
 	
 	//methodes 
-	// virtual void ajoute_a(Systeme& S);
+	void ajoute_a(Systeme& S);
 
     private:
     //les attributs

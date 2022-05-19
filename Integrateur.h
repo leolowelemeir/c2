@@ -3,7 +3,7 @@
 #include "ex_vecteur.h"
 #include "ObjetMobile.h"
 #include "obstacle.h"
-
+#include "constantes.h"
 
 /// Deux choix: le premier est le plus logique mais le plus vide et inutile
 ///dans le sens où si c est juste pour une methode ca sert a rien d en faire une classe

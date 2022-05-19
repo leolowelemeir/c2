@@ -14,14 +14,14 @@ int main (){
 	Vecteur pos({1.2,0.3,-0.4});
 	Vecteur F({0,-0.591725259488945,0});
 	Balle b(pos,vit,0.100530964914873,F,0.2);
-	cout << b;
+	b.affiche();
 	
 	//pour initialiser le plan
 	Vecteur orig(0.0,0.0,0.0);
 	Vecteur di1(0.0,0.0,1.0); 
 	Vecteur di2(1.0,0.0,0.0); 
 	Plan P(orig,di1,di2);
-	cout << P;
+	P.affiche();
 	
 	//pour initialisé la brique 
 	Vecteur ori({0.0,0.5,0.0});
@@ -29,7 +29,7 @@ int main (){
 	Vecteur lalargeur({0.8,0.0,0.0}); 
 	double hauteur(0.5);
 	Brique B(ori,lalongueur,lalargeur,hauteur);
-	cout << B;
+	B.affiche();
 	
 	//pour point le plus proche
 	cout<<"test"<<endl;
@@ -46,7 +46,7 @@ int main (){
 	//-----------------------------------------------
 	b.setposition({1.2,1.3,-0.4});
 	cout<<"je deplace la balle en 1.2 1.3 -0.4";
-	cout<<b;
+	b.affiche();
 	
 	cout<<"test"<<endl;
 	P.point_plus_proche(b);
@@ -62,7 +62,7 @@ int main (){
 		//-----------------------------------------------
 	b.setposition({0.2,1.3,-0.4});
 	cout<<"je deplace la balle en 1.2 1.3 -0.4";
-	cout<<b;
+	b.affiche();
 	
 	cout<<"test"<<endl;
 	P.point_plus_proche(b);
@@ -79,7 +79,7 @@ int main (){
 
 	b.setposition({0.2,1.3,-1.4});
 	cout<<"je deplace la balle en 0.2 1.3 -1.4";
-	cout<<b;
+	b.affiche();
 	
 	cout<<"test"<<endl;
 	P.point_plus_proche(b);
@@ -95,7 +95,7 @@ int main (){
 //-----------------------------------------------
 	b.setposition({0.2,1.3,-1.4});
 	cout<<"je deplace la balle en 1.2 1.3 -1.4";
-	cout<<b;
+	b.affiche();
 	
 	cout<<"test"<<endl;
 	P.point_plus_proche(b);

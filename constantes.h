@@ -1,4 +1,5 @@
 #pragma once
+#include "ex_vecteur.h"
 
 class Vecteur;
 

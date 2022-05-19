@@ -16,18 +16,18 @@ void Systeme::affiche() const {
 
     cout<<"d'objet mobile"<<endl;
     for (size_t i(0); i < tableau_objets.size(); ++i){
-        cout << *(tableau_objets[i]) << endl;		/// Verifier comment prendre la valeur du pointeur et les include suite a l utilisation d unique ptr
+        (*tableau_objets[i]).affiche();		/// Verifier comment prendre la valeur du pointeur et les include suite a l utilisation d unique ptr
         cout<<endl;
     }
     cout<<"d'obstacle"<<endl;
     for (size_t i(0); i < tableau_obstacles.size(); ++i){
-        cout << *(tableau_obstacles[i]) << endl;		/// Verifier comment prendre la valeur du pointeur et les include suite a l utilisation d unique ptr
+         (*tableau_obstacles[i]).affiche();		/// Verifier comment prendre la valeur du pointeur et les include suite a l utilisation d unique ptr
         cout<<endl;
     }
-    cout<<"de champs de force"<<endl;
+    /*cout<<"de champs de force"<<endl;
     for(size_t i(0); i<g.taille(); ++i){
-        cout<<g.getcomposante(i)<<endl;
-    }
+        g.getcomposante(i).affiche();
+    }*/
 }
 
 

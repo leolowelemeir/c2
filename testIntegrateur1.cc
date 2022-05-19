@@ -29,7 +29,7 @@ int main (){
     for (size_t i(0); i < n; ++i) {
     cout << " t = " << (b.get_temps() + i*0.01) << " :"<< endl;
     I.integre (b);
-    cout << b;
+    b.affiche();
     }
 
 

@@ -58,6 +58,7 @@ class ObjetMobile: public Dessinable {
         void setP (Vecteur nouv_pos);
         void setPd (Vecteur nouv_der);
         void setforce(Vecteur nouv_force);
+		virtual void affiche()=0;
 
 		//pour ajouter des objets au systeme
 		void ajoute_a(Systeme& S);
@@ -68,7 +69,6 @@ class ObjetMobile: public Dessinable {
     
 };
 
-std::ostream& operator<<(std::ostream& sortie,const ObjetMobile& M);
 
 
 
@@ -92,6 +92,7 @@ class Balle : public ObjetMobile {
     virtual Vecteur point_plus_proche(const ObjetMobile& M) override;
     virtual void agit_sur(ObjetMobile& obj) override; 
 	
+	virtual void affiche() override;
 
     ///virtual void dessine_sur(SupportADessin& support) override;
     
@@ -100,7 +101,6 @@ class Balle : public ObjetMobile {
 
     };
 
-std::ostream& operator<<(std::ostream& sortie,const Balle& M);
 
 
 
@@ -137,7 +137,8 @@ class Pendule : public ObjetMobile {
 	virtual Vecteur point_plus_proche(const ObjetMobile& M) override;
     ///virtual void dessine_sur(SupportADessin& support) override;
 	virtual void agit_sur(ObjetMobile& obj) override; 
-	 
+	virtual void affiche() override;
+
     //pour la covariance
     virtual Pendule* copie() const override;
 	
@@ -151,7 +152,6 @@ class Pendule : public ObjetMobile {
     double frottement;
 };
 
-std::ostream& operator<<(std::ostream& sortie,const Pendule& p);
 
 
 

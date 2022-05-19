@@ -17,7 +17,7 @@ int main(){
     ChampForces champ (g);
     b.ajoute_force(F);
     cout << champ << endl;
-    cout << b << endl;
+    b.affiche();
     
     cout << "Vecteur accélération: " << endl;
     cout << b.evolution() << endl;

@@ -16,7 +16,7 @@ int main (){
     double longueur (5.0);
     
     Pendule p (theta, vit_ang, m, F, r, Or, longueur);
-    cout << p;
+    p.affiche();
     cout << p.evolution() << "  #accélération" << endl;
     
     /// Faire point_plus_proche et copieobjet() 

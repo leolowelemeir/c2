@@ -1,11 +1,11 @@
 #pragma once
 #include "Dessinable.h"
 #include "ObjetMobile.h"
-#include "obstacle.h"
-#include "ChampsForces.h"
-#include "Objetcompose.h"
 #include <vector>
 #include <memory>
+class ChampForces;
+class Objetcompose;
+class Obstacle;
 
 class Systeme :public Dessinable {
 public:
@@ -25,7 +25,7 @@ Systeme (std::vector<std::unique_ptr<ObjetMobile>>&  tobj, std::vector<std::uniq
 } */
 
 
-virtual ~Systeme() = default;
+~Systeme() = default;
 Systeme(Systeme const&)            = default;
 Systeme& operator=(Systeme const&) = default;
 Systeme(Systeme&&)                 = default;

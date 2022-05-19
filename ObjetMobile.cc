@@ -39,31 +39,14 @@ void ObjetMobile::setforce(Vecteur nouv_force){force=nouv_force;}
 
 
 void ObjetMobile::ajoute_a(Systeme& S){
-	ObjetMobile* M;
-	S.ajoute(M);
+	S.ajoute(this);
 	cout << "un objet mobile est ajouté au systeme"<<endl;
 	 }
 
 ///void ObjetMobile::dessine_sur(SupportADessin& support) { support.SupportADessin::dessine(*this); }
   
 
-//Operateur
-ostream& operator<<(ostream& sortie,const ObjetMobile& M){
-    sortie << "L'objet mobile est constitué de " << endl;
-    sortie << M.position();
-    sortie << "   #position"<<endl;
-    sortie << M.getPd();
-    sortie << "   #vitesse" <<endl;
-    sortie << M.getmasse() << "  #masse" << endl;
-    sortie << M.masse_vol();
-    sortie << "   #masse volumique"<<endl;
-    sortie << M.getrayon();
-    sortie << "   #rayon" << endl;
-    sortie << M.getforce();
-    sortie <<"  # force" <<endl;
-	sortie << endl;
-    return sortie;
-    }
+
 
 
 //_______________________________________________________________________________________________
@@ -169,22 +152,21 @@ Balle* Balle::copie() const { //pour pouvoir utiliser la methode copieobjet
 	
 	
 // Les operateurs d affichage
-ostream& operator<<(ostream& sortie,const Balle& M){
-    sortie << "la balle est constituée de :" << endl;
-    sortie << M.position();
-    sortie << "  #position"<<endl;
-    sortie << M.getPd();
-    sortie << "  #vitesse" <<endl;
-    sortie << M.getmasse();
-    sortie << "  #masse" << endl;
-    sortie << M.masse_vol();
-    sortie << "  #masse volumique "<<endl;
-    sortie << M.getrayon();
-    sortie << "  #rayon" << endl;
-    sortie << M.getforce();
-    sortie <<" #force" <<endl;
-    sortie << endl;
-    return sortie;
+void Balle::affiche(){
+    cout << "la balle est constituée de :" << endl;
+    cout << position();
+    cout << "  #position"<<endl;
+    cout <<Pd;
+    cout << "  #vitesse" <<endl;
+    cout << masse;
+    cout << "  #masse" << endl;
+    cout << masse_vol();
+    cout << "  #masse volumique "<<endl;
+    cout << rayon;
+    cout << "  #rayon" << endl;
+    cout << force;
+    cout <<" #force" <<endl;
+    cout << endl;
     }
 //____________________________________________________________
 //Pendule
@@ -236,25 +218,24 @@ Pendule* Pendule::copie() const { //pour pouvoir utiliser la methode copieobjet
 
 
 //operateur
-ostream& operator<<(ostream& sortie,const Pendule& p){
-    sortie << "Le pendule a pour caractéristiques: " << endl;
-    sortie << p.getmasse() << "  #masse du pendule" << endl;
-    sortie << p.getlongueur();
-    sortie << "   #longueur du pendule" << endl;
-    sortie << p.getorigine();
-    sortie << "  #origine du pendule" << endl;
-    sortie << p.position() << "  #position au bout du pendule" << endl;
-    sortie << p.Madirection() << "  #direction du pendule" << endl;
-    sortie << p.getP();
-    sortie << "   #theta du pendule"<<endl;
-    sortie << p.getPd();
-    sortie << "   #theta point du pendule" <<endl;
-    sortie << p.getforce();
-    sortie <<"  #force appliquée sur le pendule" <<endl;
-    sortie << p.getfrottement();
-    sortie << "  #frottement du pendule" << endl;
-    sortie << endl;
-    return sortie;
+void Pendule::affiche() {
+    cout << "Le pendule a pour caractéristiques: " << endl;
+    cout << masse << "  #masse du pendule" << endl;
+    cout <<longueur;
+    cout << "   #longueur du pendule" << endl;
+    cout <<origine;
+    cout << "  #origine du pendule" << endl;
+    cout << position() << "  #position au bout du pendule" << endl;
+    cout << Madirection() << "  #direction du pendule" << endl;
+    cout << P;
+    cout << "   #theta du pendule"<<endl;
+    cout << Pd;
+    cout << "   #theta point du pendule" <<endl;
+    cout << force;
+    cout <<"  #force appliquée sur le pendule" <<endl;
+    cout << frottement;
+    cout << "  #frottement du pendule" << endl;
+    cout << endl;
   }
 
 

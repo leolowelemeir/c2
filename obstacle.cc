@@ -67,10 +67,11 @@ using namespace std;
    }
 
 void Obstacle::ajoute_a(Systeme& S){
-	Obstacle* M;
-	S.ajoute(M);
+	S.ajoute(this);
 	cout << "une brique est ajouté au systeme"<<endl;
 	 }
+
+
 
 //__________________________________________________________________________________________________________________________
 // Plan
@@ -106,16 +107,14 @@ Plan* Plan::copie() const { //pour pouvoir utiliser la methode copieobjet
 
 	 
    //Operateur
-ostream& operator<<(ostream& sortie, const Plan& p){
-	sortie << "Un plan est constitué de: " << endl;
-		for (size_t i(0); i< p.getobs_origine().taille();i++){
-			sortie << p.getobs_origine().getcomposante(i) << " ";}
-		sortie << "  #origine" << endl;
-		for (size_t i(0); i< p.n().taille();i++){
-			sortie << p.n().getcomposante(i) << " ";}
-		sortie << "  #normale" << endl;
-		sortie << endl;
-	return sortie;
+void Plan::affiche(){
+	cout << "Un plan est constitué de: " << endl;
+		
+		cout << obs_origine << "  #origine" << endl;
+		for (size_t i(0); i< n().taille();i++){
+			cout << n().getcomposante(i) << " ";}
+		cout << "  #normale" << endl;
+		cout << endl;
 }
 
 
@@ -189,23 +188,22 @@ Brique* Brique::copie() const {
 
 
 //Operateur
-ostream& operator<< (ostream& sortie, const Brique& b){
-	sortie <<"Une brique constituée de: " << endl;
-		for (size_t i(0); i< b.getobs_origine().taille();i++){
-			sortie << b.getobs_origine().getcomposante(i) << "  ";}
-		sortie << "  #origine"<< endl;
+void Brique::affiche(){
+	cout <<"Une brique constituée de: " << endl;
+		for (size_t i(0); i< getobs_origine().taille();i++){
+			cout << obs_origine.getcomposante(i) << "  ";}
+	cout << "  #origine"<< endl;
 		
-		for (size_t i(0); i< b.getlongueur().taille();i++){
-			sortie << b.getlongueur().getcomposante(i) << "  ";}
-		sortie << "  #longueur"      << endl;
+		for (size_t i(0); i< getlongueur().taille();i++){
+			cout << longueur.getcomposante(i) << "  ";}
+		cout << "  #longueur"      << endl;
 		
-		for (size_t i(0); i < b.getlargeur().taille();i++){
-			sortie << b.getlargeur().getcomposante(i) << "  ";}
-		sortie << "  #largeur" << endl;
+		for (size_t i(0); i < getlargeur().taille();i++){
+		cout << getlargeur().getcomposante(i) << "  ";}
+		cout << "  #largeur" << endl;
 
-		sortie << b.gethauteur() << "  #hauteur" << endl;
-		sortie << endl;
-	return sortie;
+		cout << gethauteur() << "  #hauteur" << endl;
+		cout << endl;
 	}
 	
 

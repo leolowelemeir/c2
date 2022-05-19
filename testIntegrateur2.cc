@@ -18,14 +18,14 @@ int main (){
     Balle b ( pos, vit, masse, f ) ;
 
 cout << champ << endl;
-cout << b << endl;
+b.affiche();
 cout << endl;
 
     IntegrateurEulerCromer I (0.01);
     for (size_t i(1); i < 5; ++i) {
     cout << "l'intégration " << i << " donne :" << endl;
     I.integre (b);
-    cout << b;
+    b.affiche();
     cout << endl;
     }
 

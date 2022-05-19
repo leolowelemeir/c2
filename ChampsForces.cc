@@ -24,12 +24,12 @@ void ChampForces::agit_sur(ObjetMobile& obj){
 ChampForces* ChampForces::copie() const { 
         return (new ChampForces(*this));}
         
- /*  
+   
 void ChampForces::ajoute_a(Systeme& S){
 	S.ajoute(this);
 	cout <<"un Champs de force a ete ajoute au systeme"<<endl;
 	}
-*/
+
     
 	//Operateur
 ostream& operator<<(ostream& sortie, ChampForces const& champF){
