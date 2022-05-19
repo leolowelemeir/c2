@@ -84,8 +84,6 @@ void Obstacle::ajoute_a(Systeme& S){
      return n;
  }
 
-///void Obstacle::dessine_sur(SupportADessin& support) { support.dessine(*this); }
-
 
 //on redefinit la methode de point le plus proche
     Vecteur Plan::point_plus_proche(const ObjetMobile& M){
