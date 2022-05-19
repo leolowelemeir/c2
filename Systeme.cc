@@ -10,24 +10,61 @@
 
 using namespace std;
 
+//void Systeme::dessine_sur(SupportADessin& support) { support.dessine(*this); }
 
 void Systeme::affiche() const {
     cout << "Le système est composé de : " <<endl;
+    cout << endl;
+    unsigned int n(tableau_objets.size());
 
-    cout<<"d'objet mobile"<<endl;
-    for (size_t i(0); i < tableau_objets.size(); ++i){
+    if (n != 0){
+        if (n == 1){
+            cout << "Un objet mobile: " << endl;
+        }else{
+            cout<< n << " objets mobiles: "<< endl;
+        }
+        for (size_t i(0); i < n; ++i){
         (*tableau_objets[i]).affiche();		/// Verifier comment prendre la valeur du pointeur et les include suite a l utilisation d unique ptr
         cout<<endl;
+        }
+    }else{
+        cout << "Aucun objet mobile." << endl;
     }
-    cout<<"d'obstacle"<<endl;
-    for (size_t i(0); i < tableau_obstacles.size(); ++i){
+    
+    cout << endl;
+    
+    n = tableau_obstacles.size();
+    if (n != 0){
+        if (n == 1){
+             cout << "Un obstacle: "<< endl;
+        }else{
+            cout << n << " obstacles: " << endl;
+        }
+        for (size_t i(0); i < n; ++i){
          (*tableau_obstacles[i]).affiche();		/// Verifier comment prendre la valeur du pointeur et les include suite a l utilisation d unique ptr
         cout<<endl;
+        }
+    }else{
+        cout << "Aucun obstacle." << endl;
+    }       
+            
+  cout << endl;
+    
+  n = tableau_champs.size();
+    if (n != 0){
+        if (n == 1){
+             cout << "Un champ de force: "<< endl;
+        }else{
+            cout << n << " champs de force: " << endl;
+        }
+        for (size_t i(0); i < n; ++i){
+         (*tableau_obstacles[i]).affiche();		/// Verifier comment prendre la valeur du pointeur et les include suite a l utilisation d unique ptr
+        cout<<endl;
+        }
+    }else{
+        cout << "Aucun champ de force." << endl;
     }
-    /*cout<<"de champs de force"<<endl;
-    for(size_t i(0); i<g.taille(); ++i){
-        g.getcomposante(i).affiche();
-    }*/
+    cout << endl;
 }
 
 
@@ -71,4 +108,23 @@ void Systeme::ajoute(ChampForces* Champ){
     tableau_champs.push_back(unique_ptr <ChampForces> (Champ->copie()));
 }
 
+
+size_t Systeme::taille_tab_obj () const {
+    return tableau_objets.size();
+}
+size_t Systeme::taille_tab_obs () const {
+    return tableau_obstacles.size();
+}
+size_t Systeme::taille_tab_champs () const {
+    return tableau_champs.size();
+}
+unique_ptr<ObjetMobile> Systeme::retour_obj (size_t i) const {
+    return unique_ptr <ObjetMobile> (tableau_objets[i]->copie());
+}
+unique_ptr<Obstacle> Systeme::retour_obs (size_t i) const {
+    return unique_ptr <Obstacle> (tableau_obstacles[i]->copie());
+}
+unique_ptr<ChampForces> Systeme::retour_champ (size_t i) const {
+    return unique_ptr <ChampForces> (tableau_champs[i]->copie());
+}
 
