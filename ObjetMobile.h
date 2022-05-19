@@ -40,7 +40,7 @@ class ObjetMobile: public Dessinable {
         virtual Vecteur position () const = 0 ;
         virtual Vecteur evolution() = 0;
         virtual void agit_sur(ObjetMobile& obj) = 0;    ///A modifier pour chaque sous classe: pour obstacle: change vitesse; pour champforce: ajoute une force externe
-        // ... dessine_sur();
+//      virtual void dessine_sur(SupportADessin&) =0;
         virtual Vecteur point_plus_proche (const ObjetMobile& obj) = 0; //calculer le point le plus proche
 
         double masse_vol() const;
