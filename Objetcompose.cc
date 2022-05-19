@@ -22,3 +22,7 @@ using namespace std;
 		 S.ajoute(champsf[i]);
 		 }
 	 }
+
+
+
+//void Ventilateur::dessine_sur(SupportADessin& support) { support.SupportADessin::dessine(*this); }
