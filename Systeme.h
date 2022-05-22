@@ -1,11 +1,11 @@
 #pragma once
 #include "Dessinable.h"
-#include "ObjetMobile.h"
 #include <vector>
 #include <memory>
 class ChampForces;
 class Objetcompose;
 class Obstacle;
+class ObjetMobile;
 
 class Systeme :public Dessinable {
 public:

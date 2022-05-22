@@ -7,7 +7,7 @@
 using namespace std;
 
 
-    double Vecteur::getcomposante(double i) const {return vecteur[i];}
+    double Vecteur::getcomposante(size_t i) const {return vecteur[i];}
 
     size_t Vecteur::taille() const {return vecteur.size();}
     
@@ -316,7 +316,7 @@ bool Vecteur::operator==(const Vecteur& v) const {
     }*/
    Vecteur Vecteur:: operator!() {
        double n (norme());
-        Vecteur unitaire ((*this)*(1/n));
+        Vecteur unitaire ((1/n)*(*this));
         return unitaire;
        }
 

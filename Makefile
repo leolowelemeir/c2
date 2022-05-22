@@ -16,12 +16,12 @@ testVecteur.o: testVecteur.cc ex_vecteur.h
 testVecteur: testVecteur.o ex_vecteur.o
 
 
-ObjetMobile.o: ObjetMobile.cc ObjetMobile.h ex_vecteur.cc ex_vecteur.h constantes.o Dessinable.cc Dessinable.h SupportADessin.h
+ObjetMobile.o: ObjetMobile.cc ObjetMobile.h ex_vecteur.cc ex_vecteur.h constantes.o Dessinable.cc Dessinable.h SupportADessin.h Systeme.o
 
 ChampsForces.o: ChampsForces.cc ChampsForces.h ObjetMobile.h
 
-testBalle.o: testBalle.cc ex_vecteur.h ObjetMobile.h constantes.h ChampsForces.h
-testBalle: testBalle.o ex_vecteur.o ObjetMobile.o constantes.o ChampsForces.o
+testBalle.o: testBalle.cc ex_vecteur.h ObjetMobile.h constantes.h ChampsForces.h 
+testBalle: testBalle.o ex_vecteur.o ObjetMobile.o constantes.o ChampsForces.o Systeme.o Integrateur.o
 
 
 obstacle.o: obstacle.cc obstacle.h ex_vecteur.o ObjetMobile.o Dessinable.o SupportADessin.h

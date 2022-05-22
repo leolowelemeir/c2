@@ -76,7 +76,7 @@ class Brique : public Obstacle {
     Brique (Vecteur ori, Vecteur lon, Vecteur lar, double haut) : Obstacle(ori), longueur(lon), largeur(lar), hauteur(haut) {
         Vecteur a(!longueur); //a prend seulement la direction de longueur
         Vecteur b(!largeur); //b prend seulement la direction de largeur
-        if((b|a) > epsilon)) {
+        if((b|a) > epsilon) {
             largeur = largeur - (largeur*a)*a; /// peut etre a verifier avec la formule
             }
         }                                   
