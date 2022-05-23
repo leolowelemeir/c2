@@ -3,11 +3,13 @@
 #include "ex_vecteur.h"
 #include "Integrateur.h"
 #include "ChampsForces.h"
+#include "ObjetMobile.h"
+#include "obstacle.h"
+#include "Objetcompose.h"
 #include <memory>
 
-class ObjetMobile;
-class Obstacle;
-class Objetcompose;
+
+
 
 using namespace std;
 

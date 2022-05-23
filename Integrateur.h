@@ -2,7 +2,6 @@
 
 #include "ex_vecteur.h"
 #include "ObjetMobile.h"
-#include "obstacle.h"
 #include "constantes.h"
 
 /// Deux choix: le premier est le plus logique mais le plus vide et inutile

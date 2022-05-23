@@ -16,7 +16,7 @@ testVecteur.o: testVecteur.cc ex_vecteur.h
 testVecteur: testVecteur.o ex_vecteur.o
 
 
-ObjetMobile.o: ObjetMobile.cc ObjetMobile.h ex_vecteur.cc ex_vecteur.h constantes.o Dessinable.cc Dessinable.h SupportADessin.h Systeme.o
+ObjetMobile.o: ObjetMobile.cc ObjetMobile.h ex_vecteur.cc ex_vecteur.h constantes.h Dessinable.cc Dessinable.h SupportADessin.h Systeme.h
 
 ChampsForces.o: ChampsForces.cc ChampsForces.h ObjetMobile.h
 
@@ -24,22 +24,22 @@ testBalle.o: testBalle.cc ex_vecteur.h ObjetMobile.h constantes.h ChampsForces.h
 testBalle: testBalle.o ex_vecteur.o ObjetMobile.o constantes.o ChampsForces.o Systeme.o Integrateur.o
 
 
-obstacle.o: obstacle.cc obstacle.h ex_vecteur.o ObjetMobile.o Dessinable.o SupportADessin.h
+obstacle.o: obstacle.cc obstacle.h ex_vecteur.o ObjetMobile.h Dessinable.h SupportADessin.h
 
 testObstacle.o: testObstacle.cc constantes.o ObjetMobile.cc ObjetMobile.h ex_vecteur.o obstacle.cc obstacle.h Systeme.cc Systeme.h ChampsForces.cc ChampsForces.h Integrateur.cc Integrateur.h
 testObstacle: testObstacle.o constantes.o ObjetMobile.o ex_vecteur.o obstacle.o Systeme.o Integrateur.o ChampsForces.o
 
-testPendule.o: ex_vecteur.o ObjetMobile.o testPendule.cc constantes.o Integrateur.o
-testPendule: testPendule.o ObjetMobile.o ex_vecteur.o constantes.o Integrateur.o
+testPendule.o: ex_vecteur.o ObjetMobile.o testPendule.cc constantes.o Integrateur.o Systeme.o ChampsForces.o
+testPendule: testPendule.o ObjetMobile.o ex_vecteur.o constantes.o Integrateur.o Systeme.o ChampsForces.o
 
 
 Integrateur.o: Integrateur.h Integrateur.cc ex_vecteur.o ObjetMobile.o constantes.o
 
-testIntegrateur1.o: Integrateur.o ex_vecteur.o ObjetMobile.o constantes.o
-testIntegrateur1: testIntegrateur1.o Integrateur.o ex_vecteur.o ObjetMobile.o constantes.o
+testIntegrateur1.o: Integrateur.o ex_vecteur.o ObjetMobile.o constantes.o Systeme.o 
+testIntegrateur1: testIntegrateur1.o Integrateur.o ex_vecteur.o ObjetMobile.o constantes.o Systeme.o 
 
-testIntegrateur2.o: Integrateur.o ex_vecteur.o ObjetMobile.o constantes.o ChampsForces.o
-testIntegrateur2: testIntegrateur2.o Integrateur.o ex_vecteur.o ObjetMobile.o constantes.o ChampsForces.o
+testIntegrateur2.o: Integrateur.o ex_vecteur.o ObjetMobile.o constantes.o ChampsForces.o Systeme.o 
+testIntegrateur2: testIntegrateur2.o Integrateur.o ex_vecteur.o ObjetMobile.o constantes.o ChampsForces.o Systeme.o 
 
 Dessinable.o: Dessinable.h Dessinable.cc ex_vecteur.o SupportADessin.h
 
