@@ -32,32 +32,47 @@ int main (){
 	B.affiche();
 	
 	//pour point le plus proche
-	cout<<"test"<<endl;
+	cout<<"test :"<<endl;
+	cout<<endl;
+
 	P.point_plus_proche(b);
 	cout<<"#point le plus proche du plan"<<endl;
+	cout<<endl;
+	
 	P.distance(b);
 	cout<<"#distance"<<endl;
+	cout<<endl;
 
 	B.point_plus_proche(b);
-	cout<<"#point le plus proche du plan"<<endl;
+	cout<<"#point le plus proche de la brique" <<endl;
+	cout<<endl;
+
 	B.distance(b);
 	cout<<"#distance"<<endl;
-	
+	cout<<endl;
+
+
 	//-----------------------------------------------
 	b.setposition({1.2,1.3,-0.4});
 	cout<<"je deplace la balle en 1.2 1.3 -0.4";
 	b.affiche();
 	
-	cout<<"test"<<endl;
+	cout<<"test: "<<endl;
 	P.point_plus_proche(b);
 	cout<<"#point le plus proche du plan"<<endl;
+	cout<<endl;
+
 	P.distance(b);
 	cout<<"#distance"<<endl;
+	cout<<endl;
 
 	B.point_plus_proche(b);
-	cout<<"#point le plus proche du plan"<<endl;
+	cout<<"#point le plus proche de la brique "<<endl;
+	cout<<endl;
+
 	B.distance(b);
 	cout<<"#distance"<<endl;
+	cout<<endl;
 	
 		//-----------------------------------------------
 	b.setposition({0.2,1.3,-0.4});
@@ -65,47 +80,69 @@ int main (){
 	b.affiche();
 	
 	cout<<"test"<<endl;
+	cout<<endl;
+
 	P.point_plus_proche(b);
 	cout<<"#point le plus proche du plan"<<endl;
+	cout<<endl;
+
 	P.distance(b);
 	cout<<"#distance"<<endl;
+	cout<<endl;
 
 	B.point_plus_proche(b);
-	cout<<"#point le plus proche du plan"<<endl;
+	cout<<"#point le plus proche de la brique"<<endl;
+	cout<<endl;
+
 	B.distance(b);
 	cout<<"#distance"<<endl;
-	
+	cout<<endl;
+
 			//-----------------------------------------------
 
 	b.setposition({0.2,1.3,-1.4});
 	cout<<"je deplace la balle en 0.2 1.3 -1.4";
 	b.affiche();
-	
+	cout<<endl;
+
 	cout<<"test"<<endl;
 	P.point_plus_proche(b);
 	cout<<"#point le plus proche du plan"<<endl;
+	cout<<endl;
+
 	P.distance(b);
 	cout<<"#distance"<<endl;
+	cout<<endl;
 
 	B.point_plus_proche(b);
-	cout<<"#point le plus proche du plan"<<endl;
+	cout<<"#point le plus proche de la brique"<<endl;
+	cout<<endl;
+	
 	B.distance(b);
 	cout<<"#distance"<<endl;
-	
+	cout<<endl;
+
 //-----------------------------------------------
 	b.setposition({0.2,1.3,-1.4});
 	cout<<"je deplace la balle en 1.2 1.3 -1.4";
 	b.affiche();
+	cout<<endl;
 	
 	cout<<"test"<<endl;
 	P.point_plus_proche(b);
 	cout<<"#point le plus proche du plan"<<endl;
+	cout<<endl;
+
 	P.distance(b);
 	cout<<"#distance"<<endl;
+	cout<<endl;
 
 	B.point_plus_proche(b);
-	cout<<"#point le plus proche du plan"<<endl;
+	cout<<"#point le plus proche de la brique"<<endl;
+	cout<<endl;
+	
 	B.distance(b);
 	cout<<"#distance"<<endl;
-	//faire les tests avec
+	cout<<endl;
+	
 	return 0;}

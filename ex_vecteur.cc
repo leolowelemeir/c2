@@ -186,11 +186,15 @@ bool Vecteur::operator==(const Vecteur& v) const {
  
     
     Vecteur Vecteur::operator-=(const Vecteur& autre){
-        double valeur;                    
-         for (size_t i(0); i < taille() ; ++ i ){
-               valeur=(*this).getcomposante(i)-autre.getcomposante(i);
-               set_coord(i,valeur);
-         }
+        double valeur;   
+        if (taille() == autre.taille()){                
+			for (size_t i(0); i < taille() ; ++ i ){
+				valeur=(*this).getcomposante(i)-autre.getcomposante(i);
+				set_coord(i,valeur);
+			}
+		}else {
+			cout << "les vecteurs n'ont pas la meme taille, peut etre probleme pour la soustraction" <<endl;
+		} 
         return (*this);
         }
              
@@ -247,7 +251,7 @@ bool Vecteur::operator==(const Vecteur& v) const {
     
     double Vecteur::operator|(const Vecteur&  autre) { //produit scalaire
         double a (0);
-        if (vecteur.size() == autre.vecteur.size()){
+        if (taille() == autre.taille()){
         for (size_t i(0); i < vecteur.size(); ++i){
             a += vecteur[i]*autre.vecteur[i];
             }

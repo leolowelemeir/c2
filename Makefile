@@ -4,7 +4,7 @@ CC  = $(CXX)
 CXXFLAGS = -std=c++11
 
 
-all: testVecteur testObstacle testIntegrateur1 testIntegrateur2 testBalle testPendule
+all: testVecteur testBalle testPendule testObstacle testChocs testIntegrateur1 testIntegrateur2  
 
 
 
@@ -35,8 +35,8 @@ testPendule: testPendule.o ObjetMobile.o ex_vecteur.o constantes.o Integrateur.o
 
 Integrateur.o: Integrateur.h Integrateur.cc ex_vecteur.o ObjetMobile.o constantes.o
 
-testIntegrateur1.o: Integrateur.o ex_vecteur.o ObjetMobile.o constantes.o Systeme.o 
-testIntegrateur1: testIntegrateur1.o Integrateur.o ex_vecteur.o ObjetMobile.o constantes.o Systeme.o 
+testIntegrateur1.o: Integrateur.o ex_vecteur.o ObjetMobile.o constantes.o Systeme.o ChampsForces.o
+testIntegrateur1: testIntegrateur1.o Integrateur.o ex_vecteur.o ObjetMobile.o constantes.o Systeme.o ChampsForces.o
 
 testIntegrateur2.o: Integrateur.o ex_vecteur.o ObjetMobile.o constantes.o ChampsForces.o Systeme.o 
 testIntegrateur2: testIntegrateur2.o Integrateur.o ex_vecteur.o ObjetMobile.o constantes.o ChampsForces.o Systeme.o 
@@ -49,6 +49,9 @@ Systeme.o: Systeme.cc Systeme.h Dessinable.o ChampsForces.o Objetcompose.o obsta
 
 exerciceP9a.o: exerciceP9a.cc Integrateur.o ObjetMobile.o ex_vecteur.o Systeme.o obstacle.o constantes.cc constantes.h
 exerciceP9a: exerciceP9a.o Integrateur.o ObjetMobile.o ex_vecteur.o Systeme.o obstacle.o constantes.o
+
+testChocs.o: testChocs.cc ObjetMobile.o obstacle.o constantes.o ex_vecteur.o Systeme.o ChampsForces.o Integrateur.o
+testChocs: testChocs.o ObjetMobile.o obstacle.o constantes.o ex_vecteur.o Systeme.o ChampsForces.o Integrateur.o
 
 clean:
 	rm *.o

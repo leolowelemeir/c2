@@ -87,7 +87,8 @@ void Obstacle::ajoute_a(Systeme& S){
 
 //on redefinit la methode de point le plus proche
     Vecteur Plan::point_plus_proche(const ObjetMobile& M){
-        Vecteur point2 (obs_origine-M.getP());
+		cout<<"la dimension de obs_origine: " << obs_origine.taille() <<" et la dimension de la position de M: "<< M.position().taille() << endl;
+        Vecteur point2 (obs_origine-M.position());
 																///juste pour savoir si c'est bon et apres on peut supprimer
         /*point2*n(); 
         point2*n();
