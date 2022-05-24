@@ -126,30 +126,31 @@ bool Vecteur::operator==(const Vecteur& v) const {
 */
    Vecteur Vecteur::operator+=(const Vecteur& autre){
         double valeur;
-        Vecteur autrecopie;
+      	  //On ne peut pas modifier le vecteur de droite donc on crée une copie
+        Vecteur autrecopie (autre);
         size_t nv (taille());
         size_t na (autre.taille());
         if (nv != na){
-			cout << "Attention les vecteurs sont de tailles différentes!" << endl;
-			if (nv != na){
+		cout << "Attention les vecteurs sont de tailles différentes!" << endl;
+		
+	   //On égalise les vecteurs pour qu ils aient la même dimension
             if (nv > na){
                 for (size_t i(na); i < nv; ++i){
-                    autrecopie.vecteur.push_back(0.0);
+                    autrecopie.augmente(0.0);
                 }
                 
             }else{
                 for (size_t i(nv); i < na; ++i){
-                    vecteur.push_back(0.0);
+                    augmente(0.0);
                 }
             }
-		}
-		}
+	}
         for (size_t i(0); i < taille() ; ++ i ){
-               valeur=(*this).getcomposante(i)+autre.getcomposante(i);
+               valeur=(*this).getcomposante(i)+autrecopie.getcomposante(i);
                set_coord(i,valeur);
-               }
-             return (*this);
         }
+        return (*this);
+       }
     
     Vecteur Vecteur::operator+(const Vecteur& autre){
         return (*this)+= autre;
