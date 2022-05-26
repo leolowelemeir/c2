@@ -256,6 +256,7 @@ bool Vecteur::operator==(const Vecteur& v) const {
         for (size_t i(0); i < vecteur.size(); ++i){
             a += vecteur[i]*autre.vecteur[i];
             }
+            cout <<"a: "<< a <<endl;
         }else {
             cout <<"Les dimensions ne sont pas semblables, erreur pour le produit scalaire"<<endl;
         }

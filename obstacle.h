@@ -104,3 +104,4 @@ class Brique : public Obstacle {
     double hauteur;
 };
 
+Vecteur point_portion (ObjetMobile const& M, Vecteur dir1, Vecteur dir2, Vecteur point);

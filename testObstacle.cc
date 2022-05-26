@@ -23,7 +23,7 @@ int main (){
 	Plan P(orig,di1,di2);
 	P.affiche();
 	
-	//pour initialisé la brique 
+	//pour initialiser la brique 
 	Vecteur ori({0.0,0.5,0.0});
 	Vecteur lalongueur({0.0,0.0,-0.6}); 
 	Vecteur lalargeur({0.8,0.0,0.0}); 
@@ -35,26 +35,26 @@ int main (){
 	cout<<"test :"<<endl;
 	cout<<endl;
 
-	P.point_plus_proche(b);
-	cout<<"#point le plus proche du plan"<<endl;
+	cout<< P.point_plus_proche(b) ;
+	cout<<"  #point le plus proche du plan"<<endl;
 	cout<<endl;
 	
-	P.distance(b);
-	cout<<"#distance"<<endl;
+	cout<<P.distance(b);
+	cout<<"  #distance"<<endl;
 	cout<<endl;
 
-	B.point_plus_proche(b);
-	cout<<"#point le plus proche de la brique" <<endl;
+	cout<<B.point_plus_proche(b);
+	cout<<"  #point le plus proche de la brique" <<endl;
 	cout<<endl;
 
-	B.distance(b);
-	cout<<"#distance"<<endl;
+	cout<<B.distance(b);
+	cout<<"  #distance"<<endl;
 	cout<<endl;
 
 
 	//-----------------------------------------------
 	b.setposition({1.2,1.3,-0.4});
-	cout<<"je deplace la balle en 1.2 1.3 -0.4";
+	cout<<"je deplace la balle en " << b.position();
 	b.affiche();
 	
 	cout<<"test: "<<endl;
