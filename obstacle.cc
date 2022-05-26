@@ -93,7 +93,8 @@ void Obstacle::ajoute_a(Systeme& S){
         /*point2*n(); 
         point2*n();
         point2+=M.getP();*/ //modifier en:
-        
+        cout <<"dimension de point2 :" << point2.taille() <<endl;
+        cout<<"dimensions de dir1 : "<< dir1.taille() <<" et dir2 : " << dir2.taille() <<endl;
         point2=point2|dir1; //on cherche la projection de point2 sur le plan: 
         point2+=point2|dir2; //on prend la composante selon dir1 de point2, puis celle selon dir2 et on les somme
         

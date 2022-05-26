@@ -7,6 +7,8 @@
 using namespace std;
 
 int main() {
+	//on est ici dans le cas on on gere juste le choc entre deux objets et pas un systeme l'evolution d'un systeme entier
+	
 	//pour les chocs entre un objet mobile est un obstacle
 	
 	
@@ -15,7 +17,7 @@ int main() {
 	//construction de la balle 1
 	Vecteur pos(0, 0.0465234, 0.624);
     Vecteur vit(0, -2.59108, 0.8);
-    Balle b1(pos, vit, 0.00167784948285945 ,g,0.051111, 0.0, 3); 
+    Balle b1(pos, vit, 0.00167784948285945 ,g,0.051111, 0.0, 3);  ///attention je suis pas sur qu'il faille ajouté g ici peut etre qu'on l'a mis deux fois !! =>non ca aurait ete si on utilisait la fonction evolue2
 	
 	//changement d'axe: c'est donc l'axe y qui vaut 0
 	//construction du plan 
@@ -28,16 +30,17 @@ int main() {
 	//affichage
 	cout<<"cas 1"<<endl;
 	cout<<endl;
-	cout<<"vitesse="<<vit;
-	cout<<"force"<<g;
+	cout<<"vitesse="<<b1.getPd()<<endl;
+	cout<<"force ="<<b1.getforce()<<endl;
 	
 	cout<<"calculs: "<<endl;
 	
 	//choc
 	P.agit_sur(b1);  ///je coris qu'on est bien avant le pas d'integration 
+	///est ce que j'integre ? (le pesne pas si on se dit que le choc se faitdans in temps negligeable (les balles (ou obstacles et balles) se touchent deja donc pas besoin de les deplacer)
 	
-	cout<<"vitesse="<<vit;
-	cout<<"force"<<g;
+	cout<<"vitesse="<<b1.getPd()<<endl;
+	cout<<"force= "<<b1.getforce()<<endl;
 	
 	//------------------------------------------------------------------------------------------
 	//pour les chocs entre 2 balles (les balles sont appelés balle 2 et balle 3)
@@ -48,8 +51,38 @@ int main() {
     Balle b2(pos2, vit2, 0.00167784948285945 ,g,0.051111, 0.0, 3.0);
     
 	//construction de la balle 3
-	Vecteur pos(0, 1.36675, 0.283821);
-    Vecteur vit(0, 0.715449, 0.0957368);
-    Balle b1(pos, vit, 0.00167784948285945 ,g,0.051111, 0.0, 3.0);
+	Vecteur pos3(0, 0.260128, 1.46284);
+    Vecteur vit3(0, 0.13874, 0.419218);
+    Balle b3(pos3, vit3, 0.1 ,g,0.05, 0.0, 3.0);
+	
+	cout<<"cas 2"<<endl;
+	cout<<endl;
+	cout<<"avant le choc au sol" <<endl;
+	cout << "position de la balle2(appelé balle1 par le prof) = " << b2.position()<<endl;
+	cout << "position de la balle3 (appelé balle2 par le prof) = " << b3.position()<<endl;
+
+	cout<<"vitesse de la balle2 ="<<b2.getPd()<<endl;
+	cout<<"vitesse de la balle3 ="<<b3.getPd()<<endl;
+
+	cout<<"force de la balle2 ="<<b2.getforce()<<endl;
+	cout<<"force de la balle3 ="<<b3.getforce()<<endl;
+	cout <<endl;
+	
+	//choc
+	cout<<"calculs: "<<endl;
+	b2.agit_sur(b3); 
+	 
+	cout<<endl;
+
+	//apres choc
+	cout<<"apres choc: "<<endl;
+	
+	cout<<"vitesse de la balle2 ="<<b2.getPd()<<endl;
+	cout<<"vitesse de la balle3 ="<<b3.getPd()<<endl;
+
+	cout<<"force de la balle2 ="<<b2.getforce()<<endl;
+	cout<<"force de la balle3 ="<<b3.getforce()<<endl;
+
+///faudrait faire le test avec un pendule aussi 
 	
 	}

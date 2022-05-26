@@ -252,10 +252,11 @@ bool Vecteur::operator==(const Vecteur& v) const {
     double Vecteur::operator|(const Vecteur&  autre) { //produit scalaire
         double a (0);
         if (taille() == autre.taille()){
+			cout <<"le produit scalaire peut se faire" <<endl;
         for (size_t i(0); i < vecteur.size(); ++i){
             a += vecteur[i]*autre.vecteur[i];
             }
-        }else{
+        }else {
             cout <<"Les dimensions ne sont pas semblables, erreur pour le produit scalaire"<<endl;
         }
     return a;
