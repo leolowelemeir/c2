@@ -15,16 +15,24 @@ using namespace std;
 	Vecteur Obstacle::getobs_origine() const { return obs_origine;}
 
 
-    double Obstacle::distance(const ObjetMobile& M){
-        Vecteur dist (point_plus_proche(M) - M.getP());
+    double Plan::distance(const ObjetMobile& M){
+        Vecteur dist (Plan::point_plus_proche(M) - M.position());
+        cout << " point plusu proche " << Plan::point_plus_proche(M) << endl;
+        cout << "cteur decalage "<<dist << endl;
+        cout << "position " << M.position() << endl;
+        double distance ( dist.norme() - M.getrayon());
+        return distance;
+    }
+    double Brique::distance(const ObjetMobile& M){
+        Vecteur dist (Brique::point_plus_proche(M) - M.position());
         double distance ( dist.norme() - M.getrayon());
         return distance;
     }
     
     void Obstacle::agit_sur(ObjetMobile& obj){
 		
-		//verification qu'il y ai bien un choc 
-		if (distance(obj)<=(obj.getrayon())) {
+		//verification qu'il y ait bien un choc 
+		if (distance(obj) < epsilon) {
 			
 			//mise à jour les forces s’exerçant sur l'objet
             Vecteur normal(!(obj.position()-point_plus_proche(obj)));//vecteur (unitaire) normal au point de choc
@@ -32,7 +40,7 @@ using namespace std;
 			Vecteur a(obj.getforce());
 			double Fn1(a|normal);
 			
-			if (Fn1<0) {
+			if (Fn1<epsilon) {
 				obj.getforce()-=(Fn1*normal); 
 			} ///pourquoi on ne fait pas quans Fn1 est positif ?
 			
@@ -41,11 +49,11 @@ using namespace std;
 			Vecteur v_contact((obj.getPd())+(v_etoile*normal));
             Vecteur delta_v;
             double condition(7*obj.getfrottement_choc()*(1+obj.getalpha())*v_etoile);
-            if (condition>=2*v_contact.norme()){
-				delta_v=(1+obj.getalpha())*v_etoile*normal-(2/7)*v_contact;
+            if (condition - 2*v_contact.norme() > epsilon){
+				delta_v= ((1+obj.getalpha())*v_etoile*normal) - (2/7)*v_contact;
 			} 
 			else{
-                delta_v=(1+obj.getalpha())*v_etoile*(normal-obj.getfrottement_choc()*(!v_contact));
+                delta_v=(1+obj.getalpha())*v_etoile*(normal- (obj.getfrottement_choc()*(!v_contact)));
 			}
 			
 		obj.setPd(obj.getPd()+delta_v);
@@ -90,9 +98,15 @@ void Obstacle::ajoute_a(Systeme& S){
 Vecteur Plan::point_plus_proche(const ObjetMobile& M){
 		Vecteur x2;
 		Vecteur n (this->n()); 	//normale au plan
+		cout << "n " << n << endl;
 		Vecteur position (M.position());	//position de l'objet
+		cout << "position " << position << endl;
         double point (( obs_origine - position ) | n);
+        cout << "obs or - pos " << (obs_origine - position) << endl;
+        cout << "obs or " << obs_origine << endl;
+        cout << "point " << point << endl;
         x2 = position + point*n;	//formule du point le plus proche
+        cout<< "x2: "<< x2 << endl;
 	return x2;
 }
     

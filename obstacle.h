@@ -29,7 +29,7 @@ class Obstacle : public Dessinable {
    
     
     virtual Vecteur point_plus_proche(const ObjetMobile& M) = 0;
-    double distance(const ObjetMobile&);
+    virtual double distance(const ObjetMobile&) =0;
 	virtual void agit_sur(ObjetMobile& obj);
 	virtual void affiche() =0;
 
@@ -57,6 +57,8 @@ class Plan :public Obstacle {
     Vecteur point_plus_proche(const ObjetMobile& M);
     Vecteur n() const;
     virtual void affiche() override;
+    virtual double distance(const ObjetMobile&) override;
+
 
     ///virtual void dessine_sur(SupportADessin& support) override;
     
@@ -89,6 +91,8 @@ class Brique : public Obstacle {
     Vecteur point_plus_proche(const ObjetMobile& M) override;
     Vecteur n() const;
 	virtual void affiche() override;
+	virtual double distance(const ObjetMobile&) override;
+
 
 ///	virtual void dessine_sur(SupportADessin& support) override;
 

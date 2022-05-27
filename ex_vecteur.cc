@@ -80,7 +80,7 @@ bool Vecteur::operator==(const Vecteur& v) const {
     }else{
     int a(0);
     for(size_t i(0);i<v.taille();i++){
-        if (vecteur[i]-v.vecteur[i] > 0.001){
+        if (vecteur[i]-v.vecteur[i] > 0.0000001){
             a=1;
         }
     }
@@ -151,8 +151,9 @@ bool Vecteur::operator==(const Vecteur& v) const {
              return (*this);
         }
     
-    Vecteur Vecteur::operator+(const Vecteur& autre){
-        return (*this)+= autre;
+    Vecteur Vecteur::operator+(const Vecteur& autre) const{
+		Vecteur nv (*this);
+        return nv+= autre;
     }
 
 //________________________________________________________________________________________
@@ -165,11 +166,12 @@ bool Vecteur::operator==(const Vecteur& v) const {
         return opp;
     }*/
     
-    Vecteur Vecteur::operator-(){
+    Vecteur Vecteur::operator-() const{
+		Vecteur nv;
         for (size_t i(0); i < taille() ; ++ i ){
-                vecteur[i]= -vecteur[i];
+                nv.augmente (-vecteur[i]);
         }
-        return (*this);
+        return nv;
         }
 //_______________________________________________________________________________________________________________________
 
@@ -198,8 +200,9 @@ bool Vecteur::operator==(const Vecteur& v) const {
         return (*this);
         }
              
-    Vecteur Vecteur::operator-(const Vecteur& autre){
-        return (*this)-= autre;
+    Vecteur Vecteur::operator-(const Vecteur& autre) const {
+		Vecteur nv (*this);
+        return nv-= autre;
     }
     
 //______________________________________________________________________________________________________________-
@@ -222,17 +225,19 @@ bool Vecteur::operator==(const Vecteur& v) const {
         }
              return (*this);}
              
-    Vecteur Vecteur::operator*(const Vecteur& autre){
-        return ((*this)*= autre);
+    Vecteur Vecteur::operator*(const Vecteur& autre) const {
+		Vecteur nv (*this);
+        return (nv*= autre);
     }
     
-     Vecteur operator*(double lambda, Vecteur V){
-         double valeur;                    
+     Vecteur operator*(double lambda, Vecteur const& V) {
+         double valeur;    
+         Vecteur nv;                
          for (size_t i(0); i < V.taille() ; ++ i ){
              valeur=V.getcomposante(i)*lambda;
-             V.set_coord(i,valeur);
+             nv.augmente(valeur);
             }
-         return V;}
+         return nv;}
 
 
 //___________________________________________________________________________________________---
@@ -249,14 +254,12 @@ bool Vecteur::operator==(const Vecteur& v) const {
     return a;
     } */
     
-    double Vecteur::operator|(const Vecteur&  autre) { //produit scalaire
+    double Vecteur::operator|(const Vecteur&  autre) const { //produit scalaire
         double a (0);
         if (taille() == autre.taille()){
-			cout <<"le produit scalaire peut se faire" <<endl;
         for (size_t i(0); i < vecteur.size(); ++i){
             a += vecteur[i]*autre.vecteur[i];
             }
-            cout <<"a: "<< a <<endl;
         }else {
             cout <<"Les dimensions ne sont pas semblables, erreur pour le produit scalaire"<<endl;
         }
@@ -278,7 +281,7 @@ bool Vecteur::operator==(const Vecteur& v) const {
         }
         return prod; // Regler le retour du premier if, sinon il y aura un pb car prod est vide
     } */
-    Vecteur Vecteur::operator^(const Vecteur&  autre) {
+    Vecteur Vecteur::operator^(const Vecteur&  autre) const {
         Vecteur prod({0.0,0.0,0.0});
         if ((taille()!=3) or (autre.taille()!=3)){
             cout << "Les dimensions ne sont pas appropriées, erreur pour le produit vectoriel"<<endl;
@@ -320,11 +323,18 @@ bool Vecteur::operator==(const Vecteur& v) const {
         Vecteur unitaire (mult(1/n));
         return unitaire;
     }*/
-   Vecteur Vecteur:: operator!() {
+   Vecteur Vecteur:: operator!() const{
        double n (norme());
-        Vecteur unitaire ((1/n)*(*this));
-        return unitaire;
+       Vecteur nv(*this);
+       if (n > 0.000001){
+			Vecteur unitaire ((1/n)*nv);
+			return unitaire;
+	}else{
+		cout << "Ce vecteur n'existe pas, n'a pas de norme." << endl;
+		Vecteur vecnull (0,0,0);
+		return vecnull;
        }
+   }
 
 //________________________________________________________________________________________________________________
 

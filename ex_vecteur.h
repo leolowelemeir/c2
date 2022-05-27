@@ -61,21 +61,21 @@ class Vecteur {
     bool operator==(const Vecteur& v) const;
     Vecteur operator+=(const Vecteur& autre);
     Vecteur operator-=(const Vecteur& autre);
-    Vecteur operator+(const Vecteur& autre);
-    Vecteur operator-(const Vecteur& autre);
-    Vecteur operator-(); // oppose
+    Vecteur operator+(const Vecteur& autre) const;
+    Vecteur operator-(const Vecteur& autre) const;
+    Vecteur operator-() const; // oppose
     Vecteur operator*=(const Vecteur& autre);
-    Vecteur operator*(const Vecteur& autre);
-    Vecteur operator^(const Vecteur&  autre); // produit vectoriel
-    Vecteur operator!(); // vecteur unitaire
-    double operator|(const Vecteur&  autre); // produit scalaire
+    Vecteur operator*(const Vecteur& autre) const;
+    Vecteur operator^(const Vecteur&  autre) const; // produit vectoriel
+    Vecteur operator!() const; // vecteur unitaire
+    double operator|(const Vecteur&  autre) const; // produit scalaire
 
 };
 
 double carre(double a);
  std::ostream& operator<<(std::ostream& sortie, Vecteur const& v);
- Vecteur operator*(double lambda, Vecteur V);
- double operator|(double lambda, const Vecteur&  autre);
+ Vecteur operator*(double lambda, Vecteur const& V) ;
+ double operator|(double lambda, const Vecteur&  autre) ;
 
 
 
