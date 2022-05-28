@@ -192,7 +192,7 @@ Vecteur Pendule::point_plus_proche(const ObjetMobile& M){
 
 Vecteur Pendule::evolution() {
 	Vecteur Pdd;
-	Vecteur sin_P (sin (P.getvecteur()[0]));
+	Vecteur sin_P (sin (P.getvecteur()[0])); //attention j'ai transformé en : double sin_P (sin (getP().norme()));
 	Vecteur cos_P (cos (P.getvecteur()[0]));
 	cout <<"sin_P " <<sin_P <<"cos_P"<<cos_P<<endl;
 	//vecteur pour les deux degres de liberte (ils sont sur le bas coté mais on les aime bien quand meme)
@@ -200,7 +200,7 @@ Vecteur Pendule::evolution() {
 	Vecteur cote(1.0,0.0,0.0);
 	
 	Pdd=1/(masse*longueur)*(cos_P*force*cote-sin_P*force*bas-(b/longueur)*Pd);
-	cout <<"force " <<force <<endl;
+	cout <<"cos_P*force " <<cos_P*force <<endl;
 	cout <<" evolution"<<Pdd; 
 	return  Pdd; } 
 

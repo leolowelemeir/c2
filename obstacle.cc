@@ -167,12 +167,16 @@ Vecteur point_portion (ObjetMobile const& M, Vecteur dir1, Vecteur dir2, Vecteur
              
             double xLg( (point2-tableau[i][0]) | tableau[i][3] ); //Pour faire le projeté sur la longueur
             double xlar ( (point2-tableau[i][0]) | tableau[i][5] );//Pour faire le projeté sur la largeur
-            cout <<"xLg" <<xLg;
+            cout <<"xLg" <<xLg <<endl;
             if (xLg - tableau[i][2].norme() > epsilon){ //si xLg >L alors on modifie pour retrouver le point le plus proche
                 point2-= (xLg-tableau[i][2].norme()) * tableau[i][3];
             }
             else if (xLg < epsilon){
-				point2-= xLg*tableau[i][3]; }
+				point2-= xLg*tableau[i][3];
+			 }
+			else{
+				cout << "tout va bien"<<endl; 
+				}
 
             if ( ( xlar - tableau[i][4].norme() ) > epsilon){
 				point2-= (xlar-tableau[i][4].norme()) * tableau[i][5];
@@ -190,6 +194,8 @@ Vecteur point_portion (ObjetMobile const& M, Vecteur dir1, Vecteur dir2, Vecteur
             else if (meilleure_distance - (point2-M.getP()).norme() > epsilon) {
                 meilleure_distance=(point2-M.getP()).norme();
                 point_proche=point2;}
+                
+            
             
         }
     return point_proche;
