@@ -98,15 +98,9 @@ void Obstacle::ajoute_a(Systeme& S){
 Vecteur Plan::point_plus_proche(const ObjetMobile& M){
 		Vecteur x2;
 		Vecteur n (this->n()); 	//normale au plan
-		cout << "n " << n << endl;
 		Vecteur position (M.position());	//position de l'objet
-		cout << "position " << position << endl;
         double point (( obs_origine - position ) | n);
-        cout << "obs or - pos " << (obs_origine - position) << endl;
-        cout << "obs or " << obs_origine << endl;
-        cout << "point " << point << endl;
         x2 = position + point*n;	//formule du point le plus proche
-        cout<< "x2: "<< x2 << endl;
 	return x2;
 }
     
@@ -173,7 +167,7 @@ Vecteur point_portion (ObjetMobile const& M, Vecteur dir1, Vecteur dir2, Vecteur
              
             double xLg( (point2-tableau[i][0]) | tableau[i][3] ); //Pour faire le projeté sur la longueur
             double xlar ( (point2-tableau[i][0]) | tableau[i][5] );//Pour faire le projeté sur la largeur
-            
+            cout <<"xLg" <<xLg;
             if (xLg - tableau[i][2].norme() > epsilon){ //si xLg >L alors on modifie pour retrouver le point le plus proche
                 point2-= (xLg-tableau[i][2].norme()) * tableau[i][3];
             }

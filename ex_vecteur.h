@@ -66,7 +66,7 @@ class Vecteur {
     Vecteur operator-() const; // oppose
     Vecteur operator*=(const Vecteur& autre);
     Vecteur operator*(const Vecteur& autre) const;
-    Vecteur operator^(const Vecteur&  autre) const; // produit vectoriel
+    Vecteur operator^(const Vecteur&  autre)const ; // produit vectoriel
     Vecteur operator!() const; // vecteur unitaire
     double operator|(const Vecteur&  autre) const; // produit scalaire
 

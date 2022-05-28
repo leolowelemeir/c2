@@ -10,9 +10,9 @@ using namespace std;
 int main (){
 	
 	//pour initialiser la balle
-	Vecteur vit({0.0 , 0.0 , 0.0});
-	Vecteur pos({1.5,0.5,0.5});		// face de droite
-	Vecteur F({0,-0.591725259488945,0});
+	Vecteur vit(0.0 , 0.0 , 0.0);
+	Vecteur pos(1.5,0.5,0.5);		// face de droite
+	Vecteur F(0,-0.591725259488945,0);
 	Balle b(pos,vit,0.100530964914873,F,0.2);
 	b.affiche();
 	
@@ -24,9 +24,9 @@ int main (){
 	P.affiche();
 	
 	//pour initialiser la brique 
-	Vecteur ori({0.0,0.0,0.0});
-	Vecteur lalongueur({1.0,0.0,0.0}); 
-	Vecteur lalargeur({0.0,0.0,1.0}); 
+	Vecteur ori(0.0,0.0,0.0);
+	Vecteur lalongueur(1.0,0.0,0.0); 
+	Vecteur lalargeur(0.0,0.0,1.0); 
 	double hauteur(1.0);
 	Brique B(ori,lalongueur,lalargeur,hauteur);
 	B.affiche();

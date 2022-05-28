@@ -194,12 +194,14 @@ Vecteur Pendule::evolution() {
 	Vecteur Pdd;
 	Vecteur sin_P (sin (P.getvecteur()[0]));
 	Vecteur cos_P (cos (P.getvecteur()[0]));
-	
+	cout <<"sin_P " <<sin_P <<"cos_P"<<cos_P<<endl;
 	//vecteur pour les deux degres de liberte (ils sont sur le bas coté mais on les aime bien quand meme)
 	Vecteur bas(0.0,1.0,0.0);
 	Vecteur cote(1.0,0.0,0.0);
 	
-	Pdd=1/(masse*longueur)*(cos_P*force*cote-sin_P*force*bas-(b/longueur)*Pd); 
+	Pdd=1/(masse*longueur)*(cos_P*force*cote-sin_P*force*bas-(b/longueur)*Pd);
+	cout <<"force " <<force <<endl;
+	cout <<" evolution"<<Pdd; 
 	return  Pdd; } 
 
 void Pendule::agit_sur(ObjetMobile& obj){
