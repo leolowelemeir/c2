@@ -57,9 +57,9 @@ void ObjetMobile::ajoute_a(Systeme& S){
     Vecteur Balle::getvitesse() const {return Pd;}
     void Balle::setvitesse (Vecteur a) { Pd = a;}
     
-    Vecteur Balle::evolution() {
+    Vecteur Balle::evolution() const {
 			Vecteur Pdd; //derivée seconde de la position 
-			Pdd=force*(1/masse);
+			Pdd=(1/masse)*force;
 			return Pdd;
 	}
 	
@@ -175,11 +175,15 @@ double Pendule::getfrottement() const {return frottement;}
 double Pendule::getlongueur() const {return longueur;}
 
 Vecteur Pendule::Madirection() const {
-    Vecteur dir (P);
-    return !dir;}
+    Vecteur dir (position()-origine);
+    return (!dir);
+}
     
 Vecteur Pendule::position() const { //direction de l'axe
-    Vecteur laposition (longueur * sin(P.getvecteur()[0]), -(longueur*cos(P.getvecteur()[0])), 0.0);
+	Vecteur bas (0,-1,0);
+	Vecteur y (cos(P.getcomposante(0)) * bas);
+	Vecteur x (sin(P.getcomposante(0)) * d);
+    Vecteur laposition (longueur*(x+y));
     laposition += origine;
     return laposition;
     }
@@ -190,18 +194,20 @@ Vecteur Pendule::point_plus_proche(const ObjetMobile& M){
 	}
 
 
-Vecteur Pendule::evolution() {
-	Vecteur Pdd;
-	Vecteur sin_P (sin (P.getvecteur()[0])); //attention j'ai transformé en : double sin_P (sin (getP().norme()));
-	Vecteur cos_P (cos (P.getvecteur()[0]));
-	cout <<"sin_P " <<sin_P <<"cos_P"<<cos_P<<endl;
-	//vecteur pour les deux degres de liberte (ils sont sur le bas coté mais on les aime bien quand meme)
-	Vecteur bas(0.0,1.0,0.0);
-	Vecteur cote(1.0,0.0,0.0);
+Vecteur Pendule::evolution() const {
+	double sin_P (sin (P.getcomposante(0)));
+	double cos_P (cos (P.getcomposante(0)));
+	cout <<"sin_P " <<sin_P <<"  cos_P "<<cos_P<<endl;
 	
-	Pdd=1/(masse*longueur)*(cos_P*force*cote-sin_P*force*bas-(b/longueur)*Pd);
-	cout <<"cos_P*force " <<cos_P*force <<endl;
-	cout <<" evolution"<<Pdd; 
+	//On definit le plan dans lequel est restreint le pendule: la verticale et d
+	Vecteur bas(0.0,-1.0,0.0);
+	
+	double inv_ml (1/(masse*longueur));
+	double acc ( (cos_P * (force|d)) - (sin_P * (force|bas)) - ((frottement/longueur)*Pd.getcomposante(0)) );
+	cout << "acceleration " << acc << endl;
+
+	Vecteur Pdd (acc*inv_ml);
+	cout <<" evolution "<<Pdd << endl; 
 	return  Pdd; } 
 
 void Pendule::agit_sur(ObjetMobile& obj){

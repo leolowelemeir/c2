@@ -56,7 +56,7 @@ void integre(Obstacle& Ob);
 	Vecteur s;
 	
 	};
-/*
+
 class Integrateur : public ObjetMobile {
 // Represente un integrateur quelconque
 	public:

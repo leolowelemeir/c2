@@ -2,12 +2,14 @@
 #include <iostream>
 #include <vector>
 #include <memory>
+#include <cmath>
 #include "ex_vecteur.h"
 #include "constantes.h"
 #include "Dessinable.h"
 #include "SupportADessin.h"
 #include "Systeme.h"
 #include "ChampsForces.h"
+#include "constantes.h"
 
 class ObjetMobile: public Dessinable {
     protected:
@@ -37,7 +39,7 @@ class ObjetMobile: public Dessinable {
         // Methodes dans balle a l origine
     
         virtual Vecteur position () const = 0 ;
-        virtual Vecteur evolution() = 0;
+        virtual Vecteur evolution() const = 0;
         virtual void agit_sur(ObjetMobile& obj) = 0;    ///A modifier pour chaque sous classe: pour obstacle: change vitesse; pour champforce: ajoute une force externe
 //      virtual void dessine_sur(SupportADessin&) =0;
         virtual Vecteur point_plus_proche (const ObjetMobile& obj) = 0; //calculer le point le plus proche
@@ -87,7 +89,7 @@ class Balle : public ObjetMobile {
     Vecteur getvitesse() const;
     void setvitesse(Vecteur a);
     
-    Vecteur evolution() override;
+    Vecteur evolution() const override;
     virtual Vecteur point_plus_proche(const ObjetMobile& M) override;
     virtual void agit_sur(ObjetMobile& obj) override; 
 	
@@ -109,9 +111,19 @@ class Balle : public ObjetMobile {
 class Pendule : public ObjetMobile {
     public:
     //Constructeur
-    Pendule (Vecteur param, Vecteur derparam, double m, Vecteur F, double r, Vecteur Or, double l, double alp=1, double fchoc=0, double t = 0, int deg_=1, double fr = 0.0)
-    : ObjetMobile ( param, derparam, m, F, r, t, deg_, alp, fchoc), origine (Or), longueur (l), frottement(fr)
+    Pendule (Vecteur param, Vecteur derparam, double m, Vecteur F, double r, Vecteur Or, double l, Vecteur dir, double alp=1, double fchoc=0, double t = 0, int deg_=1, double fr = 0.0)
+    : ObjetMobile ( param, derparam, m, F, r, t, deg_, alp, fchoc), origine (Or), longueur (l),  d (dir), frottement(fr)
     {/*ajoute_force(m*g);*/ ///Cette information permettrait de mettre par defaut l action de la gravite sur le pendule
+		//On n'accepte l'angle theta que si il est inférieur à pi/2, par souci de concetption pour la méthode evolution()
+		if (abs (param.getcomposante(0)) - M_PI/2 >= epsilon){
+			if (param.getcomposante(0) > epsilon){
+				param.set_coord(0, ( M_PI/2 - epsilon ) );
+			}else{
+				param.set_coord(0, (-M_PI/2 + epsilon) );
+			}
+		}
+		
+		d = (!dir);
     }
     
     Pendule (Pendule const&) = default;
@@ -122,7 +134,7 @@ class Pendule : public ObjetMobile {
     
     Vecteur Madirection () const;
     virtual Vecteur position() const override;
-    
+	Vecteur dir() const;
 
     
     // methodes get, necessaires pour l operateur d affichage << et pour la fonction agir_sur
@@ -131,7 +143,7 @@ class Pendule : public ObjetMobile {
     double getfrottement() const;
 	double getlongueur() const ;
 	
-	virtual Vecteur evolution() override;
+	virtual Vecteur evolution() const override;
 	
 	virtual Vecteur point_plus_proche(const ObjetMobile& M) override;
     ///virtual void dessine_sur(SupportADessin& support) override;
@@ -148,6 +160,7 @@ class Pendule : public ObjetMobile {
     //attributs     
     Vecteur origine;
     double longueur;
+    Vecteur d;	//d correspond à un vecteur orthogonal à la verticale pour déterminer le plan dans lequel le pendule est contraint
     double frottement;
 };
 

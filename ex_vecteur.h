@@ -44,7 +44,7 @@ class Vecteur {
     double norme2() const;
     
     void augmente(double aug);
-    void set_coord(int coord, double valeur);
+    void set_coord(size_t coord, double valeur);
     
   //Remplacés en opérateurs
 ///    Vecteur addition (Vecteur autre) const;

@@ -167,7 +167,7 @@ Vecteur point_portion (ObjetMobile const& M, Vecteur dir1, Vecteur dir2, Vecteur
              
             double xLg( (point2-tableau[i][0]) | tableau[i][3] ); //Pour faire le projeté sur la longueur
             double xlar ( (point2-tableau[i][0]) | tableau[i][5] );//Pour faire le projeté sur la largeur
-            cout <<"xLg" <<xLg <<endl;
+            cout <<"xL g" <<xLg <<endl;
             if (xLg - tableau[i][2].norme() > epsilon){ //si xLg >L alors on modifie pour retrouver le point le plus proche
                 point2-= (xLg-tableau[i][2].norme()) * tableau[i][3];
             }

@@ -26,7 +26,7 @@ using namespace std;
    
 //__________________________________________________________________________________________________
     
-    void Vecteur::set_coord(int coord, double valeur){
+    void Vecteur::set_coord(size_t coord, double valeur){
         vecteur[coord]=valeur;
     }
 
