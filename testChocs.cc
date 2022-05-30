@@ -24,7 +24,7 @@ int main() {
     Vecteur vit(0, -2.59108, 0.8);
     Balle b1(pos, vit,masse,masse*g,0.051111, 0.0, 3,0.8,0.01);  ///attention je suis pas sur qu'il faille ajouté g ici peut etre qu'on l'a mis deux fois !! =>non ca aurait ete si on utilisait la fonction evolue2
     cout <<"test";
-    champs.agit_sur(b1); //on rajoute la poussé dArchimede
+    champs.agit_sur(b1); //on rajoute la poussée dArchimede
     cout<<"test2";
 	///pq besoin d'une variable t ?? Poussée de l'air ?
 	//changement d'axe: c'est donc l'axe y qui vaut 0
@@ -97,3 +97,11 @@ int main() {
 ///faudrait faire le test avec un pendule aussi 
 	
 	}
+
+/*
+ * Les ChampForces et les Obstacles doivent être deux classes séparées en raison de la gestion (ultérieure) de la simulation
+ * (en bref, agit_sur() des ChampForces ajoute une force alors que celui des Obstacles modifie la vitesse (choc)).
+ * Ces obstacles sont donc des objets qui vont aussi «agir_sur()» les ObjetMobiles et dont nous aurons uniquement besoin de connaître la position, ainsi que de pouvoir calculer le point le plus proche à un objet mobile (cf compléments mathématiques).
+ * Il nous faudra d'ailleurs généraliser ceci également aux ObjetMobiles eux-mêmes pour gérer les chocs entre eux
+ * (nous nous occuperons de la gestion des chocs eux-même dans deux semaines).
+*/

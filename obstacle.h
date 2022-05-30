@@ -30,7 +30,7 @@ class Obstacle : public Dessinable {
     
     virtual Vecteur point_plus_proche(const ObjetMobile& M) = 0;
     virtual double distance(const ObjetMobile&) =0;
-	virtual void agit_sur(ObjetMobile& obj);
+	void agit_sur(ObjetMobile& obj);
 	virtual void affiche() =0;
 
     ///virtual void dessine_sur(SupportADessin& support) = 0;

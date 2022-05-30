@@ -39,21 +39,21 @@ using namespace std;
 			
 			if (Fn1<epsilon) {
 				obj.getforce()-=(Fn1*normal); 
-			} ///pourquoi on ne fait pas quans Fn1 est positif ?
+			} ///pourquoi on ne fait pas quand Fn1 est positif ?
 			
 			//calcul vitesse relative du point de contact
-			double v_etoile(-obj.getPd()|normal);
-			Vecteur v_contact((obj.getPd())+(v_etoile*normal));
+			double v_etoile(-obj.vitesse()|normal);
+			Vecteur v_contact((obj.vitesse())+(v_etoile*normal));
             Vecteur delta_v;
             double condition(7*obj.getfrottement_choc()*(1+obj.getalpha())*v_etoile);
             if (condition - 2*v_contact.norme() > epsilon){
-				delta_v= ((1+obj.getalpha())*v_etoile*normal) - (2/7)*v_contact;
+				delta_v= (((1+obj.getalpha())*v_etoile)*normal) - (2/7)*v_contact;
 			} 
 			else{
                 delta_v=(1+obj.getalpha())*v_etoile*(normal- (obj.getfrottement_choc()*(!v_contact)));
 			}
 			
-		obj.setPd(obj.getPd()+delta_v);
+		obj.setvitesse(obj.vitesse()+delta_v);
 		
 		//affichage
 		cout <<"calcul:"<<endl;

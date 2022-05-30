@@ -43,72 +43,48 @@ void ObjetMobile::ajoute_a(Systeme& S){
 	cout << "un objet mobile est ajouté au systeme"<<endl;
 	 }  
 
-
-
-
-//_______________________________________________________________________________________________
-
-//Balle
-    //les methodes : Balle
-    Vecteur Balle::position() const {return P;}
-
-    void Balle::setposition (Vecteur a) { P = a;}
-        
-    Vecteur Balle::getvitesse() const {return Pd;}
-    void Balle::setvitesse (Vecteur a) { Pd = a;}
-    
-    Vecteur Balle::evolution() const {
-			Vecteur Pdd; //derivée seconde de la position 
-			Pdd=(1/masse)*force;
-			return Pdd;
-	}
-	
-	Vecteur Balle::point_plus_proche(const ObjetMobile& M){
-		Vecteur point_proche(M.position()-P);
-		return point_proche;
-	}
-	
-	void Balle::agit_sur(ObjetMobile& obj){  
+void ObjetMobile::agit_sur(ObjetMobile& obj){  
 		//soit l'objet 2 celui passé en parametre
 		
 		//verification qu'il y ai bien un choc 
-		if (((P-obj.position()).norme())<=(rayon-obj.getrayon())) {
+		if (((position()-obj.position()).norme()) - (rayon-obj.getrayon()) < epsilon) {
 			
 			//mise à jour les forces s’exerçant sur les objets
-            Vecteur normal(!(P-obj.position()));//vecteur (unitaire) normal au point de choc
+            Vecteur normal(!(position()-obj.position()));//vecteur (unitaire) normal au point de choc
 			
-			double Fn1 (normal|force);
+			double Fn1 (force|normal);
 			Vecteur a(obj.getforce());
 			double Fn2(a|normal);
 
-			if (Fn1<0) {
+			if (Fn1 < epsilon) {
 				force-=(Fn1*normal); 
                 obj.setforce(obj.getforce()+(Fn1*normal));
 			}
 			
-			if (Fn2>0) {
+			if (Fn2 > epsilon) {
 				force+=(Fn2*normal); 
                 obj.setforce(obj.getforce()-(Fn2*normal));
 			}
 			
 			//valeur neccesaire au calcul de la vitesse relative du point de contact
 			double alpha_general(alpha+obj.getalpha());
-			double lambda (alpha_general*(obj.getmasse()/(masse+obj.getmasse())));
-			double frottement_general(frottement_choc+obj.getfrottement_choc());
+			double lambda ( (1+alpha_general)*(obj.getmasse()/(masse+obj.getmasse())));
+			double frottement_general(frottement_choc*obj.getfrottement_choc());
 			
 			//calcul vitesse relative du point de contact
-			double v_etoile((obj.getPd()-Pd)|normal);
-			Vecteur v_contact((Pd-obj.getPd())+(v_etoile*normal));
+			double v_etoile((obj.vitesse()-vitesse())|normal);
+			Vecteur v_contact((vitesse()-obj.vitesse())+(v_etoile*normal));
             Vecteur delta_v;
             double condition(7*frottement_general*(1+alpha_general)*v_etoile);
-            if (condition>=2*v_contact.norme()){
-                delta_v=(lambda*v_etoile*normal-((2*obj.getmasse()/(7*(masse+obj.getmasse())))*v_contact));
+            if (condition - (2*v_contact.norme()) > epsilon){
+                delta_v=( (lambda*v_etoile)*normal-((2*obj.getmasse()/(7*(masse+obj.getmasse())))*v_contact));
 			}else if (v_contact.norme()!=0){
-                    delta_v=lambda*v_etoile*(normal-frottement_general*(!v_contact));}
+                    delta_v=lambda*v_etoile*(normal-frottement_general*(!v_contact));
+                    }
 			
 			//mise à jour des vitesses
-			Pd=Pd+delta_v;
-			setPd(getPd()+(masse/getmasse())*delta_v);
+			setvitesse(vitesse()+delta_v);
+			obj.setvitesse(obj.vitesse()-(masse/obj.getmasse())*delta_v);
              
              //affichage
              cout <<"calcul:"<<endl;
@@ -128,15 +104,37 @@ void ObjetMobile::ajoute_a(Systeme& S){
              cout << "vitesse balle2= "<< obj.getPd() <<endl;
              cout <<"force balle1 "<< force<<endl;
              cout<<"force balle2 "<<obj.getforce()<<endl;
-             
-             
-            
-		
 	}
 }                           
 
 	
 
+
+
+//_______________________________________________________________________________________________
+
+//Balle
+    //les methodes : Balle
+    Vecteur Balle::position() const {return P;}
+    Vecteur Balle::vitesse() const {return Pd;}
+
+    void Balle::setposition (Vecteur const& a) { P = a;}
+        
+    Vecteur Balle::getvitesse() const {return Pd;}
+    void Balle::setvitesse (Vecteur const& a) { Pd = a;}
+    
+    Vecteur Balle::evolution() const {
+			Vecteur Pdd; //derivée seconde de la position 
+			Pdd=(1/masse)*force;
+			return Pdd;
+	}
+	
+	Vecteur Balle::point_plus_proche(const ObjetMobile& M){
+		Vecteur point_proche(M.position()-P);
+		return point_proche;
+	}
+	
+	
 ///void Balle::dessine_sur(SupportADessin& support) { support.dessine(*this); }
 
 
@@ -187,6 +185,10 @@ Vecteur Pendule::position() const { //direction de l'axe
     laposition += origine;
     return laposition;
     }
+//Vitesse du bout du pendule
+Vecteur Pendule::vitesse() const {
+	return (longueur*Pd);
+}
 
 Vecteur Pendule::point_plus_proche(const ObjetMobile& M){
 		Vecteur point_proche(M.position()-position());
@@ -210,13 +212,11 @@ Vecteur Pendule::evolution() const {
 	cout <<" evolution "<<Pdd << endl; 
 	return  Pdd; } 
 
-void Pendule::agit_sur(ObjetMobile& obj){
-    cout << "A FINIR" << endl;}                                             ///A FINIR
-
 /// void Pendule::dessine_sur(SupportADessin& support){ support.dessine(*this); }
 
 Pendule* Pendule::copie() const { //pour pouvoir utiliser la methode copieobjet
-        return (new Pendule(*this));}
+        return (new Pendule(*this));
+        }
 
 
 

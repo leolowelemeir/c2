@@ -39,8 +39,10 @@ class ObjetMobile: public Dessinable {
         // Methodes dans balle a l origine
     
         virtual Vecteur position () const = 0 ;
+        virtual Vecteur vitesse() const = 0 ;
+        virtual void setvitesse(Vecteur const& a) = 0 ;
         virtual Vecteur evolution() const = 0;
-        virtual void agit_sur(ObjetMobile& obj) = 0;    ///A modifier pour chaque sous classe: pour obstacle: change vitesse; pour champforce: ajoute une force externe
+        void agit_sur(ObjetMobile& obj);
 //      virtual void dessine_sur(SupportADessin&) =0;
         virtual Vecteur point_plus_proche (const ObjetMobile& obj) = 0; //calculer le point le plus proche
 
@@ -83,15 +85,15 @@ class Balle : public ObjetMobile {
     
     //les methodes 
     virtual Vecteur position() const override;
+    virtual Vecteur vitesse() const override;
  
-    void setposition(Vecteur a);
+    void setposition(Vecteur const& a);
     
     Vecteur getvitesse() const;
-    void setvitesse(Vecteur a);
+    virtual void setvitesse(Vecteur const& a) override;
     
     Vecteur evolution() const override;
     virtual Vecteur point_plus_proche(const ObjetMobile& M) override;
-    virtual void agit_sur(ObjetMobile& obj) override; 
 	
 	virtual void affiche() override;
 
@@ -134,6 +136,8 @@ class Pendule : public ObjetMobile {
     
     Vecteur Madirection () const;
     virtual Vecteur position() const override;
+    virtual Vecteur vitesse() const override;
+    virtual void setvitesse(Vecteur const& a) override;
 	Vecteur dir() const;
 
     
@@ -147,7 +151,6 @@ class Pendule : public ObjetMobile {
 	
 	virtual Vecteur point_plus_proche(const ObjetMobile& M) override;
     ///virtual void dessine_sur(SupportADessin& support) override;
-	virtual void agit_sur(ObjetMobile& obj) override; 
 	virtual void affiche() override;
 
     //pour la covariance
