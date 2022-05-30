@@ -29,7 +29,7 @@ class ObjetMobile: public Dessinable {
         ObjetMobile (Vecteur param, Vecteur derparam, double m,  Vecteur F,double r, double t, int deg_ , double alp, double fchoc)
             : P (param), Pd (derparam), masse (m), force (F), rayon (r), temps (t), degl(deg_), alpha(alp), frottement_choc(fchoc) {}
             
-       //destrcuteur
+       //destructeur
        virtual ~ObjetMobile() {}
             
       //  virtual double distance(const ObjetMobile& obj) = 0; // calculer distance entre objets

@@ -237,8 +237,12 @@ bool Vecteur::operator==(const Vecteur& v) const {
              valeur=V.getcomposante(i)*lambda;
              nv.augmente(valeur);
             }
-         return nv;}
+         return nv;
+         }
 
+	Vecteur Vecteur::operator*(const double lambda) const {
+		return (lambda*(*this));
+	}
 
 //___________________________________________________________________________________________---
 

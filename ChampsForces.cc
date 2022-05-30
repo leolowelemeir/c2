@@ -15,10 +15,8 @@ Vecteur ChampForces::getintensite() const {return intensite;}
 
   
 void ChampForces::agit_sur(ObjetMobile& obj){
-    Vecteur f;
-    double valeurforce ((obj.getmasse()-4*M_PI*rho_air*carre(obj.getrayon())*((obj.getrayon())/3))*g.getvecteur()[1]);
-    f.setvecteur({0.0, valeurforce});
-    //on a mis un vecteur x=0, z=F pour que l'orientation du vecteur soit bonne vers le haut, g etant negatif, cela donne le bon sens
+    Vecteur f( (obj.getmasse()- (4*M_PI*rho_air*carre(obj.getrayon())*((obj.getrayon())/3)))*g );
+    //on a mis un vecteur x=0, y=F, z=0 pour que l'orientation du vecteur soit bonne vers le haut, g etant negatif, cela donne le bon sens
     obj.ajoute_force(f);}
  
 ChampForces* ChampForces::copie() const { 

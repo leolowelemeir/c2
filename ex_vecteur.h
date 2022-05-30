@@ -65,6 +65,7 @@ class Vecteur {
     Vecteur operator-(const Vecteur& autre) const;
     Vecteur operator-() const; // oppose
     Vecteur operator*=(const Vecteur& autre);
+     Vecteur operator*(const double lambda) const;
     Vecteur operator*(const Vecteur& autre) const;
     Vecteur operator^(const Vecteur&  autre)const ; // produit vectoriel
     Vecteur operator!() const; // vecteur unitaire
@@ -76,6 +77,7 @@ double carre(double a);
  std::ostream& operator<<(std::ostream& sortie, Vecteur const& v);
  Vecteur operator*(double lambda, Vecteur const& V) ;
  double operator|(double lambda, const Vecteur&  autre) ;
+ 
 
 
 
