@@ -14,11 +14,19 @@ int main() {
 	
 		//sachant qu'on a pris comme repere l'axe z qui sort du plan et l'axe y vers le haut il y a des changements
 
+	//creation d'un champs de force 
+	Vecteur F(0.0,0.0,0.0);
+	ChampForces champs(F); //pour pouvoir utiliser agir sur de ChampForces et rajouter la poussé d'archimede
+
 	//construction de la balle 1
+	double masse(0.00167784948285945);
 	Vecteur pos(0, 0.0465234, 0.624);
     Vecteur vit(0, -2.59108, 0.8);
-    Balle b1(pos, vit, 0.00167784948285945 ,g,0.051111, 0.0, 3);  ///attention je suis pas sur qu'il faille ajouté g ici peut etre qu'on l'a mis deux fois !! =>non ca aurait ete si on utilisait la fonction evolue2
-	
+    Balle b1(pos, vit,masse,masse*g,0.051111, 0.0, 3,0.8,0.01);  ///attention je suis pas sur qu'il faille ajouté g ici peut etre qu'on l'a mis deux fois !! =>non ca aurait ete si on utilisait la fonction evolue2
+    cout <<"test";
+    champs.agit_sur(b1); //on rajoute la poussé dArchimede
+    cout<<"test2";
+	///pq besoin d'une variable t ?? Poussée de l'air ?
 	//changement d'axe: c'est donc l'axe y qui vaut 0
 	//construction du plan 
 	Vecteur ori(0.0,0.0,0.0);
@@ -32,29 +40,32 @@ int main() {
 	cout<<endl;
 	cout<<"vitesse="<<b1.getPd()<<endl;
 	cout<<"force ="<<b1.getforce()<<endl;
-	
-	cout<<"calculs: "<<endl;
-	
+	cout <<endl;
+		
 	//choc
 	P.agit_sur(b1);  ///je coris qu'on est bien avant le pas d'integration 
 	///est ce que j'integre ? (le pesne pas si on se dit que le choc se faitdans in temps negligeable (les balles (ou obstacles et balles) se touchent deja donc pas besoin de les deplacer)
 	
-	cout<<"vitesse="<<b1.getPd()<<endl;
-	cout<<"force= "<<b1.getforce()<<endl;
+	cout<<endl;
+	cout <<endl;
 	
 	//------------------------------------------------------------------------------------------
 	//pour les chocs entre 2 balles (les balles sont appelés balle 2 et balle 3)
 	
 	//construction de la balle 2
+	double masse2(0.051111);
 	Vecteur pos2(0,0.283821,1.36675);
     Vecteur vit2(0,0.0957368,0.715449);
-    Balle b2(pos2, vit2, 0.00167784948285945 ,g,0.051111, 0.0, 3.0);
-    
+    Balle b2(pos2, vit2, 0.00167784948285945 ,masse2*g,masse2, 0.0, 3.0);
+    champs.agit_sur(b2); //on rajoute la poussé dArchimede
+
 	//construction de la balle 3
+	double masse3(0.05);
 	Vecteur pos3(0, 0.260128, 1.46284);
     Vecteur vit3(0, 0.13874, 0.419218);
-    Balle b3(pos3, vit3, 0.1 ,g,0.05, 0.0, 3.0);
-	
+    Balle b3(pos3, vit3, 0.1 ,masse3*g,masse3, 0.0, 3.0);
+    champs.agit_sur(b3); //on rajoute la poussé dArchimede
+
 	cout<<"cas 2"<<endl;
 	cout<<endl;
 	cout<<"avant le choc au sol" <<endl;
