@@ -17,9 +17,6 @@ using namespace std;
 
     double Plan::distance(const ObjetMobile& M){
         Vecteur dist (Plan::point_plus_proche(M) - M.position());
-        cout << " point plusu proche " << Plan::point_plus_proche(M) << endl;
-        cout << "cteur decalage "<<dist << endl;
-        cout << "position " << M.position() << endl;
         double distance ( dist.norme() - M.getrayon());
         return distance;
     }
@@ -88,9 +85,7 @@ void Obstacle::ajoute_a(Systeme& S){
 	
 	// On définit la normale au plan
  Vecteur Plan::n() const {
-     Vecteur n (dir1);
-     n = (n^dir2);
-     return n;
+     return (!(dir1^dir2));
  }
 
 
@@ -134,19 +129,17 @@ Vecteur point_portion (ObjetMobile const& M, Vecteur dir1, Vecteur dir2, Vecteur
 
     /// a retirer si ca marche avec la methode de plan
     Vecteur Brique::n() const {
-     Vecteur n (longueur);
-     n = (n^largeur);
-     return n;
+     return (!(largeur^longueur));	//Axe ZxX
  }
 
 
     Vecteur Brique::point_plus_proche(const ObjetMobile& M){
         // But: faire le point le plus proche de chaque face puis garder la plus petite distance
 		 bool debut (true);		// Ce booleen pourra permettre de determiner si une valeur de distance par rapport à une face de la brique a déjà été calculée ou non (voir plus loin pour son utilisation)
-         Vecteur point_proche;
+         Vecteur point_proche (vecnull);
          double meilleure_distance;
          Vecteur n (this-> n());	//norme à la portion de plan
-         Vecteur h (-(hauteur*n));		// vecteur pour la hauteur (car l'attribut hauteur est un double)
+         Vecteur h (-hauteur*n);		// vecteur pour la hauteur (car l'attribut hauteur est un double)
          Vecteur a(!longueur); //a donne la direction de la longueur
          Vecteur b(!largeur); //b donne la direction de la largeur
          array<array<Vecteur,6>,6> tableau ({obs_origine,n,longueur,a,largeur,b,
@@ -155,28 +148,24 @@ Vecteur point_portion (ObjetMobile const& M, Vecteur dir1, Vecteur dir2, Vecteur
                                 obs_origine+longueur,a,h,-n,largeur,b,
                                 obs_origine+largeur,b,longueur,a,h,-n,
                                 obs_origine+h,-n,largeur,b,longueur,a});
-                            
+                    
+        Vecteur point2;        
         //l'idee est de faire une boucle pour trouver quelle est la face la plus proche
         for (int i(0);i<6; i++){
             
             //calcule pour un plan infini: on appelle une fonction qui assimile cette portion de plan comme un plan ce qui permet d'utiliser la fonction point_plus_proche de plan
-            Vecteur point2 ( point_portion (M, tableau[i][3], tableau[i][5], tableau[i][0]));
-            
+            point2 = ( point_portion (M, tableau[i][3], tableau[i][5], tableau[i][0]));
                       
             //calcul des coordonnées: voir le complément mathématique pour les opérations
              
             double xLg( (point2-tableau[i][0]) | tableau[i][3] ); //Pour faire le projeté sur la longueur
             double xlar ( (point2-tableau[i][0]) | tableau[i][5] );//Pour faire le projeté sur la largeur
-            cout <<"xL g" <<xLg <<endl;
-            if (xLg - tableau[i][2].norme() > epsilon){ //si xLg >L alors on modifie pour retrouver le point le plus proche
-                point2-= (xLg-tableau[i][2].norme()) * tableau[i][3];
+            if (xLg - (tableau[i][2]).norme() > epsilon){ //si xLg >L alors on modifie pour retrouver le point le plus proche
+                point2-= (xLg- (tableau[i][2]).norme()) * tableau[i][3];
             }
             else if (xLg < epsilon){
 				point2-= xLg*tableau[i][3];
 			 }
-			else{
-				cout << "tout va bien"<<endl; 
-				}
 
             if ( ( xlar - tableau[i][4].norme() ) > epsilon){
 				point2-= (xlar-tableau[i][4].norme()) * tableau[i][5];
@@ -185,16 +174,17 @@ Vecteur point_portion (ObjetMobile const& M, Vecteur dir1, Vecteur dir2, Vecteur
 				point2-= xlar*tableau[i][5];}
             
             
-            // Pour savoir quelle est la meilleur distance :
-            
+            // Pour savoir quelle est la meilleure distance :
+            Vecteur A (M.position()-point2);
             if (debut) {
-                meilleure_distance=(point2-M.getP()).norme();
-                point_proche=point2;
+			    point_proche=point2;
+                meilleure_distance= A.norme()-M.getrayon();
+                debut = false;
                 }
-            else if (meilleure_distance - (point2-M.getP()).norme() > epsilon) {
-                meilleure_distance=(point2-M.getP()).norme();
-                point_proche=point2;}
-                
+            else if (meilleure_distance - (A.norme()-M.getrayon()) > epsilon) {
+				point_proche=point2;
+                meilleure_distance= (A.norme()-M.getrayon());
+			}
             
             
         }

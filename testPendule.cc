@@ -26,7 +26,7 @@ int main (){
     cout<<endl;
     
     //creation d'un integrateur
-     Integrateur I (0.01);
+     IntegrateurEulerCromer I (0.01);
 
     //faisons avancer le pendule
     unsigned int n (10000);
