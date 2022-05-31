@@ -27,14 +27,22 @@ class ObjetMobile: public Dessinable {
       public:
         //Constructeur
         ObjetMobile (Vecteur param, Vecteur derparam, double m,  Vecteur F,double r, double t, int deg_ , double alp, double fchoc)
-            : P (param), Pd (derparam), masse (m), force (F), rayon (r), temps (t), degl(deg_), alpha(alp), frottement_choc(fchoc) {}
+            : P (param), Pd (derparam), masse (m), force (F), rayon (r), temps (t), degl(deg_), alpha(alp), frottement_choc(fchoc) {
+				//On place comme force par défaut le poids et la force d'Archimède pour tous les ObjetsMobiles
+				 Vecteur f( (m - (4*M_PI*rho_air*r*r*r)/3)*g );
+				force = f+F;
+				
+				///
+				danschamp = false;
+			}
             
        //destructeur
        virtual ~ObjetMobile() {}
             
       //  virtual double distance(const ObjetMobile& obj) = 0; // calculer distance entre objets
         
-        
+        ///Cet attribut est placé en public car il n'a besoin d'aucune encapsulation. il permet juste de déterminer si l'objet est influencé par un ChampForce
+        bool danschamp;
 
         // Methodes dans balle a l origine
     
@@ -57,7 +65,6 @@ class ObjetMobile: public Dessinable {
         double getrayon() const;
         double get_temps () const;
         double getfrottement_choc() const;
-
         void setP (Vecteur nouv_pos);
         void setPd (Vecteur nouv_der);
         void setforce(Vecteur nouv_force);

@@ -7,12 +7,7 @@
 
 class ChampForces {
     public:
-    //les methodes
-    void agit_sur(ObjetMobile& obj);
-    Vecteur getintensite() const;
-    virtual ChampForces* copie() const;
 
-	//constructeur
 	ChampForces (Vecteur F)
 		: intensite (F) {}
 		
@@ -21,8 +16,11 @@ class ChampForces {
 	
 	//methodes 
 	void ajoute_a(Systeme& S);
-
-    private:
+    virtual void agit_sur(ObjetMobile& obj) const ;
+    Vecteur getintensite() const;
+    virtual ChampForces* copie() const;
+    
+    protected:
     //les attributs
     Vecteur intensite;
 };
@@ -34,31 +32,36 @@ std::ostream& operator<<(std::ostream& sortie, ChampForces const& champF);
 
 class Vent : public ChampForces {
 	public:
-	Vent (Vecteur inten,Vecteur orin, Vecteur nor, Vecteur l, Vecteur hau, double pro) : ChampForces(inten), origine(orin), normale(nor), largeur(l), hauteur(hau), profondeur(pro) { 
-		//au cas ou les vecteurs ne soit pas perpendiculaires
+	Vent (Vecteur inten,Vecteur orin, Vecteur l, Vecteur hau, double pro)
+	: ChampForces(inten), origine(orin), largeur(l), hauteur(hau), profondeur(pro) { 
 		
-		if ((largeur|normale) > epsilon) {
-		Vecteur a(!normale); //a prend la direction de normal
-			largeur= largeur - (largeur*a)*a;
+		//au cas ou les vecteurs ne soient pas perpendiculaires
+		
+		n = (!intensite);
+		
+		if ((largeur|n) > epsilon) {
+			largeur= largeur - (largeur|n)*n;
 		}	
 		
-		if ((hauteur|normale) > epsilon) {
-		Vecteur a(!normale); //a prend la direction de normal
-			hauteur= hauteur - (hauteur*a)*a;
+		if ((hauteur|n) > epsilon) {
+			hauteur= hauteur - (hauteur|n)*n;
 		}
 		
 		if ((largeur|hauteur) > epsilon) { 
-			 Vecteur a(!largeur); //a prend la direction de largeur
-			hauteur = hauteur - (hauteur*a)*a;
+			 Vecteur a(!largeur);
+			hauteur = hauteur - (hauteur|a)*a;
 		}	
 	}
 	//methode 
 	Vecteur getnormale();
 	virtual Vent* copie() const override;
+	virtual void agit_sur(ObjetMobile& obj) const override;
+	bool influe (ObjetMobile const& obj) const;
+
 	
 	private:
 	Vecteur origine;
-	Vecteur normale; //direction du vent 
+	Vecteur n; //direction du vent 
 	Vecteur largeur;
 	Vecteur hauteur;
 	double profondeur;

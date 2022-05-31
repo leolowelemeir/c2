@@ -86,7 +86,7 @@ int main() {
 	cout<<endl;
 
 	//apres choc
-	cout<<"apres choc: "<<endl;
+	cout<<"apres le choc: "<<endl;
 	
 	cout<<"vitesse de la balle 1 ="<<b2.getPd()<<endl;
 	cout<<"vitesse de la balle 2 ="<<b3.getPd()<<endl;
@@ -97,9 +97,13 @@ int main() {
 ///faudrait faire le test avec un pendule aussi
 	Vecteur origine (0, 1.209488037945800, 1.148649741794006);
 	Vecteur d (1,0,0);
-    Pendule p(0.319603599172218, 0.441579572811062, 0.1 , 0.1*g, 0.05, origine, 1.0, d);
+	Vecteur f ( 0, -0.096839923502870, -0.292612361619043 );
+    Pendule p(0.319603599172218, 0.441579572811062, 0.1 , f, 0.05, origine, 1.0, d);
     b2.setposition (pos3);
     b2.setvitesse (vit3);
+    Vecteur Fo (0, -0.009875822056110728, 0);
+    b2.setforce(F);
+    
    
    cout<< "test avec le pendule: " << endl;
 	cout<<endl;
@@ -120,10 +124,10 @@ int main() {
 	cout<<"apres choc: "<<endl;
 	
 	cout<<"vitesse de la balle2 ="<<b2.getPd()<<endl;
-	cout<<"vitesse de la balle3 ="<<b3.getPd()<<endl;
+	cout<<"vitesse du pendule ="<<p.vitesse()<<endl;
 
-	cout<<"force de la balle2 ="<<b2.getforce()<<endl;
-	cout<<"force de la balle3 ="<<b3.getforce()<<endl;
+	cout<<"force de la balle ="<<b2.getforce()<<endl;
+	cout<<"force du pendule ="<<p.getforce()<<endl;
 	}
 
 /*

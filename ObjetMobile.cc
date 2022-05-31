@@ -94,10 +94,10 @@ void ObjetMobile::agit_sur(ObjetMobile& obj){
              
              cout<<endl;
              cout <<"apres choc : :"<<endl;
-             cout<<"vitesse balle1= "<<Pd <<endl;
-             cout << "vitesse balle2= "<< obj.getPd() <<endl;
-             cout <<"force balle1 "<< force<<endl;
-             cout<<"force balle2 "<<obj.getforce()<<endl;
+             cout<<"vitesse objet1= "<<Pd <<endl;
+             cout << "vitesse objet2= "<< obj.getPd() <<endl;
+             cout <<"force objet1 "<< force<<endl;
+             cout<<"force objet2 "<<obj.getforce()<<endl;
 	}
 }                           
 
@@ -181,7 +181,7 @@ Vecteur Pendule::position() const { //direction de l'axe
     }
 //Vitesse du bout du pendule
 Vecteur Pendule::vitesse() const {
-	Vecteur Y (0.1,0);
+	Vecteur Y (0,1,0);
 	Vecteur vx ( (longueur* cos(P.norme()) * Pd.norme()) * (!d));
 	Vecteur vy (longueur*sin(P.norme())*Pd.norme()*Y);
 	Vecteur v (vx + vy);

@@ -18,7 +18,7 @@ testVecteur: testVecteur.o ex_vecteur.o
 
 ObjetMobile.o: ObjetMobile.cc ObjetMobile.h ex_vecteur.cc ex_vecteur.h constantes.h Dessinable.cc Dessinable.h SupportADessin.h Systeme.h
 
-ChampsForces.o: ChampsForces.cc ChampsForces.h ObjetMobile.h
+ChampsForces.o: ChampsForces.cc ChampsForces.h ObjetMobile.h ex_vecteur.h
 
 testBalle.o: testBalle.cc ex_vecteur.h ObjetMobile.h constantes.h ChampsForces.h 
 testBalle: testBalle.o ex_vecteur.o ObjetMobile.o constantes.o ChampsForces.o Systeme.o Integrateur.o

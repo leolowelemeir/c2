@@ -81,10 +81,11 @@ void Systeme::evolue2( double dt) {
 
 
     //ajoutons les forces externes que subissent les objet mobiles (les champs de forces)
-    for(size_t i(0); i<tableau_objets.size(); i++){
-        ChampForces champ_g(g);
-        champ_g.agit_sur(*tableau_objets[i]);                  //g est un champ de force (c'est le seul programmer)
-    }
+    for(size_t i(0); i<tableau_champs.size(); i++){
+		for(size_t j(0); j<tableau_objets.size(); j++){
+			(*tableau_champs[i]).agit_sur(*tableau_objets[j]);
+		}
+	}
 
     //pour calculer le cas ou il pourrait y avoir un choc
     for(size_t i(0); i<tableau_objets.size(); i++){

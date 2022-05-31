@@ -45,7 +45,7 @@ int main (){
         cout << "Sur combien d'intervalles de temps voulez-vous étudier le mouvement de la balle? ";
         cin >> n;
     } while ( n <=0);
-    
+    /*
     IntegrateurEulerCromer I (0.01);
     for (size_t i(0); i < n; ++i) {
     cout << " t = " << b.get_temps() + i*n << " :"<< endl;
@@ -53,7 +53,7 @@ int main (){
     cout << b;
     }
 
-
+*/
 return 0;
 }
 
