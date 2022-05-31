@@ -45,10 +45,8 @@ void ObjetMobile::ajoute_a(Systeme& S){
 
 void ObjetMobile::agit_sur(ObjetMobile& obj){  
 		//soit l'objet 2 celui passé en parametre
-		
 		//verification qu'il y ai bien un choc 
-		if (((position()-obj.position()).norme()) - (rayon-obj.getrayon()) < epsilon) {
-			
+		if (((position()-obj.position()).norme()) - (rayon+obj.getrayon()) < epsilon) {
 			//mise à jour les forces s’exerçant sur les objets
             Vecteur normal(!(position()-obj.position()));//vecteur (unitaire) normal au point de choc
 			
@@ -65,23 +63,19 @@ void ObjetMobile::agit_sur(ObjetMobile& obj){
 				force+=(Fn2*normal); 
                 obj.setforce(obj.getforce()-(Fn2*normal));
 			}
-			
-			//valeur neccesaire au calcul de la vitesse relative du point de contact
-			double alpha_general(alpha+obj.getalpha());
-			double lambda ( (1+alpha_general)*(obj.getmasse()/(masse+obj.getmasse())));
-			double frottement_general(frottement_choc*obj.getfrottement_choc());
+			//valeur necessaire au calcul de la vitesse relative du point de contact
+			double lambda ( (1+alpha)*(obj.getmasse()/(masse+obj.getmasse())));
 			
 			//calcul vitesse relative du point de contact
 			double v_etoile((obj.vitesse()-vitesse())|normal);
 			Vecteur v_contact((vitesse()-obj.vitesse())+(v_etoile*normal));
             Vecteur delta_v;
-            double condition(7*frottement_general*(1+alpha_general)*v_etoile);
+            double condition(7*frottement_choc*(1+alpha)*v_etoile);
             if (condition - (2*v_contact.norme()) > epsilon){
                 delta_v=( (lambda*v_etoile)*normal-((2*obj.getmasse()/(7*(masse+obj.getmasse())))*v_contact));
 			}else if (v_contact.norme()!=0){
-                    delta_v=lambda*v_etoile*(normal-frottement_general*(!v_contact));
+                    delta_v=lambda*v_etoile*(normal-frottement_choc*(!v_contact));
                     }
-			
 			//mise à jour des vitesses
 			setvitesse(vitesse()+delta_v);
 			obj.setvitesse(obj.vitesse()-(masse/obj.getmasse())*delta_v);
@@ -94,9 +88,9 @@ void ObjetMobile::agit_sur(ObjetMobile& obj){
              cout<<"Fn2"<<Fn2<<endl;
              cout <<"vstar= "<<v_etoile<<endl;
              cout <<"vc= "<<v_contact<<endl;
-             cout <<"7 mu (1+alpha) vstar"<< condition<<endl;
+             cout <<"7 mu (1+alpha) vstar "<< condition<<endl;
              cout <<"2*vc.norme()"<<2*v_contact.norme()<<endl;
-             cout <<"dv"<<delta_v<<endl;
+             cout <<"dv: "<<delta_v<<endl;
              
              cout<<endl;
              cout <<"apres choc : :"<<endl;
@@ -178,17 +172,27 @@ Vecteur Pendule::Madirection() const {
 }
     
 Vecteur Pendule::position() const { //direction de l'axe
-	Vecteur bas (0,-1,0);
-	Vecteur y (cos(P.getcomposante(0)) * bas);
-	Vecteur x (sin(P.getcomposante(0)) * d);
-    Vecteur laposition (longueur*(x+y));
+	Vecteur Y (0,1,0);
+	Vecteur y (-cos(P.getcomposante(0)) * Y);
+	Vecteur xplan (sin(P.getcomposante(0)) * (!d));
+    Vecteur laposition (longueur*(xplan+y));
     laposition += origine;
     return laposition;
     }
 //Vitesse du bout du pendule
 Vecteur Pendule::vitesse() const {
-	return (longueur*Pd);
+	Vecteur Y (0.1,0);
+	Vecteur vx ( (longueur* cos(P.norme()) * Pd.norme()) * (!d));
+	Vecteur vy (longueur*sin(P.norme())*Pd.norme()*Y);
+	Vecteur v (vx + vy);
+	return v;
 }
+void Pendule::setvitesse(Vecteur const& vit) {
+	Vecteur thetapoint (vit.norme()/longueur);
+	Pd = thetapoint;
+}
+	
+	
 
 Vecteur Pendule::point_plus_proche(const ObjetMobile& M){
 		Vecteur point_proche(M.position()-position());

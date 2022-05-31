@@ -22,9 +22,11 @@ int main() {
 	double masse(0.00167784948285945);
 	Vecteur pos(0, 0.0465234, 0.624);
     Vecteur vit(0, -2.59108, 0.8);
-    Balle b1(pos, vit,masse,masse*g,0.051111, 0.0, 3,0.8,0.01);  ///attention je suis pas sur qu'il faille ajouté g ici peut etre qu'on l'a mis deux fois !! =>non ca aurait ete si on utilisait la fonction evolue2
-    cout <<"test";
+    Balle b1(pos, vit,masse, vecnull,0.051111, 0.0, 3,0.8,0.01);  ///attention je suis pas sur qu'il faille ajouté g ici peut etre qu'on l'a mis deux fois !! =>non ca aurait ete si on utilisait la fonction evolue2
+    cout <<"test" << endl;
+   cout << " force : " << b1.getforce();
     champs.agit_sur(b1); //on rajoute la poussée dArchimede
+    cout << " force apres champs : " << b1.getforce() << endl;
     cout<<"test2";
 	///pq besoin d'une variable t ?? Poussée de l'air ?
 	//changement d'axe: c'est donc l'axe y qui vaut 0
@@ -53,38 +55,67 @@ int main() {
 	//pour les chocs entre 2 balles (les balles sont appelés balle 2 et balle 3)
 	
 	//construction de la balle 2
-	double masse2(0.051111);
 	Vecteur pos2(0,0.283821,1.36675);
     Vecteur vit2(0,0.0957368,0.715449);
-    Balle b2(pos2, vit2, 0.00167784948285945 ,masse2*g,masse2, 0.0, 3.0);
+    Balle b2(pos2, vit2, masse ,vecnull, 0.051111, 0.0, 3.0, 0.8,0.01);
     champs.agit_sur(b2); //on rajoute la poussé dArchimede
 
 	//construction de la balle 3
-	double masse3(0.05);
 	Vecteur pos3(0, 0.260128, 1.46284);
     Vecteur vit3(0, 0.13874, 0.419218);
-    Balle b3(pos3, vit3, 0.1 ,masse3*g,masse3, 0.0, 3.0);
+    Balle b3(pos3, vit3, 0.1 , vecnull,0.05, 0.0, 3.0, 0.8);
     champs.agit_sur(b3); //on rajoute la poussé dArchimede
 
 	cout<<"cas 2"<<endl;
 	cout<<endl;
-	cout<<"avant le choc au sol" <<endl;
-	cout << "position de la balle2(appelé balle1 par le prof) = " << b2.position()<<endl;
-	cout << "position de la balle3 (appelé balle2 par le prof) = " << b3.position()<<endl;
+	cout<<"avant le choc" <<endl;
+	cout << "position de la balle 1 = " << b2.position()<<endl;
+	cout << "position de la balle 2 = " << b3.position()<<endl;
+	cout << " Distance entre les centres: " << (pos2-pos3).norme() << endl;
+	cout<<"vitesse de la balle 1 ="<<b2.getPd()<<endl;
+	cout<<"vitesse de la balle 2 ="<<b3.getPd()<<endl;
 
-	cout<<"vitesse de la balle2 ="<<b2.getPd()<<endl;
-	cout<<"vitesse de la balle3 ="<<b3.getPd()<<endl;
-
-	cout<<"force de la balle2 ="<<b2.getforce()<<endl;
-	cout<<"force de la balle3 ="<<b3.getforce()<<endl;
+	cout<<"force de la balle 1 ="<<b2.getforce()<<endl;
+	cout<<"force de la balle 2 ="<<b3.getforce()<<endl;
 	cout <<endl;
 	
 	//choc
-	cout<<"calculs: "<<endl;
+	
 	b2.agit_sur(b3); 
 	 
 	cout<<endl;
 
+	//apres choc
+	cout<<"apres choc: "<<endl;
+	
+	cout<<"vitesse de la balle 1 ="<<b2.getPd()<<endl;
+	cout<<"vitesse de la balle 2 ="<<b3.getPd()<<endl;
+
+	cout<<"force de la balle 1 ="<<b2.getforce()<<endl;
+	cout<<"force de la balle 2 ="<<b3.getforce()<<endl;
+
+///faudrait faire le test avec un pendule aussi
+	Vecteur origine (0, 1.209488037945800, 1.148649741794006);
+	Vecteur d (1,0,0);
+    Pendule p(0.319603599172218, 0.441579572811062, 0.1 , 0.1*g, 0.05, origine, 1.0, d);
+    b2.setposition (pos3);
+    b2.setvitesse (vit3);
+   
+   cout<< "test avec le pendule: " << endl;
+	cout<<endl;
+	cout<<"avant le choc" <<endl;
+	cout << "position de la balle = " << b2.position()<<endl;
+	cout << "position au bout du pendule " << p.position()<<endl;
+	cout << " Distance entre les centres: " << (p.position() - b2.position()).norme() << endl;
+	cout<<"vitesse de la balle = "<<b2.getPd()<<endl;
+	cout<<"vitesse du pendule = "<<p.getPd()<<endl;
+
+	cout<<"force de la balle = "<<b2.getforce()<<endl;
+	cout<<"force du pendule = "<<p.getforce()<<endl;
+	cout <<endl;
+	
+	p.agit_sur(b2);
+	
 	//apres choc
 	cout<<"apres choc: "<<endl;
 	
@@ -93,9 +124,6 @@ int main() {
 
 	cout<<"force de la balle2 ="<<b2.getforce()<<endl;
 	cout<<"force de la balle3 ="<<b3.getforce()<<endl;
-
-///faudrait faire le test avec un pendule aussi 
-	
 	}
 
 /*
