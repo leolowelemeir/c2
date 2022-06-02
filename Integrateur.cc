@@ -25,8 +25,7 @@ void IntegrateurEulerCromer::integre(ObjetMobile& M) {
 		}
 		M.setP (M.getP() + (dt*M.getPd()));	// Le calcul precedent, s il est effectué, modifie les valeurs de Pd ainsi l'actualisation est valable pour P: d'où la difference avec l'integrateur general
 }
-
-/*void IntegrateurNewmark::integre(ObjetMobile& M) {
+void IntegrateurNewmark::integre(ObjetMobile& M) {
 	if (not (M.getPd()==0)){		// Si l equation n est que du premier degre, Pd==0. Ainsi ce calcul ne servirait a rien
 		M.setPd (M.getPd()); 
 		M.setP (M.getP());
@@ -36,9 +35,11 @@ void IntegrateurEulerCromer::integre(ObjetMobile& M) {
 			q=M.getP();
 			r=M.evolution();
 			M.setPd(M.getPd()+dt*(1/2)*(r+s));
-			M.setP(M.getP()+dt*M.getPd()+dt*dt*(1/3)(((1/2))*r+s));
-			Vecteur test(M.getP-q);
-		} while ((test.norme())>=epsilon);
+			Vecteur a (M.getP()+dt*M.getPd()+dt*dt*(1/3)*((1/2)*r+s));
+			M.setP(a);
+			
+		} while ((q-M.getP()).norme()>=epsilon);
 
+} 
 }
-}*/
+

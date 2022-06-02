@@ -21,14 +21,23 @@ cout << champ << endl;
 b.affiche();
 cout << endl;
 
-    IntegrateurEulerCromer I (0.01);
+   /*IntegrateurEulerCromer I (0.01);
+    
     for (size_t i(1); i < 5; ++i) {
     cout << "l'intégration " << i << " donne :" << endl;
     I.integre (b);
     b.affiche();
     cout << endl;
     }
-
+    */
+    IntegrateurNewmark K (0.01);
+    
+    for (size_t i(1); i < 1000; ++i) {
+    cout << "l'intégration " << i << " donne :" << endl;
+    K.integre (b);
+    b.affiche();
+    cout << endl;
+    }
 
 return 0;
 }
