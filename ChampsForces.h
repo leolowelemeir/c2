@@ -9,8 +9,13 @@ class ChampForces {
     public:
 
 	ChampForces (Vecteur F)
-		: intensite (F) {}
-		
+		: intensite (F) {
+			numero = compteur;
+			++compteur;
+
+			}
+	
+	ChampForces (ChampForces const& C) { ++ compteur; }
 	//Destructeur 
 	virtual ~ChampForces() {}
 	
@@ -19,12 +24,15 @@ class ChampForces {
     virtual void agit_sur(ObjetMobile& obj) const ;
     Vecteur getintensite() const;
     virtual ChampForces* copie() const;
+    int getnumero() const;
     
+
     protected:
     //les attributs
     Vecteur intensite;
+    static int compteur;	//le compteur permet de donner un numéro à chaque instance ChampForce créée pour se retrouver dans la map de danschamp et déterminer quel champ influence ou non l'objet
+    int numero;
 };
-
 
 std::ostream& operator<<(std::ostream& sortie, ChampForces const& champF);
 

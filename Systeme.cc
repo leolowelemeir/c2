@@ -7,7 +7,7 @@
 #include "obstacle.h"
 #include "Objetcompose.h"
 #include <memory>
-
+#include <map>
 
 
 
@@ -110,6 +110,9 @@ void Systeme::ajoute(Obstacle* obstacle){
 
 void Systeme::ajoute(ChampForces* Champ){
     tableau_champs.push_back(unique_ptr <ChampForces> (Champ->copie()));
+   for (size_t i(0); i < taille_tab_obj(); ++i){
+    retour_obj(i)->danschamp[Champ->getnumero()] = false;
+	}
 }
 
 

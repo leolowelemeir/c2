@@ -10,6 +10,7 @@
 #include "Systeme.h"
 #include "ChampsForces.h"
 #include "constantes.h"
+#include <map>
 
 class ObjetMobile: public Dessinable {
     protected:
@@ -23,7 +24,7 @@ class ObjetMobile: public Dessinable {
         int degl;
         double alpha; //coefficient de restitution choc 
         double frottement_choc; // le coefficient μ de frottement entre corps pour chocs
-        
+
       public:
         //Constructeur
         ObjetMobile (Vecteur param, Vecteur derparam, double m,  Vecteur F,double r, double t, int deg_ , double alp, double fchoc)
@@ -32,17 +33,15 @@ class ObjetMobile: public Dessinable {
 				 Vecteur f( (m - (4*M_PI*rho_air*r*r*r)/3)*g );
 				force = f+F;
 				
-				///
-				danschamp = false;
 			}
             
        //destructeur
        virtual ~ObjetMobile() {}
             
       //  virtual double distance(const ObjetMobile& obj) = 0; // calculer distance entre objets
-        
-        ///Cet attribut est placé en public car il n'a besoin d'aucune encapsulation. il permet juste de déterminer si l'objet est influencé par un ChampForce
-        bool danschamp;
+
+	    std::map<int, bool> danschamp; //Ce booléen correspond à l'information si oui ou non l'ObjetMobile est actuellement influencé par un ChampForce
+
 
         // Methodes dans balle a l origine
     
@@ -122,17 +121,12 @@ class Pendule : public ObjetMobile {
     //Constructeur
     Pendule (Vecteur param, Vecteur derparam, double m, Vecteur F, double r, Vecteur Or, double l, Vecteur dir, double alp=1, double fchoc=0, double t = 0, int deg_=1, double fr = 0.0)
     : ObjetMobile ( param, derparam, m, F, r, t, deg_, alp, fchoc), origine (Or), longueur (l),  d (dir), frottement(fr)
-    {/*ajoute_force(m*g);*/ ///Cette information permettrait de mettre par defaut l action de la gravite sur le pendule
-		//On n'accepte l'angle theta que si il est inférieur à pi/2, par souci de concetption pour la méthode evolution()
-		if (abs (param.getcomposante(0)) - M_PI/2 >= epsilon){
-			if (param.getcomposante(0) > epsilon){
-				param.set_coord(0, ( M_PI/2 - epsilon ) );
-			}else{
-				param.set_coord(0, (-M_PI/2 + epsilon) );
+    {
+		if (abs(longueur) < epsilon ) {	//un pendule ne peut pas avoir une longueur nulle
+			longueur = 0.1;
+			std::cout << "La longueur donnée est nulle, on la met donc par défaut à 0.1 ." <<std::endl;
 			}
-		}
-		
-		d = (!dir);
+		d = (!dir);	//On prend le vecteur directeur pour que la norme de d n'influence pas les calculs, on a juste besoin de la direction du vecteur
     }
     
     Pendule (Pendule const&) = default;

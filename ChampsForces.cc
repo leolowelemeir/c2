@@ -4,7 +4,7 @@
 #include "Systeme.h"
 #include <cmath>
 #include <iostream>
-
+#include <map>
 using namespace std;
 
 //----------------------------------------------------------------------------------------------------------------
@@ -26,6 +26,9 @@ void ChampForces::ajoute_a(Systeme& S){
 	S.ajoute(this);
 	cout <<"un Champs de force a ete ajoute au systeme"<<endl;
 	}
+	
+int ChampForces::compteur(0); 	//on initialise le compteur à 0
+int ChampForces::getnumero() const { return numero; }
 
     
 	//Operateur
@@ -53,12 +56,13 @@ ostream& operator<<(ostream& sortie, ChampForces const& champF){
  }
  
  void Vent::agit_sur(ObjetMobile& obj) const {
-	 if ( (influe (obj)) and (not obj.danschamp)){
-		 obj.danschamp= true;
+	 bool a(obj.danschamp.at(this->getnumero()));
+	 if ( (influe (obj)) and (not a)){
+		 obj.danschamp.at(this->getnumero()) = true;
 		 obj.setforce (obj.getforce()+intensite);
 	 }
-	 else if ( (not influe(obj)) and (obj.danschamp)){
-		 obj.danschamp= false;
+	 else if ( (not influe(obj)) and (a)){
+		 obj.danschamp.at(this->getnumero()) = false;
 		 obj.setforce (obj.getforce() - intensite);
 	 }
  } 

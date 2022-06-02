@@ -41,7 +41,9 @@ int main (){
      
 	/*
 	 * ./testPendule | grep '#theta du pendule' > anglependule.txt
+	 * gnuplot
 	 * plot "anglependule.txt" w linesp
+	 * 
 	 * ./testPendule | grep '#theta point du pendule' > vitessependule.txt
 	 * 
 	 * 
