@@ -49,13 +49,6 @@ class IntegrateurNewmark : public Integrateur {
 	IntegrateurNewmark (double t =0.1)
 	: Integrateur (t) {}
 	virtual void integre(ObjetMobile& M) override;
-
-	
-	
-	private:
-	Vecteur q;
-	Vecteur r;
-	Vecteur s;
 	
 	};
 /*

@@ -4,7 +4,7 @@ CC  = $(CXX)
 CXXFLAGS = -std=c++11
 
 
-all: testVecteur testBalle testPendule testObstacle testChocs testIntegrateur1 testIntegrateur2  
+all: testVecteur testBalle testPendule testObstacle testChocs testIntegrateur1 testIntegrateur2  testIntegrateurN
 
 
 
@@ -40,6 +40,9 @@ testIntegrateur1: testIntegrateur1.o Integrateur.o ex_vecteur.o ObjetMobile.o co
 
 testIntegrateur2.o: Integrateur.o ex_vecteur.o ObjetMobile.o constantes.o ChampsForces.o Systeme.o 
 testIntegrateur2: testIntegrateur2.o Integrateur.o ex_vecteur.o ObjetMobile.o constantes.o ChampsForces.o Systeme.o 
+
+testIntegrateurN.o: Integrateur.o ex_vecteur.o ObjetMobile.o constantes.o ChampsForces.o Systeme.o 
+testIntegrateurN: testIntegrateurN.o Integrateur.o ex_vecteur.o ObjetMobile.o constantes.o ChampsForces.o Systeme.o 
 
 Dessinable.o: Dessinable.h Dessinable.cc ex_vecteur.o SupportADessin.h
 

@@ -31,7 +31,9 @@ class ObjetMobile: public Dessinable {
             : P (param), Pd (derparam), masse (m), force (F), rayon (r), temps (t), degl(deg_), alpha(alp), frottement_choc(fchoc) {
 				//On place comme force par défaut le poids et la force d'Archimède pour tous les ObjetsMobiles
 				 Vecteur f( (m - (4*M_PI*rho_air*r*r*r)/3)*g );
+				 std::cout << " f " << f <<std::endl;
 				force = f+F;
+				std::cout << " force " << force<< std::endl;
 				
 			}
             
@@ -126,7 +128,9 @@ class Pendule : public ObjetMobile {
 			longueur = 0.1;
 			std::cout << "La longueur donnée est nulle, on la met donc par défaut à 0.1 ." <<std::endl;
 			}
+		dir.set_coord(1, 0.0); // Le vecteur d n'a pas de composante en y (il est orthogonal à l'axe Y), on supprime donc la deuxieme composante de dir.
 		d = (!dir);	//On prend le vecteur directeur pour que la norme de d n'influence pas les calculs, on a juste besoin de la direction du vecteur
+
     }
     
     Pendule (Pendule const&) = default;

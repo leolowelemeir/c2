@@ -1,7 +1,6 @@
 #include "Integrateur.h"
 #include "ObjetMobile.h"
 #include "ex_vecteur.h"
-#include "constantes.h"
 #include <vector>
 #include <iostream>
 
@@ -13,9 +12,9 @@ int main (){
 
     Vecteur pos (0, 1);
     Vecteur vit (1.0, 2.0);
-    double masse (0.127);
-    Vecteur f (0, -9.81*masse);
-    Balle b ( pos, vit, masse, f ) ;
+    double masse (1);
+    Vecteur f (0, 0);
+    Balle b ( pos, vit, masse, f, 0.1) ;
 
 
     // On souhaite faire une etude du mouvement de la balle avec l integrateur sur n intervalles de 0.01s

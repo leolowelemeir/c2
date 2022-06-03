@@ -49,7 +49,7 @@ int main (){
 	 * 
 set terminal png
 set output "evolution_pendule.png"
-plot plot "anglependule.txt" w linesp, "vitessependule.txt" w linesp, "accpendule.txt" w linesp
+plot "anglependule.txt" w linesp, "vitessependule.txt" w linesp, "accpendule.txt" w linesp
 	 * */
     
     
