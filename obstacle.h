@@ -57,7 +57,7 @@ class Plan :public Obstacle {
     Vecteur point_plus_proche(const ObjetMobile& M);
     Vecteur n() const;
     virtual void affiche() override;
-    virtual double distance(const ObjetMobile&) override;
+    virtual double distance(const ObjetMobile&) override; //distance de l'ObjetMobile par rapport au plan
 
 
     ///virtual void dessine_sur(SupportADessin& support) override;
@@ -91,7 +91,7 @@ class Brique : public Obstacle {
     Vecteur point_plus_proche(const ObjetMobile& M) override;
     Vecteur n() const;
 	virtual void affiche() override;
-	virtual double distance(const ObjetMobile&) override;
+	virtual double distance(const ObjetMobile&) override;	//distance de l'ObjetMobile par rapport à une brique
 
 
 ///	virtual void dessine_sur(SupportADessin& support) override;

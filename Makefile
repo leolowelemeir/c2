@@ -4,7 +4,7 @@ CC  = $(CXX)
 CXXFLAGS = -std=c++11
 
 
-all: testVecteur testBalle testPendule testObstacle testChocs testIntegrateur1 testIntegrateur2  testIntegrateurN
+all: testVecteur testBalle testPendule testObstacle testChocs testIntegrateur1 testIntegrateur2  testIntegrateurN testChocs2
 
 
 
@@ -55,6 +55,9 @@ exerciceP9a: exerciceP9a.o Integrateur.o ObjetMobile.o ex_vecteur.o Systeme.o ob
 
 testChocs.o: testChocs.cc ObjetMobile.o obstacle.o constantes.o ex_vecteur.o Systeme.o ChampsForces.o Integrateur.o
 testChocs: testChocs.o ObjetMobile.o obstacle.o constantes.o ex_vecteur.o Systeme.o ChampsForces.o Integrateur.o
+
+testChocs2.o: testChocs2.cc ObjetMobile.o obstacle.o constantes.o ex_vecteur.o Systeme.o ChampsForces.o Integrateur.o
+testChocs2: testChocs2.o ObjetMobile.o obstacle.o constantes.o ex_vecteur.o Systeme.o ChampsForces.o Integrateur.o
 
 clean:
 	rm *.o
