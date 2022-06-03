@@ -1,0 +1,198 @@
+1 -6.82843 0   #position
+2.82824 -2.82861 0   #position au bout du pendule
+1 -6.8294 0   #position
+2.82788 -2.82897 0   #position au bout du pendule
+1 -6.83136 0   #position
+2.82733 -2.82952 0   #position au bout du pendule
+1 -6.83428 0   #position
+2.8266 -2.83025 0   #position au bout du pendule
+1 -6.83819 0   #position
+2.82569 -2.83116 0   #position au bout du pendule
+1 -6.84307 0   #position
+2.8246 -2.83225 0   #position au bout du pendule
+1 -6.84892 0   #position
+2.82332 -2.83353 0   #position au bout du pendule
+1 -6.85576 0   #position
+2.82186 -2.83498 0   #position au bout du pendule
+1 -6.86357 0   #position
+2.82022 -2.83662 0   #position au bout du pendule
+1 -6.87235 0   #position
+2.81839 -2.83843 0   #position au bout du pendule
+1 -6.88211 0   #position
+2.81638 -2.84043 0   #position au bout du pendule
+1 -6.89285 0   #position
+2.81418 -2.8426 0   #position au bout du pendule
+1 -6.90456 0   #position
+2.8118 -2.84495 0   #position au bout du pendule
+1 -6.91725 0   #position
+2.80924 -2.84748 0   #position au bout du pendule
+1 -6.93091 0   #position
+2.80649 -2.85019 0   #position au bout du pendule
+1 -6.94556 0   #position
+2.80356 -2.85308 0   #position au bout du pendule
+1 -6.96117 0   #position
+2.80044 -2.85614 0   #position au bout du pendule
+1 -6.97777 0   #position
+2.79714 -2.85937 0   #position au bout du pendule
+1 -6.99533 0   #position
+2.79365 -2.86278 0   #position au bout du pendule
+1 -7.01388 0   #position
+2.78997 -2.86637 0   #position au bout du pendule
+1 -7.0334 0   #position
+2.78611 -2.87012 0   #position au bout du pendule
+1 -7.0539 0   #position
+2.78206 -2.87405 0   #position au bout du pendule
+1 -7.07537 0   #position
+2.77782 -2.87815 0   #position au bout du pendule
+1 -7.09782 0   #position
+2.77339 -2.88242 0   #position au bout du pendule
+1 -7.12125 0   #position
+2.76877 -2.88685 0   #position au bout du pendule
+1 -7.14565 0   #position
+2.76396 -2.89145 0   #position au bout du pendule
+1 -7.17103 0   #position
+2.75897 -2.89622 0   #position au bout du pendule
+1 -7.19738 0   #position
+2.75378 -2.90115 0   #position au bout du pendule
+1 -7.22471 0   #position
+2.7484 -2.90625 0   #position au bout du pendule
+1 -7.25302 0   #position
+2.74283 -2.91151 0   #position au bout du pendule
+1 -7.2823 0   #position
+2.73707 -2.91692 0   #position au bout du pendule
+1 -7.31256 0   #position
+2.73111 -2.9225 0   #position au bout du pendule
+1 -7.34379 0   #position
+2.72496 -2.92824 0   #position au bout du pendule
+1 -7.376 0   #position
+2.71862 -2.93413 0   #position au bout du pendule
+1 -7.40919 0   #position
+2.71208 -2.94017 0   #position au bout du pendule
+1 -7.44335 0   #position
+2.70535 -2.94637 0   #position au bout du pendule
+1 -7.47849 0   #position
+2.69842 -2.95272 0   #position au bout du pendule
+1 -7.5146 0   #position
+2.69129 -2.95921 0   #position au bout du pendule
+1 -7.55169 0   #position
+2.68397 -2.96586 0   #position au bout du pendule
+1 -7.58976 0   #position
+2.67645 -2.97265 0   #position au bout du pendule
+1 -7.6288 0   #position
+2.66872 -2.97958 0   #position au bout du pendule
+1 -7.66882 0   #position
+2.6608 -2.98666 0   #position au bout du pendule
+1 -7.70982 0   #position
+2.65268 -2.99387 0   #position au bout du pendule
+1 -7.75179 0   #position
+2.64436 -3.00123 0   #position au bout du pendule
+1 -7.79474 0   #position
+2.63583 -3.00872 0   #position au bout du pendule
+1 -7.83866 0   #position
+2.62711 -3.01634 0   #position au bout du pendule
+1 -7.88356 0   #position
+2.61818 -3.02409 0   #position au bout du pendule
+1 -7.92943 0   #position
+2.60904 -3.03198 0   #position au bout du pendule
+1 -7.97628 0   #position
+2.59971 -3.03999 0   #position au bout du pendule
+1 -8.02411 0   #position
+2.59016 -3.04812 0   #position au bout du pendule
+1 -8.07292 0   #position
+2.58041 -3.05638 0   #position au bout du pendule
+1 -8.12269 0   #position
+2.57046 -3.06476 0   #position au bout du pendule
+1 -8.17345 0   #position
+2.5603 -3.07325 0   #position au bout du pendule
+1 -8.22518 0   #position
+2.54993 -3.08186 0   #position au bout du pendule
+1 -8.27789 0   #position
+2.53935 -3.09059 0   #position au bout du pendule
+1 -8.33157 0   #position
+2.52856 -3.09942 0   #position au bout du pendule
+1 -8.38623 0   #position
+2.51756 -3.10836 0   #position au bout du pendule
+1 -8.44187 0   #position
+2.50635 -3.1174 0   #position au bout du pendule
+1 -8.49848 0   #position
+2.49493 -3.12655 0   #position au bout du pendule
+1 -8.55607 0   #position
+2.4833 -3.1358 0   #position au bout du pendule
+1 -8.61463 0   #position
+2.47146 -3.14514 0   #position au bout du pendule
+1 -8.67417 0   #position
+2.4594 -3.15458 0   #position au bout du pendule
+1 -8.73469 0   #position
+2.44713 -3.1641 0   #position au bout du pendule
+1 -8.79618 0   #position
+2.43465 -3.17372 0   #position au bout du pendule
+1 -8.85865 0   #position
+2.42195 -3.18342 0   #position au bout du pendule
+1 -8.9221 0   #position
+2.40904 -3.1932 0   #position au bout du pendule
+1 -8.98652 0   #position
+2.39591 -3.20306 0   #position au bout du pendule
+1 -9.05191 0   #position
+2.38256 -3.213 0   #position au bout du pendule
+1 -9.11828 0   #position
+2.369 -3.22301 0   #position au bout du pendule
+1 -9.18563 0   #position
+2.35523 -3.2331 0   #position au bout du pendule
+1 -9.25396 0   #position
+2.34123 -3.24324 0   #position au bout du pendule
+1 -9.32326 0   #position
+2.32702 -3.25346 0   #position au bout du pendule
+1 -9.39354 0   #position
+2.31259 -3.26373 0   #position au bout du pendule
+1 -9.46479 0   #position
+2.29795 -3.27406 0   #position au bout du pendule
+1 -9.53702 0   #position
+2.28308 -3.28444 0   #position au bout du pendule
+1 -9.61022 0   #position
+2.268 -3.29487 0   #position au bout du pendule
+1 -9.6844 0   #position
+2.2527 -3.30535 0   #position au bout du pendule
+1 -9.75956 0   #position
+2.23718 -3.31588 0   #position au bout du pendule
+1 -9.8357 0   #position
+2.22144 -3.32644 0   #position au bout du pendule
+1 -9.91281 0   #position
+2.20548 -3.33704 0   #position au bout du pendule
+1 -9.99089 0   #position
+2.1893 -3.34768 0   #position au bout du pendule
+1 -10.07 0   #position
+2.17291 -3.35834 0   #position au bout du pendule
+1 -10.15 0   #position
+2.15629 -3.36904 0   #position au bout du pendule
+1 -10.231 0   #position
+2.13946 -3.37975 0   #position au bout du pendule
+1 -10.313 0   #position
+2.12241 -3.39048 0   #position au bout du pendule
+1 -10.396 0   #position
+2.10514 -3.40123 0   #position au bout du pendule
+1 -10.4799 0   #position
+2.08765 -3.412 0   #position au bout du pendule
+1 -10.5648 0   #position
+2.06994 -3.42277 0   #position au bout du pendule
+1 -10.6507 0   #position
+2.05202 -3.43354 0   #position au bout du pendule
+1 -10.7376 0   #position
+2.03388 -3.44432 0   #position au bout du pendule
+1 -10.8254 0   #position
+2.01552 -3.45509 0   #position au bout du pendule
+1 -10.9143 0   #position
+1.99695 -3.46586 0   #position au bout du pendule
+1 -11.0041 0   #position
+1.97816 -3.47662 0   #position au bout du pendule
+1 -11.0948 0   #position
+1.95916 -3.48736 0   #position au bout du pendule
+1 -11.1866 0   #position
+1.93994 -3.49809 0   #position au bout du pendule
+1 -11.2793 0   #position
+1.9205 -3.5088 0   #position au bout du pendule
+1 -11.373 0   #position
+1.90086 -3.51948 0   #position au bout du pendule
+1 -11.4677 0   #position
+1.881 -3.53013 0   #position au bout du pendule
+1 -11.5633 0   #position
+1.86093 -3.54075 0   #position au bout du pendule

@@ -18,15 +18,11 @@ void Integrateur::integre(ObjetMobile& M){
 }
 
 void IntegrateurEulerCromer::integre(ObjetMobile& M) {
-		/// Verifier si il ne faut pas plutot faire un test d existence que un !=0
-		if (not (M.getPd().norme() < epsilon)){		// Si l equation n est que du premier degre, Pd==0. Ainsi ce calcul ne servirait a rien
 		 Vecteur nouv_Pd ( M.getPd() + (dt*M.evolution()));
     	 M.setPd ( nouv_Pd);
-		}
-		M.setP (M.getP() + (dt*M.getPd()));	// Le calcul precedent, s il est effectué, modifie les valeurs de Pd ainsi l'actualisation est valable pour P: d'où la difference avec l'integrateur general
+    	 M.setP (M.getP() + (dt*M.getPd()));
 }
 void IntegrateurNewmark::integre(ObjetMobile& M) {
-	if (not ( M.getPd().norme() < epsilon)){	// Si l equation n est que du premier degre, Pd==0. Ainsi ce calcul ne servirait a rien
 		Vecteur s;
 		Vecteur r;
 		Vecteur Pn_1 (M.getP());
@@ -42,6 +38,5 @@ void IntegrateurNewmark::integre(ObjetMobile& M) {
 			
 		} while ((M.getP()-q).norme()>=epsilon);
 
-} 
 }
 

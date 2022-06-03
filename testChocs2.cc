@@ -20,52 +20,55 @@ double masse2(2);
 
 Balle b1 (pos1, vit1, masse1, vecnull);
 Balle b2 (pos2, vit2, masse2, vecnull);
-
+/*
 cout << "balle 1: " << endl;
 b1.affiche();
-cout << endl;
+cout << endl; 
 cout << "balle 2 : " << endl;
 b2.affiche();
-cout << endl;
-
-unsigned int n (1000);
+cout << endl; 
+*/
+unsigned int n (100);
 
 //On utilise un intégrateur différent pour chaque balle: EulerCromer pour b1 et Newmark pour b2
 IntegrateurEulerCromer I (0.01);
 IntegrateurNewmark K (0.01);
-
+/*
 
     for (size_t i(1); i < n; ++i) {
     cout << "l'intégration " << i << " donne :" << endl;
     I.integre (b1);
-    K.integre (b2);
-    if (((b1.position()-b2.position()).norme() - (b1.getrayon() + b2.getrayon())) < epsilon){
+    I.integre (b2);
+   if (((b1.position()-b2.position()).norme() - (b1.getrayon() + b2.getrayon())) < epsilon){
 		b1.agit_sur(b2);
 	}
-   // b1.affiche();
-    //cout << endl;
+    b1.affiche();
+    cout << endl;
     b2.affiche();
     cout << endl;
     }
-    
+    */
  
-/* 
+
  
 //On fait désormais les chocs Pendule/Balle
 
-Vecteur theta1();
-Vecteur thetapoint1();
-double m1();
-double rayon1();
-Vecteur ori1();
-double l1();
-Vecteur dir(1,0,1);
+Vecteur theta1(M_PI_4);
+Vecteur thetapoint1(0);
+double m1(1);
+double rayon1(0.5);
+Vecteur ori1(0,0,0);
+double l1(4);
+Vecteur dir(1,0,0);
 
-Pendule p1 (theta, thetapoint, m, vecnull, rayon, ori, l, dir);
+Pendule p1 (theta1, thetapoint1, m1, vecnull, rayon1, ori1, l1, dir);
 
 //on redéfinit la position et vitesse de base de la balle 1 pour la faire collisionner avec le pendule:
-b1.setposition();
-b1.setvitesse();
+Vecteur position (1.0,-2*(sqrt(2)+2),0);
+b1.setposition( position);
+Vecteur vitesse (0,0,0);
+b1.setvitesse(vitesse);
+
 
 for (size_t i(1); i < n; ++i) {
     cout << "l'intégration " << i << " donne :" << endl;
@@ -82,7 +85,7 @@ for (size_t i(1); i < n; ++i) {
     cout << endl;
 }
 
-
+/*
 //On teste deux pendules ensemble:
 Vecteur theta2();
 Vecteur thetapoint2();
@@ -191,7 +194,13 @@ for (size_t i(1); i < n; ++i) {
 
 
 
-
+./testChocs2 | grep '#position' > balleballe6.txt
+cd Desktop/posixfs/c2-main
+plot 'balleballe6.txt' w points
+* 
+./testChocs2 | grep '#position' > balleballe5.txt
+cd Desktop/posixfs/c2-main
+plot 'balleballe5.txt' w points
 */
 
 return 0;

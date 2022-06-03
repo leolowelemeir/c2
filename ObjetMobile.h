@@ -31,7 +31,9 @@ class ObjetMobile: public Dessinable {
             : P (param), Pd (derparam), masse (m), force (F), rayon (r), temps (t), degl(deg_), alpha(alp), frottement_choc(fchoc) {
 				//On place comme force par défaut le poids et la force d'Archimède pour tous les ObjetsMobiles
 				 Vecteur f( (m - (4*M_PI*rho_air*r*r*r)/3)*g );
-				force = f+F;				
+				force = f+F;	
+				
+				std::cout << "force: " << force << std::endl;			
 			}
             
        //destructeur
@@ -83,7 +85,7 @@ class ObjetMobile: public Dessinable {
 class Balle : public ObjetMobile {
     public:
     // les constructeurs
-    Balle (Vecteur pos, Vecteur vit,  double masse, Vecteur F, double r=1.0, double t=0.0,  int deg_=3, double alp=1, double fchoc=0)
+    Balle (Vecteur pos, Vecteur vit,  double masse, Vecteur F, double r=0.1, double t=0.0,  int deg_=3, double alp=1, double fchoc=0)
     : ObjetMobile (pos,vit, masse, F, r, t, deg_,alp,fchoc) {}
     
     

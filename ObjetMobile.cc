@@ -16,7 +16,7 @@ using namespace std;
 
 //ObjetMobile
 //Methodes
- double ObjetMobile::masse_vol() const {return (masse/((4*M_PI)/3)*carre(rayon)*rayon); }
+ double ObjetMobile::masse_vol() const {return (masse/(((4*M_PI)/3)*carre(rayon)*rayon)); }
     
  void ObjetMobile::ajoute_force(Vecteur  df){    //const&
         force+=df;}
@@ -155,6 +155,8 @@ void Balle::affiche(){
     cout << "  #rayon" << endl;
     cout << force;
     cout <<" #force" <<endl;
+    cout << endl;
+    cout << evolution() << " #accélération";
     cout << endl;
     }
 //____________________________________________________________

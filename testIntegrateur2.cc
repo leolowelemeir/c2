@@ -8,8 +8,9 @@ using namespace std;
 
 
 int main (){
+	
     Vecteur pos (0, 5 ,0);
-    Vecteur vit (1, 0, 0);
+    Vecteur vit (0, 0, 0);
     double masse (1);
     Vecteur f (0, -0.591725259488945, 0);
     Balle b ( pos, vit, masse, f , 0.1) ;
@@ -17,7 +18,7 @@ int main (){
 	b.affiche();
 	cout << endl;
 
-    unsigned int n(100);	//le nombre d'intervalles sur lesquels on intègre
+    unsigned int n(500);	//le nombre d'intervalles sur lesquels on intègre
 
 	IntegrateurEulerCromer I (0.01); //intégrateur avec un pas de temps de 0.01 seconde
     
@@ -29,7 +30,7 @@ int main (){
     cout << endl;
     }
     
-    /*
+    
     //On observe désormais un pendule avec le même intégrateur EulerCromer
     Vecteur theta (0.4);
     Vecteur thetapoint (2);
@@ -50,8 +51,10 @@ int main (){
     p.affiche();
     cout << endl;
     }
-    * */
-
+   /* 
+./testIntegrateur2 | grep '#position' > posballe.txt
+./testIntegrateur2 | grep '#theta du pendule' > anglependule.txt
+*/
 return 0;
 }
 
