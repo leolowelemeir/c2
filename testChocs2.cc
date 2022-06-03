@@ -28,11 +28,11 @@ cout << "balle 2 : " << endl;
 b2.affiche();
 cout << endl; 
 */
-unsigned int n (100);
+unsigned int n (1000);
 
 //On utilise un intégrateur différent pour chaque balle: EulerCromer pour b1 et Newmark pour b2
-IntegrateurEulerCromer I (0.01);
-IntegrateurNewmark K (0.01);
+IntegrateurEulerCromer I (0.05);
+IntegrateurNewmark K (0.05);
 /*
 
     for (size_t i(1); i < n; ++i) {
@@ -53,18 +53,18 @@ IntegrateurNewmark K (0.01);
  
 //On fait désormais les chocs Pendule/Balle
 
-Vecteur theta1(M_PI_4);
+Vecteur theta1(-M_PI_4);
 Vecteur thetapoint1(0);
 double m1(1);
-double rayon1(0.5);
-Vecteur ori1(0,0,0);
-double l1(4);
+double rayon1(0.2);
+Vecteur ori1(0,3,0);
+double l1(0.4);
 Vecteur dir(1,0,0);
 
 Pendule p1 (theta1, thetapoint1, m1, vecnull, rayon1, ori1, l1, dir);
 
 //on redéfinit la position et vitesse de base de la balle 1 pour la faire collisionner avec le pendule:
-Vecteur position (1.0,-2*(sqrt(2)+2),0);
+Vecteur position (0.1,4.8,0);
 b1.setposition( position);
 Vecteur vitesse (0,0,0);
 b1.setvitesse(vitesse);
@@ -194,13 +194,25 @@ for (size_t i(1); i < n; ++i) {
 
 
 
-./testChocs2 | grep '#position' > balleballe6.txt
+./testChocs2 | grep '#position' > balleballeg.txt
 cd Desktop/posixfs/c2-main
 plot 'balleballe6.txt' w points
 * 
 ./testChocs2 | grep '#position' > balleballe5.txt
 cd Desktop/posixfs/c2-main
 plot 'balleballe5.txt' w points
+* 
+* 
+pour un gif:
+ 
+set term gif animate delay 5
+set output 'LESballeballe2.gif'
+set xrange [-20:20]
+set yrange [-20:20]
+do for [j=1:100] {
+set title 'time'.j
+plot 'balleballe.txt' u 2:3 every ::j ::j w circles
+}
 */
 
 return 0;

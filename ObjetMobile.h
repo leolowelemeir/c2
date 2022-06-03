@@ -122,10 +122,10 @@ class Pendule : public ObjetMobile {
     //Constructeur
     Pendule (Vecteur param, Vecteur derparam, double m, Vecteur F, double r, Vecteur Or, double l, Vecteur dir, double alp=1, double fchoc=0, double t = 0, int deg_=1, double fr = 0.0)
     : ObjetMobile ( param, derparam, m, F, r, t, deg_, alp, fchoc), origine (Or), longueur (l),  d (dir), frottement(fr)
-    {
-		if (abs(longueur) < epsilon ) {	//un pendule ne peut pas avoir une longueur nulle
+    {	std::cout << " longueur " << l << std::endl;
+		if (l < epsilon ) {	//un pendule ne peut pas avoir une longueur nulle
 			longueur = 0.1;
-			std::cout << "La longueur donnée est nulle, on la met donc par défaut à 0.1 ." <<std::endl;
+			std::cout << "La longueur donnée est nulle ou négative, on la met donc par défaut à 0.1 ." <<std::endl;
 			}
 		dir.set_coord(1, 0.0); // Le vecteur d n'a pas de composante en y (il est orthogonal à l'axe Y), on supprime donc la deuxieme composante de dir.
 		d = (!dir);	//On prend le vecteur directeur pour que la norme de d n'influence pas les calculs, on a juste besoin de la direction du vecteur

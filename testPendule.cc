@@ -30,7 +30,7 @@ int main (){
      IntegrateurEulerCromer I (0.01);
 
     //faisons avancer le pendule
-    unsigned int n (1000);
+    unsigned int n (10);
    for (size_t i(0); i < n; ++i){
     cout << "L'integration " << i << " donne : "<<endl;
      I.integre (p);
