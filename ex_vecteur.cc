@@ -332,6 +332,9 @@ bool Vecteur::operator==(const Vecteur& v) const {
        Vecteur nv(*this);
        if (n > 0.000001){
 			Vecteur unitaire ((1/n)*nv);
+			if(unitaire.norme()-1<0.00000001){
+				cout << "c'est bon" << endl;
+			}else{ cout << "vecetur unitaire incorrect"<<endl;}
 			return unitaire;
 	}else{
 		cout << "Ce vecteur n'existe pas, n'a pas de norme." << endl;

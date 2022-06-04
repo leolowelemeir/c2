@@ -30,31 +30,39 @@ using namespace std;
 		
 		//verification qu'il y ait bien un choc 
 		if (distance(obj) < epsilon) {
-			
 			//mise à jour les forces s’exerçant sur l'objet
-            Vecteur normal(!(obj.position()-point_plus_proche(obj)));//vecteur (unitaire) normal au point de choc
-
+            Vecteur testnormal(!(obj.position()-point_plus_proche(obj)));//vecteur (unitaire) normal au point de choc
+			cout << "normal: " << testnormal <<endl;
+			Vecteur normal;
+			if (testnormal.getcomposante(2)>=0.0) { normal=testnormal;} else { normal=-testnormal;}
+			
+			
 			Vecteur a(obj.getforce());
 			double Fn1(a|normal);
-			
+
 			if (Fn1<epsilon) {
 				obj.getforce()-=(Fn1*normal); 
 			} ///pourquoi on ne fait pas quand Fn1 est positif ?
-			
+
 			//calcul vitesse relative du point de contact
 			double v_etoile(-obj.vitesse()|normal);
 			Vecteur v_contact((obj.vitesse())+(v_etoile*normal));
             Vecteur delta_v;
+
             double condition(7*obj.getfrottement_choc()*(1+obj.getalpha())*v_etoile);
             if (condition - 2*v_contact.norme() > epsilon){
 				delta_v= (((1+obj.getalpha())*v_etoile)*normal) - (2/7)*v_contact;
+
 			} 
 			else{
+
                 delta_v=(1+obj.getalpha())*v_etoile*(normal- (obj.getfrottement_choc()*(!v_contact)));
+                cout << "v_contact" << v_contact <<endl;
+                cout << "!v_contact : " << !v_contact<< "delta_v" <<endl;
 			}
-			
+
 		obj.setvitesse(obj.vitesse()+delta_v);
-		
+
 		//affichage
 		cout <<"calcul:"<<endl;
              

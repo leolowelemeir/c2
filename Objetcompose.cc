@@ -22,7 +22,17 @@ using namespace std;
 		 S.ajoute(champsf[i]);
 		 }
 	 }
+//-----------------------------------------------------------------------------------------------
 
-
+//methode pour un ventilateur
+Brique Ventilateur::getbrique() const {return *brique;}
+Vent Ventilateur::getvent() const {return *vent;}
 
 //void Ventilateur::dessine_sur(SupportADessin& support) { support.SupportADessin::dessine(*this); }
+
+std::ostream& operator<<(std::ostream& sortie, Ventilateur const& ventilateur){
+	cout <<"voici un ventilateur" <<endl;
+	cout << ventilateur.getvent() << endl;
+	cout << endl;
+	cout << ventilateur.getbrique() << endl;
+	}

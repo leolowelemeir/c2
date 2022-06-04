@@ -27,13 +27,11 @@ class ObjetMobile: public Dessinable {
 
       public:
         //Constructeur
-        ObjetMobile (Vecteur param, Vecteur derparam, double m,  Vecteur F,double r, double t, int deg_ , double alp, double fchoc)
-            : P (param), Pd (derparam), masse (m), force (F), rayon (r), temps (t), degl(deg_), alpha(alp), frottement_choc(fchoc) {
+        ObjetMobile (Vecteur param, Vecteur derparam, double m,  Vecteur F,double r, int deg_ , double alp, double fchoc)
+            : P (param), Pd (derparam), masse (m), force (F), rayon (r), degl(deg_), alpha(alp), frottement_choc(fchoc) {
 				//On place comme force par défaut le poids et la force d'Archimède pour tous les ObjetsMobiles
 				 Vecteur f( (m - (4*M_PI*rho_air*r*r*r)/3)*g );
-				force = f+F;	
-				
-				std::cout << "force: " << force << std::endl;			
+				force= f+force;	
 			}
             
        //destructeur
@@ -85,8 +83,8 @@ class ObjetMobile: public Dessinable {
 class Balle : public ObjetMobile {
     public:
     // les constructeurs
-    Balle (Vecteur pos, Vecteur vit,  double masse, Vecteur F, double r=0.1, double t=0.0,  int deg_=3, double alp=1, double fchoc=0)
-    : ObjetMobile (pos,vit, masse, F, r, t, deg_,alp,fchoc) {}
+    Balle (Vecteur pos, Vecteur vit,  double masse, Vecteur F, double r=0.1, int deg_=3, double alp=1, double fchoc=0)
+    : ObjetMobile (pos,vit, masse, F, r, deg_,alp,fchoc) {}
     
     
     
@@ -120,8 +118,8 @@ class Balle : public ObjetMobile {
 class Pendule : public ObjetMobile {
     public:
     //Constructeur
-    Pendule (Vecteur param, Vecteur derparam, double m, Vecteur F, double r, Vecteur Or, double l, Vecteur dir, double alp=1, double fchoc=0, double t = 0, int deg_=1, double fr = 0.0)
-    : ObjetMobile ( param, derparam, m, F, r, t, deg_, alp, fchoc), origine (Or), longueur (l),  d (dir), frottement(fr)
+    Pendule (Vecteur param, Vecteur derparam, double m, Vecteur F, double r, Vecteur Or, double l, Vecteur dir, double alp=1, double fchoc=0, int deg_=1, double fr = 0.0)
+    : ObjetMobile ( param, derparam, m, F, r, deg_, alp, fchoc), origine (Or), longueur (l),  d (dir), frottement(fr)
     {	std::cout << " longueur " << l << std::endl;
 		if (l < epsilon ) {	//un pendule ne peut pas avoir une longueur nulle
 			longueur = 0.1;
@@ -130,8 +128,8 @@ class Pendule : public ObjetMobile {
 		
 		Vecteur direction;
 		if((d|g) > epsilon) {
-			Vecteur bas(0,0,0);
-            direction = d - (d|bas)*bas; /// peut etre a verifier avec la formule
+			Vecteur y(0,1.0,0);
+            direction = d - (!((d|y)*y)); /// peut etre a verifier avec la formule
             }
                // Le vecteur d n'a pas de composante en y (il est orthogonal à l'axe Y), on supprime donc la deuxieme composante de dir.
 		d = (!direction);	//On prend le vecteur directeur pour que la norme de d n'influence pas les calculs, on a juste besoin de la direction du vecteur

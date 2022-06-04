@@ -30,11 +30,14 @@ void ChampForces::ajoute_a(Systeme& S){
 int ChampForces::compteur(0); 	//on initialise le compteur à 0
 int ChampForces::getnumero() const { return numero; }
 
-    
+ void ChampForces::affiche() const {
+	cout<< "On a un champ de force: " << endl;
+    cout << champF.getintensite()  << "  #intensite";
+    }
+
 	//Operateur
 ostream& operator<<(ostream& sortie, ChampForces const& champF){
-    sortie << "On a un champ de force: " << endl;
-    sortie << champF.getintensite()  << "  #intensite";
+    champF.affiche();
     return sortie;}
 
 //--------------------------------------------------------------------------------------------------------------
@@ -66,5 +69,15 @@ ostream& operator<<(ostream& sortie, ChampForces const& champF){
 		 obj.setforce (obj.getforce() - intensite);
 	 }
  } 
- 
+
+ void Vent::affiche() const {
+	ChampForces::affiche();
+	cout << "origine " << origine << endl;
+	cout << "direction du vent n : " << n << endl;
+	cout << "hauteur : " << hauteur << endl;
+	cout << " largeur : " << largeur << endl;
+	cout << "profondeur : " << profondeur << endl;
+
+	
+   }
 

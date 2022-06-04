@@ -4,8 +4,7 @@ CC  = $(CXX)
 CXXFLAGS = -std=c++11
 
 
-all: testVecteur testBalle testPendule testObstacle testChocs testIntegrateur1 testIntegrateur2  testIntegrateurN testChocs2
-
+all: testVecteur testBalle testPendule testObstacle testChocs testIntegrateur1 testIntegrateur2  testIntegrateurN  exerciceP9a testChocsballeballe testChocs2pendules testChocsballeplan testChocsbriquependules
 
 
 constantes.o: constantes.h constantes.cc
@@ -50,15 +49,24 @@ Objetcompose.o: Objetcompose.cc Objetcompose.h ex_vecteur.o ChampsForces.cc Cham
 
 Systeme.o: Systeme.cc Systeme.h Dessinable.o ChampsForces.o Objetcompose.o obstacle.o
 
-exerciceP9a.o: exerciceP9a.cc Integrateur.o ObjetMobile.o ex_vecteur.o Systeme.o obstacle.o constantes.cc constantes.h
-exerciceP9a: exerciceP9a.o Integrateur.o ObjetMobile.o ex_vecteur.o Systeme.o obstacle.o constantes.o
+exerciceP9a.o: exerciceP9a.cc Integrateur.o ObjetMobile.o ex_vecteur.o Systeme.o obstacle.o constantes.cc constantes.h ChampsForces.o
+exerciceP9a: exerciceP9a.o Integrateur.o ObjetMobile.o ex_vecteur.o Systeme.o obstacle.o constantes.o ChampsForces.o
 
 testChocs.o: testChocs.cc ObjetMobile.o obstacle.o constantes.o ex_vecteur.o Systeme.o ChampsForces.o Integrateur.o
 testChocs: testChocs.o ObjetMobile.o obstacle.o constantes.o ex_vecteur.o Systeme.o ChampsForces.o Integrateur.o
 
-testChocs2.o: testChocs2.cc ObjetMobile.o obstacle.o constantes.o ex_vecteur.o Systeme.o ChampsForces.o Integrateur.o
-testChocs2: testChocs2.o ObjetMobile.o obstacle.o constantes.o ex_vecteur.o Systeme.o ChampsForces.o Integrateur.o
 
+testChocs2pendules.o :testChocs2pendules.cc ObjetMobile.o obstacle.o constantes.o ex_vecteur.o Systeme.o ChampsForces.o Integrateur.o obstacle.o
+testChocs2pendules:testChocs2pendules.o ObjetMobile.o obstacle.o constantes.o ex_vecteur.o Systeme.o ChampsForces.o Integrateur.o obstacle.o
+
+testChocsballeballe.o :testChocsballeballe.cc ObjetMobile.o obstacle.o constantes.o ex_vecteur.o Systeme.o ChampsForces.o Integrateur.o obstacle.o
+testChocsballeballe :testChocsballeballe.o ObjetMobile.o obstacle.o constantes.o ex_vecteur.o Systeme.o ChampsForces.o Integrateur.o obstacle.o
+
+testChocsballeplan.o :testChocsballeplan.cc ObjetMobile.o obstacle.o constantes.o ex_vecteur.o Systeme.o ChampsForces.o Integrateur.o obstacle.o
+testChocsballeplan :testChocsballeplan.o ObjetMobile.o obstacle.o constantes.o ex_vecteur.o Systeme.o ChampsForces.o Integrateur.o obstacle.o
+
+testChocsbriquependules.o :testChocsbriquependules.cc ObjetMobile.o obstacle.o constantes.o ex_vecteur.o Systeme.o ChampsForces.o Integrateur.o obstacle.o
+testChocsbriquependules :testChocsbriquependules.o ObjetMobile.o obstacle.o constantes.o ex_vecteur.o Systeme.o ChampsForces.o Integrateur.o obstacle.o
 clean:
 	rm *.o
 	rm *.gch

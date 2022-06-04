@@ -83,8 +83,13 @@ class Ventilateur :public Objetcompose  {
 		} 
 
 	// virtual void dessine_sur(SupportADessin& support) override;
-
+	Brique getbrique() const;
+	Vent getvent() const;
+			
 	private:
 	Brique* brique;
 	Vent* vent;
 };
+
+std::ostream& operator<<(std::ostream& sortie, Ventilateur const& ventilateur);
+

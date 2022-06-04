@@ -1,9 +1,11 @@
 #pragma once
-#include "ObjetMobile.h"
 #include "ex_vecteur.h"
 #include "Systeme.h"
 #include "constantes.h"
 #include <iostream>
+
+class ObjetMobile;
+class Systeme;
 
 class ChampForces {
     public:
@@ -25,7 +27,7 @@ class ChampForces {
     Vecteur getintensite() const;
     virtual ChampForces* copie() const;
     int getnumero() const;
-    
+    virtual void affiche() const;
 
     protected:
     //les attributs
@@ -65,6 +67,7 @@ class Vent : public ChampForces {
 	virtual Vent* copie() const override;
 	virtual void agit_sur(ObjetMobile& obj) const override;
 	bool influe (ObjetMobile const& obj) const;
+	virtual void affiche() const override;
 
 	
 	private:
