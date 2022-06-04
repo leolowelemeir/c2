@@ -15,7 +15,7 @@ int main (){
     double masse (1);
     Vecteur f (0, 0);
     Balle b ( pos, vit, masse, f, 0.1) ;
-
+	cout << "test" <<endl;
 
     // On souhaite faire une etude du mouvement de la balle avec l integrateur sur n intervalles de 0.01s
     unsigned int n (70);
@@ -25,7 +25,7 @@ int main (){
         cin >> n;
     } while ( n <=0);
     */
-    IntegrateurEulerCromer I (0.01);
+    IntegrateurNewmark I (0.01);
     for (size_t i(0); i < n; ++i) {
     cout << " t = " << (b.get_temps() + i*0.01) << " :"<< endl;
     I.integre (b);

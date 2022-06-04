@@ -127,8 +127,14 @@ class Pendule : public ObjetMobile {
 			longueur = 0.1;
 			std::cout << "La longueur donnée est nulle ou négative, on la met donc par défaut à 0.1 ." <<std::endl;
 			}
-		dir.set_coord(1, 0.0); // Le vecteur d n'a pas de composante en y (il est orthogonal à l'axe Y), on supprime donc la deuxieme composante de dir.
-		d = (!dir);	//On prend le vecteur directeur pour que la norme de d n'influence pas les calculs, on a juste besoin de la direction du vecteur
+		
+		Vecteur direction;
+		if((d|g) > epsilon) {
+			Vecteur bas(0,0,0);
+            direction = d - (d|bas)*bas; /// peut etre a verifier avec la formule
+            }
+               // Le vecteur d n'a pas de composante en y (il est orthogonal à l'axe Y), on supprime donc la deuxieme composante de dir.
+		d = (!direction);	//On prend le vecteur directeur pour que la norme de d n'influence pas les calculs, on a juste besoin de la direction du vecteur
 
     }
     

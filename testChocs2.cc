@@ -28,29 +28,29 @@ cout << "balle 2 : " << endl;
 b2.affiche();
 cout << endl; 
 */
-unsigned int n (1000);
+unsigned int n (100);
 
 //On utilise un intégrateur différent pour chaque balle: EulerCromer pour b1 et Newmark pour b2
 IntegrateurEulerCromer I (0.05);
 IntegrateurNewmark K (0.05);
-/*
+
 
     for (size_t i(1); i < n; ++i) {
     cout << "l'intégration " << i << " donne :" << endl;
-    I.integre (b1);
+    //I.integre (b1);
     I.integre (b2);
    if (((b1.position()-b2.position()).norme() - (b1.getrayon() + b2.getrayon())) < epsilon){
 		b1.agit_sur(b2);
 	}
-    b1.affiche();
+    //b1.affiche();
     cout << endl;
     b2.affiche();
     cout << endl;
     }
-    */
+    
  
 
- 
+ /*
 //On fait désormais les chocs Pendule/Balle
 
 Vecteur theta1(-M_PI_4);
@@ -70,11 +70,15 @@ Vecteur vitesse (0,0,0);
 b1.setvitesse(vitesse);
 
 
+
+
+
+
 for (size_t i(1); i < n; ++i) {
     cout << "l'intégration " << i << " donne :" << endl;
-    I.integre (p1);
+    //I.integre (p1);
     K.integre (b1);
-    if (((p1.position()-b1.position()).norme() - (p1.getrayon() + b1.getrayon())) < epsilon){
+    /if (((p1.position()-b1.position()).norme() - (p1.getrayon() + b1.getrayon())) < epsilon){
 		p1.agit_sur(b1);
 	}
 	cout << "Balle : " << endl;
@@ -84,6 +88,12 @@ for (size_t i(1); i < n; ++i) {
     p1.affiche();
     cout << endl;
 }
+/*
+
+
+
+
+
 
 /*
 //On teste deux pendules ensemble:
@@ -194,13 +204,12 @@ for (size_t i(1); i < n; ++i) {
 
 
 
-./testChocs2 | grep '#position' > balleballeg.txt
+./testChocs2 | grep '#position' > balle32.txt
 cd Desktop/posixfs/c2-main
-plot 'balleballe6.txt' w points
+plot 'balle31.txt' w points, 'balle32.txt' w points
+
 * 
-./testChocs2 | grep '#position' > balleballe5.txt
-cd Desktop/posixfs/c2-main
-plot 'balleballe5.txt' w points
+
 * 
 * 
 pour un gif:

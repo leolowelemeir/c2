@@ -41,7 +41,6 @@ class IntegrateurEulerCromer : public Integrateur {
 	
 	
 };
-void integre(Obstacle& Ob);
 
 
 class IntegrateurNewmark : public Integrateur {

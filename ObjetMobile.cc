@@ -206,7 +206,6 @@ Vecteur Pendule::evolution() const {
 	double sin_P (sin (P.getcomposante(0)));
 	double cos_P (cos (P.getcomposante(0)));
 	cout <<"sin_P " <<sin_P <<"  cos_P "<<cos_P<<endl;
-	
 	//On definit le plan dans lequel est restreint le pendule: la verticale et d
 	Vecteur bas(0.0,-1.0,0.0);
 	
