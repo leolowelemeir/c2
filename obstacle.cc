@@ -6,6 +6,7 @@
 #include "obstacle.h"
 #include "SupportADessin.h"
 #include "Systeme.h"
+#include "constantes.h"
 
 using namespace std;
 
@@ -14,41 +15,58 @@ using namespace std;
 	Vecteur Obstacle::getobs_origine() const { return obs_origine;}
 
 
-    double Obstacle::distance(const ObjetMobile& M){
-        Vecteur dist (point_plus_proche(M) - M.getP());
+    double Plan::distance(const ObjetMobile& M){
+        Vecteur dist (Plan::point_plus_proche(M) - M.position());
+                cout << "1" <<endl;
+
+        double distance ( dist.norme() - M.getrayon());
+        cout << "2" <<endl;
+        return distance;
+    }
+    double Brique::distance(const ObjetMobile& M){
+        Vecteur dist (Brique::point_plus_proche(M) - M.position());
         double distance ( dist.norme() - M.getrayon());
         return distance;
     }
     
     void Obstacle::agit_sur(ObjetMobile& obj){
 		
-		//verification qu'il y ai bien un choc 
-		if (distance(obj)<=(obj.getrayon())) {
-			
+		//verification qu'il y ait bien un choc 
+		if (distance(obj) < epsilon) {
+			cout << "distance" << endl;
 			//mise à jour les forces s’exerçant sur l'objet
-            Vecteur normal(!(obj.position()-point_plus_proche(obj)));//vecteur (unitaire) normal au point de choc
-
+            Vecteur testnormal(!(obj.position()-point_plus_proche(obj)));//vecteur (unitaire) normal au point de choc
+			cout << "normal: " << testnormal <<endl;
+			Vecteur normal;
+			if (testnormal.getcomposante(2)>=0.0) { normal=testnormal;} else { normal=-testnormal;}
+			
+			
 			Vecteur a(obj.getforce());
 			double Fn1(a|normal);
-			
-			if (Fn1<0) {
+
+			if (Fn1<epsilon) {
 				obj.getforce()-=(Fn1*normal); 
-			} ///pourquoi on ne fait pas quans Fn1 est positif ?
-			
+			} ///pourquoi on ne fait pas quand Fn1 est positif ?
+
 			//calcul vitesse relative du point de contact
-			double v_etoile(-obj.getPd()|normal);
-			Vecteur v_contact((obj.getPd())+(v_etoile*normal));
+			double v_etoile(-obj.vitesse()|normal);
+			Vecteur v_contact((obj.vitesse())+(v_etoile*normal));
             Vecteur delta_v;
+
             double condition(7*obj.getfrottement_choc()*(1+obj.getalpha())*v_etoile);
-            if (condition>=2*v_contact.norme()){
-				delta_v=(1+obj.getalpha())*v_etoile*normal-(2/7)*v_contact;
+            if (condition - 2*v_contact.norme() > epsilon){
+				delta_v= (((1+obj.getalpha())*v_etoile)*normal) - (2/7)*v_contact;
+
 			} 
 			else{
-                delta_v=(1+obj.getalpha())*v_etoile*(normal-obj.getfrottement_choc()*(!v_contact));
+
+                delta_v=(1+obj.getalpha())*v_etoile*(normal- (obj.getfrottement_choc()*(!v_contact)));
+                cout << "v_contact" << v_contact <<endl;
+                cout << "!v_contact : " << !v_contact<< "delta_v" <<endl;
 			}
-			
-		obj.setPd(obj.getPd()+delta_v);
-		
+
+		obj.setvitesse(obj.vitesse()+delta_v);
+
 		//affichage
 		cout <<"calcul:"<<endl;
              
@@ -79,26 +97,29 @@ void Obstacle::ajoute_a(Systeme& S){
 	
 	// On définit la normale au plan
  Vecteur Plan::n() const {
-     Vecteur n (dir1);
-     n = (n^dir2);
-     return n;
+     return (!(dir1^dir2));
  }
 
 
 //on redefinit la methode de point le plus proche
-    Vecteur Plan::point_plus_proche(const ObjetMobile& M){
-		cout<<"la dimension de obs_origine: " << obs_origine.taille() <<" et la dimension de la position de M: "<< M.position().taille() << endl;
-        Vecteur point2 (obs_origine-M.position());
-																///juste pour savoir si c'est bon et apres on peut supprimer
-        /*point2*n(); 
-        point2*n();
-        point2+=M.getP();*/ //modifier en:
-        
-        point2=point2|dir1; //on cherche la projection de point2 sur le plan: 
-        point2+=point2|dir2; //on prend la composante selon dir1 de point2, puis celle selon dir2 et on les somme
-        
-    return point2;
-    }
+Vecteur Plan::point_plus_proche(const ObjetMobile& M){
+		Vecteur x2;
+		cout << "a" << endl;
+		Vecteur n (this->n()); 	//normale au plan
+				cout << "n: " << n << endl;
+
+		Vecteur position (M.position());	//position de l'objet
+		cout << position << endl;
+		cout << "obs or" << obs_origine << endl;
+		cout<< "pos:" <<  obs_origine - position << endl;
+        double point (( obs_origine - position ) | n);
+        		cout << "c" << endl;
+
+        x2 = position + point*n;	//formule du point le plus proche
+        		cout << "x2 " << x2<< endl;
+
+	return x2;
+}
     
     
 Plan* Plan::copie() const { //pour pouvoir utiliser la methode copieobjet
@@ -122,59 +143,75 @@ void Plan::affiche(){
     
 //______________________________________________________________________________________________________________________________________________
 //Brique    
-    
+
+Vecteur point_portion (ObjetMobile const& M, Vecteur dir1, Vecteur dir2, Vecteur point){
+	Plan face (point, dir1, dir2);
+	return face.point_plus_proche(M);
+}
+
     /// a retirer si ca marche avec la methode de plan
     Vecteur Brique::n() const {
-     Vecteur n (longueur);
-     n = (n^largeur);
-     return n;
+     return (!(largeur^longueur));	//Axe ZxX
  }
 
 
     Vecteur Brique::point_plus_proche(const ObjetMobile& M){
-        // faire le point le plus proche de chque face puis garder la plus petite distance
-         int meilleur_distance(-1); //il ne peut pas avoir de distance negative donc ca permet de savoir dans le programme si on parle d'une distance calculer ou de l'initialisation
-         Vecteur point_proche;
+        // But: faire le point le plus proche de chaque face puis garder la plus petite distance
+		 bool debut (true);		// Ce booleen pourra permettre de determiner si une valeur de distance par rapport à une face de la brique a déjà été calculée ou non (voir plus loin pour son utilisation)
+         Vecteur point_proche (vecnull);
+         double meilleure_distance;
+         Vecteur n (this-> n());	//norme à la portion de plan
+         Vecteur h (-hauteur*n);		// vecteur pour la hauteur (car l'attribut hauteur est un double)
          Vecteur a(!longueur); //a donne la direction de la longueur
          Vecteur b(!largeur); //b donne la direction de la largeur
-         array<array<Vecteur,6>,6> tableau ({obs_origine,n(),longueur,a,largeur,b,
-                                obs_origine,-b,hauteur,-n(),longueur,a,
-                                obs_origine,-a,largeur,b,hauteur,-n(),
-                                obs_origine+longueur*a,a,hauteur,-n(),largeur,b,
-                                obs_origine+largeur*b,b,longueur,a,hauteur,-n(),
-                                obs_origine+hauteur*b,-n(),largeur,b,longueur,a});
-                            
+         array<array<Vecteur,6>,6> tableau ({obs_origine,n,longueur,a,largeur,b,
+                                obs_origine,-b,h,-n,longueur,a,
+                                obs_origine,-a,largeur,b,h,-n,
+                                obs_origine+longueur,a,h,-n,largeur,b,
+                                obs_origine+largeur,b,longueur,a,h,-n,
+                                obs_origine+h,-n,largeur,b,longueur,a});
+                    
+        Vecteur point2;        
         //l'idee est de faire une boucle pour trouver quelle est la face la plus proche
-        for (int i(1);i<6; i++){
+        for (int i(0);i<6; i++){
             
-            //calcule pour un plan infini
-            Vecteur point2 (tableau[i][1]-M.getP());
-            point2*tableau[i][2];
-            point2*tableau[i][2];
-            point2+=M.getP();
+            //calcule pour un plan infini: on appelle une fonction qui assimile cette portion de plan comme un plan ce qui permet d'utiliser la fonction point_plus_proche de plan
+            point2 = ( point_portion (M, tableau[i][3], tableau[i][5], tableau[i][0]));
+                      
+            //calcul des coordonnées: voir le complément mathématique pour les opérations
+             
+            double xLg( (point2-tableau[i][0]) | tableau[i][3] ); //Pour faire le projeté sur la longueur
+            double xlar ( (point2-tableau[i][0]) | tableau[i][5] );//Pour faire le projeté sur la largeur
+            if (xLg - (tableau[i][2]).norme() > epsilon){ //si xLg >L alors on modifie pour retrouver le point le plus proche
+                point2-= (xLg- (tableau[i][2]).norme()) * tableau[i][3];
+            }
+            else if (xLg < epsilon){
+				point2-= xLg*tableau[i][3];
+			 }
+
+            if ( ( xlar - tableau[i][4].norme() ) > epsilon){
+				point2-= (xlar-tableau[i][4].norme()) * tableau[i][5];
+				}
+            else if (xlar<epsilon) {
+				point2-= xlar*tableau[i][5];}
             
-            //calcul des coordonnées:
-            double xLg( (point2-tableau[i][1]) | tableau[i][4] ); //Pour faire le projeté sur la longueur
-            double xlar ( (point2-tableau[i][1]) | tableau[i][6] );//Pour faire le projeté sur la largeur
             
-            if (xLg>tableau[i][3].norme()){ //si xLg >L alors on modifie pour retrouver le point le plus proche
-                point2-=(xLg-tableau[i][3].norme())*tableau[i][4];
+            // Pour savoir quelle est la meilleure distance :
+            Vecteur A (M.position()-point2);
+            if (debut) {
+			    point_proche=point2;
+                meilleure_distance= A.norme()-M.getrayon();
+                debut = false;
                 }
-            else if (xlar>tableau[i][5].norme()){point2-=(xlar-tableau[i][5].norme()) * tableau[i][6];}
-            else if (xLg<0){point2-=xLg;}
-            else if (xlar<0) {point2-=xlar;}
+            else if (meilleure_distance - (A.norme()-M.getrayon()) > epsilon) {
+				point_proche=point2;
+                meilleure_distance= (A.norme()-M.getrayon());
+			}
             
-            //pour savoir quelle est la meilleur distance
-            if (meilleur_distance==-1) {
-                meilleur_distance=(point2-M.getP()).norme();
-                point_proche=point2;}
-            else if (meilleur_distance>(point2-M.getP()).norme()) {
-                meilleur_distance=(point2-M.getP()).norme();
-                point_proche=point2;}
             
         }
-        return meilleur_distance;
-        }
+    return point_proche;
+}
 
 Vecteur Brique::getlongueur() const { return longueur;}
 Vecteur Brique::getlargeur() const {return largeur;}

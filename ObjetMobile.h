@@ -2,12 +2,15 @@
 #include <iostream>
 #include <vector>
 #include <memory>
+#include <cmath>
 #include "ex_vecteur.h"
 #include "constantes.h"
 #include "Dessinable.h"
 #include "SupportADessin.h"
 #include "Systeme.h"
 #include "ChampsForces.h"
+#include "constantes.h"
+#include <map>
 
 class ObjetMobile: public Dessinable {
     protected:
@@ -21,24 +24,33 @@ class ObjetMobile: public Dessinable {
         int degl;
         double alpha; //coefficient de restitution choc 
         double frottement_choc; // le coefficient μ de frottement entre corps pour chocs
-        
+        std::map<int, bool> danschamp; //Ce booléen correspond à l'information si oui ou non l'ObjetMobile est actuellement influencé par un ChampForce
+
+
       public:
         //Constructeur
-        ObjetMobile (Vecteur param, Vecteur derparam, double m,  Vecteur F,double r, double t, int deg_ , double alp, double fchoc)
-            : P (param), Pd (derparam), masse (m), force (F), rayon (r), temps (t), degl(deg_), alpha(alp), frottement_choc(fchoc) {}
+        ObjetMobile (Vecteur param, Vecteur derparam, double m,  Vecteur F,double r, int deg_ , double alp, double fchoc)
+            : P (param), Pd (derparam), masse (m), force (F), rayon (r), degl(deg_), alpha(alp), frottement_choc(fchoc) {
+				//On place comme force par défaut le poids et la force d'Archimède pour tous les ObjetsMobiles
+				 Vecteur f( (m - (4*M_PI*rho_air*r*r*r)/3)*g );
+				force= f+F;	
+			}
             
-       //destrcuteur
+       //destructeur
        virtual ~ObjetMobile() {}
             
       //  virtual double distance(const ObjetMobile& obj) = 0; // calculer distance entre objets
-        
-        
+		bool getdanschamp(size_t i);
+		void setdanschamp(size_t i, bool a);
+
 
         // Methodes dans balle a l origine
     
         virtual Vecteur position () const = 0 ;
-        virtual Vecteur evolution() = 0;
-        virtual void agit_sur(ObjetMobile& obj) = 0;    ///A modifier pour chaque sous classe: pour obstacle: change vitesse; pour champforce: ajoute une force externe
+        virtual Vecteur vitesse() const = 0 ;
+        virtual void setvitesse(Vecteur const& a) = 0 ;
+        virtual Vecteur evolution() const = 0;
+        void agit_sur(ObjetMobile& obj);
 //      virtual void dessine_sur(SupportADessin&) =0;
         virtual Vecteur point_plus_proche (const ObjetMobile& obj) = 0; //calculer le point le plus proche
 
@@ -49,15 +61,15 @@ class ObjetMobile: public Dessinable {
         Vecteur getPd() const;
         Vecteur getforce() const;
 		double getalpha() const;
+		double getfrottement_choc() const;
 		double getmasse() const;
         double getrayon() const;
         double get_temps () const;
-        double getfrottement_choc() const;
-
         void setP (Vecteur nouv_pos);
         void setPd (Vecteur nouv_der);
         void setforce(Vecteur nouv_force);
-		virtual void affiche()=0;
+
+		virtual void affiche() const=0;
 
 		//pour ajouter des objets au systeme
 		void ajoute_a(Systeme& S);
@@ -74,24 +86,24 @@ class ObjetMobile: public Dessinable {
 class Balle : public ObjetMobile {
     public:
     // les constructeurs
-    Balle (Vecteur pos, Vecteur vit,  double masse, Vecteur F, double r=1.0, double t=0.0,  int deg_=3, double alp=1, double fchoc=0)
-    : ObjetMobile (pos,vit, masse, F, r, t, deg_,alp,fchoc) {}
+    Balle (Vecteur pos, Vecteur vit,  double masse, Vecteur F, double r=0.1, int deg_=3, double alp=1, double fchoc=0)
+    : ObjetMobile (pos,vit, masse, F, r, deg_,alp,fchoc) {}
     
     
     
     //les methodes 
     virtual Vecteur position() const override;
+    virtual Vecteur vitesse() const override;
  
-    void setposition(Vecteur a);
+    void setposition(Vecteur const& a);
     
     Vecteur getvitesse() const;
-    void setvitesse(Vecteur a);
+    virtual void setvitesse(Vecteur const& a) override;
     
-    Vecteur evolution() override;
+    Vecteur evolution() const override;
     virtual Vecteur point_plus_proche(const ObjetMobile& M) override;
-    virtual void agit_sur(ObjetMobile& obj) override; 
 	
-	virtual void affiche() override;
+	virtual void affiche() const override;
 
     ///virtual void dessine_sur(SupportADessin& support) override;
     
@@ -109,9 +121,24 @@ class Balle : public ObjetMobile {
 class Pendule : public ObjetMobile {
     public:
     //Constructeur
-    Pendule (Vecteur param, Vecteur derparam, double m, Vecteur F, double r, Vecteur Or, double l, double alp=1, double fchoc=0, double t = 0, int deg_=1, double fr = 0.0)
-    : ObjetMobile ( param, derparam, m, F, r, t, deg_, alp, fchoc), origine (Or), longueur (l), frottement(fr)
-    {/*ajoute_force(m*g);*/ ///Cette information permettrait de mettre par defaut l action de la gravite sur le pendule
+    Pendule (Vecteur param, Vecteur derparam, double m, Vecteur F, double r, Vecteur Or, double l, Vecteur dir, double alp=1, double fchoc=0, int deg_=1, double fr = 0.0)
+    : ObjetMobile ( param, derparam, m, F, r, deg_, alp, fchoc), origine (Or), longueur (l),  d (dir), frottement(fr)
+    {	std::cout << " longueur " << l << std::endl;
+		if (l < epsilon ) {	//un pendule ne peut pas avoir une longueur nulle
+			longueur = 0.1;
+			std::cout << "La longueur donnée est nulle ou négative, on la met donc par défaut à 0.1 ." <<std::endl;
+			}
+		
+		Vecteur direction(d);
+
+		if((d|g) > epsilon) {
+			Vecteur y(0,1.0,0);
+            direction -=  (!((d|y)*y));                // Le vecteur d n'a pas de composante en y (il est orthogonal à l'axe Y), on supprime donc la deuxieme composante de dir.
+
+            		//On prend le vecteur directeur pour que la norme de d n'influence pas les calculs, on a juste besoin de la direction du vecteur
+            } 
+	d = (!direction);
+
     }
     
     Pendule (Pendule const&) = default;
@@ -122,21 +149,22 @@ class Pendule : public ObjetMobile {
     
     Vecteur Madirection () const;
     virtual Vecteur position() const override;
-    
+    virtual Vecteur vitesse() const override;
+    virtual void setvitesse(Vecteur const& a) override;
+	//Vecteur dir() const;
 
     
     // methodes get, necessaires pour l operateur d affichage << et pour la fonction agir_sur
     Vecteur getP() const;
     Vecteur getorigine() const;
-    double getfrottement() const;
+    //double getfrottement() const;
 	double getlongueur() const ;
 	
-	virtual Vecteur evolution() override;
+	virtual Vecteur evolution() const override;
 	
 	virtual Vecteur point_plus_proche(const ObjetMobile& M) override;
     ///virtual void dessine_sur(SupportADessin& support) override;
-	virtual void agit_sur(ObjetMobile& obj) override; 
-	virtual void affiche() override;
+	virtual void affiche() const override;
 
     //pour la covariance
     virtual Pendule* copie() const override;
@@ -148,11 +176,13 @@ class Pendule : public ObjetMobile {
     //attributs     
     Vecteur origine;
     double longueur;
+    Vecteur d;	//d correspond à un vecteur orthogonal à la verticale pour déterminer le plan dans lequel le pendule est contraint
     double frottement;
 };
 
 
-
+std::ostream& operator<<(std::ostream& sortie, Balle const& b);
+std::ostream& operator<<(std::ostream& sortie, Pendule const& p);
 
 
 

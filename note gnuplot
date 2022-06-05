@@ -1,0 +1,18 @@
+./testChocs2 | grep '#position' > balle32.txt
+cd Desktop/posixfs/c2-main
+plot 'balle31.txt' w points, 'balle32.txt' w points
+
+* 
+
+* 
+* 
+pour un gif:
+ 
+set term gif animate delay 5
+set output 'LESballeballe2.gif'
+set xrange [-20:20]
+set yrange [-20:20]
+do for [j=1:100] {
+set title 'time'.j
+plot 'balleballe.txt' u 2:3 every ::j ::j w circles
+}

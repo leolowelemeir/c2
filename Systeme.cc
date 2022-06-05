@@ -7,7 +7,7 @@
 #include "obstacle.h"
 #include "Objetcompose.h"
 #include <memory>
-
+#include <map>
 
 
 
@@ -51,7 +51,6 @@ void Systeme::affiche() const {
         cout << "Aucun obstacle." << endl;
     }       
             
-  cout << endl;
     
   n = tableau_champs.size();
     if (n != 0){
@@ -65,7 +64,7 @@ void Systeme::affiche() const {
         cout<<endl;
         }
     }else{
-        cout << "Aucun champ de force." << endl;
+        cout << "Seule la gravité et la force d'Archimede agissent" << endl;
     }
     cout << endl;
 }
@@ -78,13 +77,14 @@ ostream& operator<<(ostream& sortie,const Systeme& Sys){
 
 
 void Systeme::evolue2( double dt) {
-
+cout <<"a evolue" << endl; 
 
     //ajoutons les forces externes que subissent les objet mobiles (les champs de forces)
-    for(size_t i(0); i<tableau_objets.size(); i++){
-        ChampForces champ_g(g);
-        champ_g.agit_sur(*tableau_objets[i]);                  //g est un champ de force (c'est le seul programmer)
-    }
+    for(size_t i(0); i<tableau_champs.size(); i++){
+		for(size_t j(0); j<tableau_objets.size(); j++){
+			(*tableau_champs[i]).agit_sur(*tableau_objets[j]);
+		}
+	}
 
     //pour calculer le cas ou il pourrait y avoir un choc
     for(size_t i(0); i<tableau_objets.size(); i++){
@@ -95,8 +95,11 @@ void Systeme::evolue2( double dt) {
 
     //et enfin integre l'objet qui "deplace" les objets
     for(size_t k(0); k<tableau_objets.size(); k++){
-        Integrateur inte(dt);
-        inte.integre(*tableau_objets[k]);
+        IntegrateurEulerCromer inte(dt);
+        cout << "a ete integre" <<endl;
+        inte.integre(*tableau_objets[k]); 
+        (*tableau_objets[k]).affiche();
+
     }
 }
 
@@ -109,6 +112,9 @@ void Systeme::ajoute(Obstacle* obstacle){
 
 void Systeme::ajoute(ChampForces* Champ){
     tableau_champs.push_back(unique_ptr <ChampForces> (Champ->copie()));
+   for (size_t i(0); i < taille_tab_obj(); ++i){
+    retour_obj(i)->setdanschamp(Champ->getnumero(), false);
+	}
 }
 
 

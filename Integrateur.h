@@ -14,7 +14,7 @@ class Integrateur {
 // Represente un integrateur quelconque
 	public:
 	// Constructeur
-	Integrateur (double t_ = 0.1)
+	Integrateur (double t_ = 0.01)
 	 : dt(t_) {}
 	
 	
@@ -32,7 +32,7 @@ class Integrateur {
 class IntegrateurEulerCromer : public Integrateur {
 		public:
 
-	IntegrateurEulerCromer (double t =0.1)
+	IntegrateurEulerCromer (double t =0.01)
 	: Integrateur (t) {}
 	
 	virtual void integre(ObjetMobile& M) override;
@@ -41,19 +41,13 @@ class IntegrateurEulerCromer : public Integrateur {
 	
 	
 };
-void integre(Obstacle& Ob);
 
 
-/*class IntegrateurNewmark : public Integrateur {
+class IntegrateurNewmark : public Integrateur {
 	public:
+	IntegrateurNewmark (double t =0.01)
+	: Integrateur (t) {}
 	virtual void integre(ObjetMobile& M) override;
-
-	
-	
-	private:
-	Vecteur q;
-	Vecteur r;
-	Vecteur s;
 	
 	};
 /*

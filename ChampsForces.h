@@ -1,65 +1,91 @@
 #pragma once
-#include "ObjetMobile.h"
 #include "ex_vecteur.h"
 #include "Systeme.h"
 #include "constantes.h"
 #include <iostream>
 
+class ObjetMobile;
+class Systeme;
+
 class ChampForces {
     public:
-    //les methodes
-    void agit_sur(ObjetMobile& obj);
-    Vecteur getintensite() const;
-    virtual ChampForces* copie() const;
 
-	//constructeur
 	ChampForces (Vecteur F)
-		: intensite (F) {}
-		
+		: intensite (F) {
+			numero = compteur; // l'explication de cette partie est dans les attributs
+			++compteur;
+			
+
+			}
+	
+	ChampForces (ChampForces const& C) {
+		 ++ compteur;
+		 	numero = compteur; 
+		 	intensite= C.getintensite();
+
+		 
+		  } // si on fait une copie on crée quand meme bien un champs de force donc le compteur doit augmenter (voir explication dans attributs)
+	ChampForces& operator=(ChampForces const& ) = delete;
 	//Destructeur 
 	virtual ~ChampForces() {}
 	
+	
 	//methodes 
-	void ajoute_a(Systeme& S);
+	void ajoute_a(Systeme& S); //pour ajouter un champs de force a un systeme 
+    virtual void agit_sur(ObjetMobile& obj) const =0; //On ne va pas créer d'instance de ChampForces, c'est une classe abstraite. En efet excepte la pesanteur et le force d'Archimede il n'y a pas de champ qui s'applique de facon délocalisée générale
+    Vecteur getintensite() const;
+    virtual ChampForces* copie() const =0; //utile pour pouvoir faire des copies profondes polymorphiques
+    int getnumero() const;
+    virtual void affiche() const =0;
 
-    private:
+    protected:
     //les attributs
     Vecteur intensite;
+    static int compteur;	//le compteur permet de donner un numéro à chaque instance ChampForce crée pour se retrouver dans la map de danschamp et déterminer quel champ influence ou non l'objet
+    int numero;
 };
 
-
-std::ostream& operator<<(std::ostream& sortie, ChampForces const& champF);
 
 
 
 class Vent : public ChampForces {
 	public:
-	Vent (Vecteur inten,Vecteur orin, Vecteur nor, Vecteur l, Vecteur hau, double pro) : ChampForces(inten), origine(orin), normale(nor), largeur(l), hauteur(hau), profondeur(pro) { 
-		//au cas ou les vecteurs ne soit pas perpendiculaires
+	Vent (Vecteur inten,Vecteur orin, Vecteur l, Vecteur hau, double pro)
+	: ChampForces(inten), origine(orin), largeur(l), hauteur(hau), profondeur(pro) { 
 		
-		if ((largeur|normale) > epsilon) {
-		Vecteur a(!normale); //a prend la direction de normal
-			largeur= largeur - (largeur*a)*a;
+		//au cas ou les vecteurs ne soient pas perpendiculaires, on les rend perpendiculaires entre eux (ex: largeur doit etre perpendiculaire a n)
+		
+		n = (!intensite);
+		
+		if ((largeur|n) > epsilon) {
+			largeur= largeur - (largeur|n)*n;
 		}	
 		
-		if ((hauteur|normale) > epsilon) {
-		Vecteur a(!normale); //a prend la direction de normal
-			hauteur= hauteur - (hauteur*a)*a;
+		if ((hauteur|n) > epsilon) {
+			hauteur= hauteur - (hauteur|n)*n;
 		}
 		
 		if ((largeur|hauteur) > epsilon) { 
-			 Vecteur a(!largeur); //a prend la direction de largeur
-			hauteur = hauteur - (hauteur*a)*a;
-		}	
+			 Vecteur a(!largeur);
+			hauteur = hauteur - (hauteur|a)*a;
+		}
+		
 	}
 	//methode 
-	Vecteur getnormale();
-	virtual Vent* copie() const override;
+	Vecteur getnormale(); // renvoie la direction du vent
+	virtual Vent* copie() const override; //utile pour pouvoir faire des copies profondes polymorphiques
+	virtual void agit_sur(ObjetMobile& obj) const override; //si il y a besoin on rajoute l'intensite du vent aux forces de l'objet (on a par exemple pas besoin de rajouter deux fois un vent si l'objet s'est juste deplace dans le vent) 
+	bool influe (ObjetMobile const& obj) const; //pour verifier si l'objet est dans le champs
+	virtual void affiche() const override; 
+
 	
+	//pour un vent l'intensite peut etre associe a la vitesse du vent Vo
 	private:
 	Vecteur origine;
-	Vecteur normale; //direction du vent 
+	Vecteur n; //direction du vent 
 	Vecteur largeur;
 	Vecteur hauteur;
 	double profondeur;
 	};
+	
+std::ostream& operator<<(std::ostream& sortie, Vent const& vent); // utilise les fonctions affiche() et on a pas mis que les fonctions affiche() pour le graphisme 
