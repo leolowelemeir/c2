@@ -19,7 +19,7 @@ int main (){
     Vecteur Or (0.0, 1.0, 2.0);
     double longueur (2);
     double frottement (2.0*m);
-    Pendule p (theta, vit_ang, m, F, r, Or, longueur, d, 1, 0, 0, 1, frottement);
+    Pendule p (theta, vit_ang, m, F, r, Or, longueur, d, 1, 0, 1, frottement);
     cout <<"Nous avons : " <<endl;
     p.affiche();
     cout << p.evolution() << "  #accélération" << endl;

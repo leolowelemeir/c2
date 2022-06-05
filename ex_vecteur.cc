@@ -80,7 +80,7 @@ bool Vecteur::operator==(const Vecteur& v) const {
     }else{
     int a(0);
     for(size_t i(0);i<v.taille();i++){
-        if (vecteur[i]-v.vecteur[i] > 0.0000001){
+        if (vecteur[i]-v.vecteur[i] > 0.0000001){ //on ne peut pas comparer deux doubles ensembles
             a=1;
         }
     }

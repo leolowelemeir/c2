@@ -32,7 +32,8 @@ Vent Ventilateur::getvent() const {return *vent;}
 
 std::ostream& operator<<(std::ostream& sortie, Ventilateur const& ventilateur){
 	cout <<"voici un ventilateur" <<endl;
-	cout << ventilateur.getvent() << endl;
+	ventilateur.getvent().affiche();
 	cout << endl;
-	cout << ventilateur.getbrique() << endl;
+	ventilateur.getbrique().affiche();
+	return sortie;
 	}

@@ -22,7 +22,7 @@ int main() {
 	double masse(0.00167784948285945);
 	Vecteur pos(0, 0.0465234, 0.624);
     Vecteur vit(0, -2.59108, 0.8);
-    Balle b1(pos, vit,masse, vecnull,0.051111, 0.0, 3,0.8,0.01);  ///attention je suis pas sur qu'il faille ajouté g ici peut etre qu'on l'a mis deux fois !! =>non ca aurait ete si on utilisait la fonction evolue2
+    Balle b1(pos, vit,masse, vecnull,0.051111, 3,0.8,0.01);  ///attention je suis pas sur qu'il faille ajouté g ici peut etre qu'on l'a mis deux fois !! =>non ca aurait ete si on utilisait la fonction evolue2
     cout <<"test" << endl;
    cout << " force : " << b1.getforce();
     champs.agit_sur(b1); //on rajoute la poussée dArchimede
@@ -57,13 +57,13 @@ int main() {
 	//construction de la balle 2
 	Vecteur pos2(0,0.283821,1.36675);
     Vecteur vit2(0,0.0957368,0.715449);
-    Balle b2(pos2, vit2, masse ,vecnull, 0.051111, 0.0, 3.0, 0.8,0.01);
+    Balle b2(pos2, vit2, masse ,vecnull, 0.051111,  3.0, 0.8,0.01);
     champs.agit_sur(b2); //on rajoute la poussé dArchimede
 
 	//construction de la balle 3
 	Vecteur pos3(0, 0.260128, 1.46284);
     Vecteur vit3(0, 0.13874, 0.419218);
-    Balle b3(pos3, vit3, 0.1 , vecnull,0.05, 0.0, 3.0, 0.8);
+    Balle b3(pos3, vit3, 0.1 , vecnull,0.05, 3.0, 0.8);
     champs.agit_sur(b3); //on rajoute la poussé dArchimede
 
 	cout<<"cas 2"<<endl;

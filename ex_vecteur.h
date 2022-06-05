@@ -24,7 +24,7 @@ class Vecteur {
     //Constructeur vecteur
     Vecteur(std::initializer_list<double> const& data) : vecteur(data) {};
     
-    // On surcharge les constructeurs afin de pouvoir initialiser des vecteurs qui pourront avoir différentes dimensions:  une, deux ou trois dimensions.
+    // On surcharge les constructeurs afin de pouvoir initialiser des vecteurs qui pourront avoir différentes dimensions:  une, deux ou trois dimensions (un vecteur de deux dimentions est un vecteur de 3 dimention avec un 0 dans la dernier composante 
     Vecteur () {}
 	Vecteur (double x) {vecteur.push_back(x);}
 	//Vecteur (double x, double y) { vecteur.push_back(x); vecteur.push_back(y);}

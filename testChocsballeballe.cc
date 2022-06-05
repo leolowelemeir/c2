@@ -9,8 +9,8 @@ using namespace std;
 
 
 int main () {
-IntegrateurEulerCromer I (0.1);
-IntegrateurNewmark K (0.05);
+IntegrateurEulerCromer I (0.01);
+IntegrateurNewmark K (0.01);
 unsigned int n (50);
 
 

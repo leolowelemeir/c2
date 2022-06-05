@@ -10,8 +10,8 @@ using namespace std;
 //Ce fichier test permet de tester l'efficacité des fonctions de chocs avec un intégrateur: 
 
 int main () {
-IntegrateurEulerCromer I (0.1);
-IntegrateurNewmark K (0.05);
+IntegrateurEulerCromer I (0.01);
+IntegrateurNewmark K (0.01);
 unsigned int n (50);
 
 //chocs Balle/plan
@@ -20,7 +20,7 @@ unsigned int n (50);
 double masse3(0.00167784948285945);
 	Vecteur pos3(0, 0.3, 0);
     Vecteur vit3(0,2.0,0.8);
-    Balle b3(pos3, vit3,masse3, vecnull,0.051111, 0.0, 3,0.8,0.01);  ///attention je suis pas sur qu'il faille ajouté g ici peut etre qu'on l'a mis deux fois !! =>non ca aurait ete si on utilisait la fonction evolue2
+    Balle b3(pos3, vit3,masse3, vecnull,0.051111,  3,0.8,0.01);  ///attention je suis pas sur qu'il faille ajouté g ici peut etre qu'on l'a mis deux fois !! =>non ca aurait ete si on utilisait la fonction evolue2
 
    cout << " force : " << b3.getforce()<<endl;
 cout << endl;

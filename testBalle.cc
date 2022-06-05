@@ -16,7 +16,7 @@ int main(){
     Balle b(pos, vit, 2.0, vecnull, 1.0, 2.0, 1);
     ChampForces champ (g);
     b.ajoute_force(F);
-    cout << champ << endl;
+	champ.affiche();
     b.affiche();
     
     cout << "Vecteur accélération: " << endl;

@@ -10,8 +10,8 @@ using namespace std;
 //Ce fichier test permet de tester l'efficacité des fonctions de chocs avec un intégrateur: 
 
 int main () {
-IntegrateurEulerCromer I (0.1);
-IntegrateurNewmark K (0.05);
+IntegrateurEulerCromer I (0.01);
+IntegrateurNewmark K (0.01);
 unsigned int n (50);
 
 
