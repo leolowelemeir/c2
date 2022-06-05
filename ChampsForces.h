@@ -14,20 +14,29 @@ class ChampForces {
 		: intensite (F) {
 			numero = compteur; // l'explication de cette partie est dans les attributs
 			++compteur;
+			
 
 			}
 	
-	ChampForces (ChampForces const& C) {numero = compteur;  ++ compteur; } // si on fait une copie on crée quand meme bien un champs de force donc le compteur doit augmenter (voir explication dans attributs)
+	ChampForces (ChampForces const& C) {
+		 ++ compteur;
+		 	numero = compteur; 
+		 	intensite= C.getintensite();
+
+		 
+		  } // si on fait une copie on crée quand meme bien un champs de force donc le compteur doit augmenter (voir explication dans attributs)
+	ChampForces& operator=(ChampForces const& ) = delete;
 	//Destructeur 
 	virtual ~ChampForces() {}
 	
+	
 	//methodes 
 	void ajoute_a(Systeme& S); //pour ajouter un champs de force a un systeme 
-    virtual void agit_sur(ObjetMobile& obj) const ; //
+    virtual void agit_sur(ObjetMobile& obj) const =0; //On ne va pas créer d'instance de ChampForces, c'est une classe abstraite. En efet excepte la pesanteur et le force d'Archimede il n'y a pas de champ qui s'applique de facon délocalisée générale
     Vecteur getintensite() const;
-    virtual ChampForces* copie() const; //utile pour pouvoir faire des copies profondes polymorphiques
+    virtual ChampForces* copie() const =0; //utile pour pouvoir faire des copies profondes polymorphiques
     int getnumero() const;
-    virtual void affiche() const;
+    virtual void affiche() const =0;
 
     protected:
     //les attributs

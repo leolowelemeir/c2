@@ -24,6 +24,8 @@ class ObjetMobile: public Dessinable {
         int degl;
         double alpha; //coefficient de restitution choc 
         double frottement_choc; // le coefficient μ de frottement entre corps pour chocs
+        std::map<int, bool> danschamp; //Ce booléen correspond à l'information si oui ou non l'ObjetMobile est actuellement influencé par un ChampForce
+
 
       public:
         //Constructeur
@@ -38,8 +40,8 @@ class ObjetMobile: public Dessinable {
        virtual ~ObjetMobile() {}
             
       //  virtual double distance(const ObjetMobile& obj) = 0; // calculer distance entre objets
-
-	    std::map<int, bool> danschamp; //Ce booléen correspond à l'information si oui ou non l'ObjetMobile est actuellement influencé par un ChampForce
+		bool getdanschamp(size_t i);
+		void setdanschamp(size_t i, bool a);
 
 
         // Methodes dans balle a l origine
@@ -66,7 +68,7 @@ class ObjetMobile: public Dessinable {
         void setP (Vecteur nouv_pos);
         void setPd (Vecteur nouv_der);
         void setforce(Vecteur nouv_force);
-		virtual void affiche()=0;
+		virtual void affiche() const=0;
 
 		//pour ajouter des objets au systeme
 		void ajoute_a(Systeme& S);
@@ -100,7 +102,7 @@ class Balle : public ObjetMobile {
     Vecteur evolution() const override;
     virtual Vecteur point_plus_proche(const ObjetMobile& M) override;
 	
-	virtual void affiche() override;
+	virtual void affiche() const override;
 
     ///virtual void dessine_sur(SupportADessin& support) override;
     
@@ -159,7 +161,7 @@ class Pendule : public ObjetMobile {
 	
 	virtual Vecteur point_plus_proche(const ObjetMobile& M) override;
     ///virtual void dessine_sur(SupportADessin& support) override;
-	virtual void affiche() override;
+	virtual void affiche() const override;
 
     //pour la covariance
     virtual Pendule* copie() const override;
@@ -176,7 +178,8 @@ class Pendule : public ObjetMobile {
 };
 
 
-
+std::ostream& operator<<(std::ostream& sortie, Balle const& b);
+std::ostream& operator<<(std::ostream& sortie, Pendule const& p);
 
 
 

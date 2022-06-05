@@ -45,6 +45,7 @@ class Vecteur {
     
     void augmente(double aug);
     void set_coord(size_t coord, double valeur);
+    void dimension( Vecteur autre); //pour savoir si les vecteurs sont de la meme taille
     
   //Remplacés en opérateurs
 ///    Vecteur addition (Vecteur autre) const;

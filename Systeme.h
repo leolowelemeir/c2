@@ -53,7 +53,7 @@ std::unique_ptr<Obstacle> retour_obs (size_t i) const ;
 std::unique_ptr<ChampForces> retour_champ (size_t i) const ;
 
     
-/*  Inutile donc enlevé, on a trouvé d'autres maoyens de faire que copier un unique_ptr
+/*  Inutile donc enlevé, on a trouvé d'autres moyens de faire que copier un unique_ptr
 template <typename Type>
 std::vector<std::unique_ptr<Type>> copie_unique(std::vector<std::unique_ptr<Type>> tableau){
 	std::vector<std::unique_ptr<Type>> tab;

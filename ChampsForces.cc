@@ -13,15 +13,6 @@ using namespace std;
     //Methodes
 Vecteur ChampForces::getintensite() const {return intensite;}
 
-  
-void ChampForces::agit_sur(ObjetMobile& obj) const{
-  obj.ajoute_force(intensite); // pour pouvoir ajouter une force a un objet mobile, le plus simple c'est d'appeler une methode propre a l'objet qui ajoutera cette force au bon endroit
-   }
- 
-ChampForces* ChampForces::copie() const { 
-        return (new ChampForces(*this));}
-        
-   
 void ChampForces::ajoute_a(Systeme& S){
 	S.ajoute(this); //  pour pouvoir ajouter un ChampForces  a un Systeme , le plus simple c'est d'appeler une methode propre au Systeme qui ajoutera ce ChampForces au bon endroit 
 	cout <<"un Champs de force a ete ajoute au systeme"<<endl;
@@ -30,10 +21,6 @@ void ChampForces::ajoute_a(Systeme& S){
 int ChampForces::compteur(0); 	//on initialise le compteur à 0
 int ChampForces::getnumero() const { return numero; }
 
- void ChampForces::affiche() const {
-	cout<< "On a un champ de force: " << endl;
-    cout << intensite  << "  #intensite";
-    }
 
 	
 
@@ -56,20 +43,23 @@ int ChampForces::getnumero() const { return numero; }
  }
  
  void Vent::agit_sur(ObjetMobile& obj) const {
-	 bool a(obj.danschamp.at(this->getnumero()));
+	 Vecteur F;
+	 F = 3.77*obj.getrayon()*obj.getrayon()*intensite.norme()*intensite.norme()*n;	//on suit la formule donée dans le complement mathématique du projet
+	 bool a(obj.getdanschamp(this->getnumero()));
 	 if ( (influe (obj)) and (not a)){ // si l'objet est dans le champs et que le champs n'a pas deja été ajouté alors :
-		 obj.danschamp.at(this->getnumero()) = true; //dire pour la suite que le champs a deja été ajouté
-		 obj.setforce (obj.getforce()+intensite);
+		 obj.setdanschamp(this->getnumero(), true); //dire pour la suite que le champs a deja été ajouté
+		 obj.setforce (obj.getforce()+F);
 	 }
 	 else if ( (not influe(obj)) and (a)){
-		 obj.danschamp.at(this->getnumero()) = false;
-		 obj.setforce (obj.getforce() - intensite);
+		 obj.setdanschamp(this->getnumero(), false);
+		 obj.setforce (obj.getforce() - F);
 	 }
  } 
 
  void Vent::affiche() const {
-	ChampForces::affiche();
-	cout << "origine " << origine << endl;
+	cout << "Ce champ de force a pour caractéristiques: "<<endl;
+	cout << "intensité: " << intensite << endl;
+	cout << "origine : " << origine << endl;
 	cout << "direction du vent n : " << n << endl;
 	cout << "hauteur : " << hauteur << endl;
 	cout << " largeur : " << largeur << endl;

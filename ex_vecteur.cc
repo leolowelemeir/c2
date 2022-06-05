@@ -11,7 +11,24 @@ using namespace std;
 
     size_t Vecteur::taille() const {return vecteur.size();}
     
-    
+   void Vecteur::dimension(Vecteur autre){
+
+	   size_t nv (taille());
+        size_t na (autre.taille());
+			cout << "Attention les vecteurs sont de tailles différentes!" << endl;
+            if (nv > na){
+                for (size_t i(na); i < nv; ++i){
+                    autre.augmente(0.0);
+                }
+                
+            }else{
+                for (size_t i(nv); i < na; ++i){
+                    augmente(0.0);
+                }
+            }
+		}
+		
+
     
    vector<double> Vecteur::getvecteur() const {return vecteur;}
    
@@ -32,12 +49,7 @@ using namespace std;
 
 //_____________________________________________________________________________________________________
 
-    /*void Vecteur::affiche() const {
-        for (size_t i(0);i<vecteur.size();i++){
-            cout<<vecteur[i]<<" "<<endl;
-        }
-    } */
-    
+  
 
  ostream& operator<<(ostream& sortie, Vecteur const& v){
 for (size_t i(0); i<v.taille();i++) {
@@ -49,30 +61,8 @@ return sortie;
 
 //__________________________________________________________________________________________________
 
-    /*bool Vecteur::compare(Vecteur v) const {
-        int n (0);
-        if (vecteur.size() != v.vecteur.size()){
-            //les vecteurs sont differents
-            return false;
-            }else{
-                for (size_t i(0);i<vecteur.size();i++){
-                        if (vecteur[i]!=v.vecteur[i]){
-                            n+=1;
-                        }
-                    }
-                }
-                if (n == 0){
-                  //  les vecteurs sont pareils
-                    return true;
-                }else{
-                   // les vecteurs sont differents
-                    return false;
-                }
     
-            }
-    */
 
-//methode interne
 bool Vecteur::operator==(const Vecteur& v) const {
     if (vecteur.size() != v.getvecteur().size()){
         //les vecteurs sont differents
@@ -91,59 +81,12 @@ bool Vecteur::operator==(const Vecteur& v) const {
  
 //_____________________________________________________________________________________________
 
- /*   Vecteur Vecteur::addition(Vecteur autre) const {
-        //On egalise les vecteurs pour qu ils aient la meme dimension
-        //On ne peut pas modifier les vecteurs donc on cree des copies ( pas genial pour la memoire...)
-        size_t nv (vecteur.size());
-        size_t na (autre.vecteur.size());
-        
-        Vecteur copie;
-        Vecteur autrecopie;
-        
-        copie.vecteur = vecteur;
-        autrecopie.vecteur = autre.vecteur;
-        
-        if (nv != na){
-            if (nv > na){
-                for (size_t i(na); i < nv; ++i){
-                    autrecopie.vecteur.push_back(0.0);
-                }
-            }else{
-                for (size_t i(nv); i < na; ++i){
-                    copie.vecteur.push_back(0.0);
-                }
-            }
-        }
-        
-        // Pas besoin de creer un nouveau vecteur!
-        for (size_t i(0); i < copie.vecteur.size(); ++i){
-                    copie.vecteur[i] += autrecopie.vecteur[i];
-        }
-                
-        return copie;
-}
-
-*/
+ 
    Vecteur Vecteur::operator+=(const Vecteur& autre){
         double valeur;
-        Vecteur autrecopie;
-        size_t nv (taille());
-        size_t na (autre.taille());
-        if (nv != na){
-			cout << "Attention les vecteurs sont de tailles différentes!" << endl;
-			if (nv != na){
-            if (nv > na){
-                for (size_t i(na); i < nv; ++i){
-                    autrecopie.vecteur.push_back(0.0);
-                }
-                
-            }else{
-                for (size_t i(nv); i < na; ++i){
-                    vecteur.push_back(0.0);
-                }
-            }
-		}
-		}
+        if (taille()!=autre.taille()){
+		dimension(autre); // pour tester si les dimensions sont les meme et les modifier sinon 
+	}
         for (size_t i(0); i < taille() ; ++ i ){
                valeur=(*this).getcomposante(i)+autre.getcomposante(i);
                set_coord(i,valeur);
@@ -158,13 +101,7 @@ bool Vecteur::operator==(const Vecteur& v) const {
 
 //________________________________________________________________________________________
 
-    /*Vecteur Vecteur::oppose() const {
-        Vecteur opp;
-        for (size_t i(0); i < vecteur.size() ; ++ i ){
-                opp.vecteur.push_back(-vecteur[i]);
-        }
-        return opp;
-    }*/
+    
     
     Vecteur Vecteur::operator-() const{
 		Vecteur nv;
@@ -175,28 +112,18 @@ bool Vecteur::operator==(const Vecteur& v) const {
         }
 //_______________________________________________________________________________________________________________________
 
-    /*Vecteur Vecteur::soustraction (Vecteur autre) const {
-        Vecteur opp;
-        Vecteur soust;
-        opp = autre.oppose();
-        soust = addition(opp);    // Tjrs le mm pb, mettre vecteur.addition ou addition???
-        
-        return soust;
-    } */
+    
 
-    //methode interne
  
     
     Vecteur Vecteur::operator-=(const Vecteur& autre){
         double valeur;   
-        if (taille() == autre.taille()){                
-			for (size_t i(0); i < taille() ; ++ i ){
-				valeur=(*this).getcomposante(i)-autre.getcomposante(i);
-				set_coord(i,valeur);
+		dimension(autre); // pour tester si les dimensions sont les meme et les modifier sinon 
+		for (size_t i(0); i < taille() ; ++ i ){
+			valeur=(*this).getcomposante(i)-autre.getcomposante(i);
+			set_coord(i,valeur);
 			}
-		}else {
-			cout << "les vecteurs n'ont pas la meme taille, peut etre probleme pour la soustraction" <<endl;
-		} 
+		
         return (*this);
         }
              
@@ -207,23 +134,15 @@ bool Vecteur::operator==(const Vecteur& v) const {
     
 //______________________________________________________________________________________________________________-
 
-/*    Vecteur Vecteur::mult (double a) const {
-        Vecteur multiplie;
-        
-        for (size_t i(0); i < vecteur.size(); ++i){
-            multiplie.vecteur.push_back(a*vecteur[i]);
-        }
-        return multiplie;
-    }     // Tres handicapant car force a recreer a chaque fois un Vecteur
-    */
-    
+   
     Vecteur Vecteur::operator*=(const Vecteur& autre){
-        double valeur;                    
-        for (size_t i(0); i < taille() ; ++ i ){
-               valeur=(*this).getcomposante(i)*autre.getcomposante(i);
-               set_coord(i,valeur);
-        }
-             return (*this);}
+        double valeur;    
+        if ((taille()== autre.taille()) and  (taille()==1)){       //la multiplication entre deux vecteurs ne peux se faire  que si c'est de une dimention, sinon on utilise le produit scalaire ou vectorielle     
+               valeur=(*this).getcomposante(0)*autre.getcomposante(0);
+               set_coord(0,valeur);
+        
+	} else { cout << "la multiplicaiton ne s'est pas faite ,: il faudrait mieux utilisé le produit scalaire ou vectorielle car les vecteurs sont de taile superieur a un" << endl;}
+     return (*this);}
              
     Vecteur Vecteur::operator*(const Vecteur& autre) const {
 		Vecteur nv (*this);
@@ -246,18 +165,7 @@ bool Vecteur::operator==(const Vecteur& v) const {
 
 //___________________________________________________________________________________________---
 
-    /*double Vecteur::prod_scal (Vecteur autre) const {
-        double a (0);
-        if (vecteur.size() == autre.vecteur.size()){
-        for (size_t i(0); i < vecteur.size(); ++i){
-            a += vecteur[i]*autre.vecteur[i];
-            }
-        }else{
-            cout <<"Les dimensions ne sont pas semblables, erreur pour le produit scalaire"<<endl;
-        }
-    return a;
-    } */
-    
+   
     double Vecteur::operator|(const Vecteur&  autre) const { //produit scalaire
         double a (0);
         if (taille() == autre.taille()){
@@ -266,6 +174,7 @@ bool Vecteur::operator==(const Vecteur& v) const {
             }
         }else {
             cout <<"Les dimensions ne sont pas semblables, erreur pour le produit scalaire"<<endl;
+
         }
     return a;
         }
@@ -273,18 +182,7 @@ bool Vecteur::operator==(const Vecteur& v) const {
 
 //____________________________________________________________________________________________
 
-    /*Vecteur Vecteur::prod_vect (Vecteur autre) const {
-        Vecteur prod;
-        if ((vecteur.size()!=3) or (autre.vecteur.size()!=3)){
-            cout << "Les dimensions ne sont pas appropriées, erreur pour le produit vectoriel"<<endl;
-        } else {
-            prod.vecteur = {vecteur[1]*autre.vecteur[2] - vecteur[2]*autre.vecteur[1],
-                            vecteur[2]*autre.vecteur[0] - vecteur[0]*autre.vecteur[2],
-                            vecteur[0]*autre.vecteur[1] - vecteur[1]*autre.vecteur[0]
-                            };
-        }
-        return prod; // Regler le retour du premier if, sinon il y aura un pb car prod est vide
-    } */
+  
     Vecteur Vecteur::operator^(const Vecteur&  autre) const {
         Vecteur prod({0.0,0.0,0.0});
         if ((taille()!=3) or (autre.taille()!=3)){
@@ -322,11 +220,7 @@ bool Vecteur::operator==(const Vecteur& v) const {
 
 //_____________________________________________________________________________________________________________
 
-    /*Vecteur Vecteur::unitaire() const {
-        double n (norme());
-        Vecteur unitaire (mult(1/n));
-        return unitaire;
-    }*/
+    
    Vecteur Vecteur:: operator!() const{
        double n (norme());
        Vecteur nv(*this);

@@ -7,6 +7,7 @@
 using namespace std;
 
 int main() {
+	//Attention lire ces lignes !
 	//on est ici dans le cas on on gere juste le choc entre deux objets et pas un systeme l'evolution d'un systeme entier
 	
 	//pour les chocs entre un objet mobile est un obstacle
@@ -14,21 +15,12 @@ int main() {
 	
 		//sachant qu'on a pris comme repere l'axe z qui sort du plan et l'axe y vers le haut il y a des changements
 
-	//creation d'un champs de force 
-	Vecteur F(0.0,0.0,0.0);
-	ChampForces champs(F); //pour pouvoir utiliser agir sur de ChampForces et rajouter la poussé d'archimede
-
 	//construction de la balle 1
 	double masse(0.00167784948285945);
 	Vecteur pos(0, 0.0465234, 0.624);
     Vecteur vit(0, -2.59108, 0.8);
     Balle b1(pos, vit,masse, vecnull,0.051111, 3,0.8,0.01);  ///attention je suis pas sur qu'il faille ajouté g ici peut etre qu'on l'a mis deux fois !! =>non ca aurait ete si on utilisait la fonction evolue2
     cout <<"test" << endl;
-   cout << " force : " << b1.getforce();
-    champs.agit_sur(b1); //on rajoute la poussée dArchimede
-    cout << " force apres champs : " << b1.getforce() << endl;
-    cout<<"test2";
-	///pq besoin d'une variable t ?? Poussée de l'air ?
 	//changement d'axe: c'est donc l'axe y qui vaut 0
 	//construction du plan 
 	Vecteur ori(0.0,0.0,0.0);
@@ -58,13 +50,11 @@ int main() {
 	Vecteur pos2(0,0.283821,1.36675);
     Vecteur vit2(0,0.0957368,0.715449);
     Balle b2(pos2, vit2, masse ,vecnull, 0.051111,  3.0, 0.8,0.01);
-    champs.agit_sur(b2); //on rajoute la poussé dArchimede
 
 	//construction de la balle 3
 	Vecteur pos3(0, 0.260128, 1.46284);
     Vecteur vit3(0, 0.13874, 0.419218);
     Balle b3(pos3, vit3, 0.1 , vecnull,0.05, 3.0, 0.8);
-    champs.agit_sur(b3); //on rajoute la poussé dArchimede
 
 	cout<<"cas 2"<<endl;
 	cout<<endl;
@@ -101,8 +91,7 @@ int main() {
     Pendule p(0.319603599172218, 0.441579572811062, 0.1 , f, 0.05, origine, 1.0, d);
     b2.setposition (pos3);
     b2.setvitesse (vit3);
-    Vecteur Fo (0, -0.009875822056110728, 0);
-    b2.setforce(F);
+
     
    
    cout<< "test avec le pendule: " << endl;

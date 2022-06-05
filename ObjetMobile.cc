@@ -35,7 +35,8 @@ void ObjetMobile::setP (Vecteur nouv_pos){ P=nouv_pos; }
 void ObjetMobile::setPd (Vecteur nouv_der){ Pd=nouv_der;}
 void ObjetMobile::setforce(Vecteur nouv_force){force=nouv_force;}
 
-
+bool ObjetMobile::getdanschamp(size_t i){ return danschamp.at(i);}
+void ObjetMobile::setdanschamp(size_t i, bool a){ danschamp[i] = a;}
 
 
 void ObjetMobile::ajoute_a(Systeme& S){
@@ -141,7 +142,7 @@ Balle* Balle::copie() const { //pour pouvoir utiliser la methode copieobjet
 	
 	
 // Les operateurs d affichage
-void Balle::affiche(){
+void Balle::affiche() const{
     cout << "La balle est constituée de :" << endl;
     cout << position();
     cout << "  #position"<<endl;
@@ -159,6 +160,13 @@ void Balle::affiche(){
     cout << evolution() << " #accélération";
     cout << endl;
     }
+  
+
+std::ostream& operator<<(std::ostream& sortie, Balle const& b){
+	b.affiche();
+	return sortie;
+	}
+
 //____________________________________________________________
 //Pendule
 
@@ -228,7 +236,7 @@ Pendule* Pendule::copie() const { //pour pouvoir utiliser la methode copieobjet
 
 
 //operateur
-void Pendule::affiche() {
+void Pendule::affiche() const{
     cout << "Le pendule a pour caractéristiques: " << endl;
     cout << masse << "  #masse du pendule" << endl;
     cout <<longueur;
@@ -248,9 +256,10 @@ void Pendule::affiche() {
     cout << endl;
   }
 
-
-
-
+std::ostream& operator<<(std::ostream& sortie, Pendule const& p){
+	p.affiche();
+	return sortie;
+}
 
 
 
